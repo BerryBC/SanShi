@@ -1,0 +1,20 @@
+[
+  {
+"strTitle" : "BSC SAE 1153定义容量",
+"strSQLS" : "select * from dt_GSMP_BSC_Daily ",
+"listOnRoad" : [
+  0,
+  17,
+  18
+]}
+,
+  {
+"strTitle" : "BSC SAE 1153 对应OPER载波数容量",
+"strSQLS" : "select * from dt_GSMP_BSC_Daily ",
+"listOnRoad" : [
+  0,
+  17,
+  21
+]}
+
+]

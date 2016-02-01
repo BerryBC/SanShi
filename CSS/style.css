@@ -1,0 +1,213 @@
+/**************************** 
+ *	Header                  *
+ ****************************/
+
+.navbar-brand {
+  float: left;
+  height: 30px;
+  padding: 8px 15px;
+  font-size: 30px;
+  line-height: 20px;
+  font-family: Trebuchet MS, snas-serif;
+  font-weight: bold;
+  color: #efefef;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase; 
+}
+
+
+
+.navbar-default {
+  background-color: #821470;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #efefef; }
+
+.navbar-default .navbar-toggle {
+  border-color: #efefef; }
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: rgba(107, 64, 224, 0.9); }
+
+.navbar-default .navbar-brand a {
+  font-family: Trebuchet MS, snas-serif;
+  font-weight: bold;
+  color: #efefef;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase; }
+
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+  background-color: transparent; }
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #efefef;
+  background-color: #CC60E3; }
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #efefef;
+  background-color: #CC60E3; }
+  
+  .btn-circle-scroll .btn-circle:hover i.animated {
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: pulse;
+  -moz-animation-duration: 1.5s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear; }
+
+  
+/****************************
+ * Footer					*
+ ****************************/
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: rgba(82, 14, 70, 0.9); }
+
+
+.btn-circle-scroll {
+  margin-bottom: 30px !important; }
+
+.btn-circle {
+  width: 70px;
+  height: 70px;
+  margin-top: 15px;
+  padding: 5px 16px;
+  border: 2px solid #821470;
+  border-radius: 25%;
+  font-size: 40px;
+  color: #fff;
+  background: 0 0;
+  -webkit-transition: background .3s ease-in-out;
+  -moz-transition: background .3s ease-in-out;
+  transition: background .3s ease-in-out;
+  -webkit-box-shadow: -1px 1px 1px rgba(255, 253, 223, 0.4);
+  box-shadow: -1px 1px 1px rgba(255, 253, 223, 0.4); }
+
+.btn-circle:hover, .btn-circle:focus {
+  outline: 0;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1); }
+
+.btn-circle-scroll .btn-circle i.animated {
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 1s;
+  -moz-transition-property: -moz-transform;
+  -moz-transition-duration: 1s; }
+
+.btn-circle-scroll .btn-circle:hover i.animated {
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: pulse;
+  -moz-animation-duration: 1.5s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear; }
+  
+  
+  
+  
+  
+  /****************************
+ * Animation    			*
+ ****************************/
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: 1s; }
+  
+  
+  
+  /****************************
+ * Whole Page    			*
+ ****************************/  
+
+  
+body {
+  background: #FFF9FF; 
+}
+
+.progress {
+  margin-bottom: 0px;
+}
+  
+
+html{
+	  background: rgba(82, 14, 70, 0.9); }
+  
+/****************************
+ * Font    			*
+ ****************************/
+ 
+ address {
+    margin-bottom: 20px;
+    font-style: normal;
+    line-height: 2;
+    color: #FFE0FF;
+  font-family: Trebuchet MS, snas-serif;}
+
+  
+  
+  
+  
+  /****************************
+ * Sections     			*
+ ****************************/
+section {
+  padding: 20px; }
+
+.contactus {
+  background: #f9f9f9; }
+
+.row-padded {
+  padding: 25px; }
+
+section h2 {
+  font-family: Trebuchet MS, snas-serif;
+  line-height: 1.1;
+  color: #4D3B3B;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 40px;
+  margin-bottom: 20px; }
+
+section h4 {
+  font-family: Candara, sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #5C5757;
+  text-transform: uppercase; }
+
+
+.col-sm-7,
+.col-sm-8,
+.col-sm-12 {
+  padding: 0px;
+  margin: 0px; }
+
+.col-md-4
+{padding-bottom :50px;
+}
+  
+  
+section p {
+    font-size: 15px;
+    padding: 0px 20px 0px 0px;
+    color: #777;
+    line-height: 1.8em;
+    margin: 1em 0 0 0;}
+
+.company-social a:hover {
+  -webkit-animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.5s ease-in-out; }

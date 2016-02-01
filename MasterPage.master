@@ -1,0 +1,140 @@
+﻿<%@ Master  Language="VB" CodeFile="~/MasterPage.master.vb" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <!-- Bootstrap Core CSS -->
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="<%=ResolveClientUrl("~/JS/jquery.min.js")%>"  type="text/javascript"></script>
+    <script src="<%=ResolveClientUrl("~/JS/bootstrap.min.js")%>"  type="text/javascript"></script>
+
+
+
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header id="header-banner">
+            <nav class="navbar navbar-default navbar-fixed-top fadeIn" role="navigation">
+                <div class="container">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+
+
+                        <div class="navbar-brand">
+                            <a href="/main.aspx">三世书</a>
+                        </div>
+                    </div>
+
+                    <!-- Collect the nav links and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-right" id="dropdown-box-1">
+
+                        <ul class="nav navbar-nav">
+                            <li><a href="/UserManagement/SelfUserManagement.aspx">当前用户名为 : <asp:Label ID="lblUserName" runat="server" Text="Label"></asp:Label></a></li>
+                            <li><a href="/main.aspx">目录</a></li>
+                            <li class="dropdown" role="presentation">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">个人 <span class="badge">
+                                    <asp:Label ID="lblMessageCount" runat="server" Text="0"></asp:Label></span>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu bullet fadeIn" role="menu">
+                                    <li><a href="/UserManagement/SelfUserManagement.aspx">个人资料</a></li>
+                                    <li><asp:LinkButton ID="lbExit" runat="server" Text ="退出"></asp:LinkButton></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /.container -->
+            </nav>
+            <!-- /.nav -->
+        </header>
+
+
+        <div style="text-align: center">
+            <table>
+
+
+                <tr style="height: 50px;">
+                </tr>
+            </table>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+                        <table>
+
+
+                <tr style="height: 50px;">
+                </tr>
+            </table>
+
+        </div>
+
+
+
+        <!-- footer -->
+        <footer id="section-footer" class="fadeIn" >
+            <div class="container" >
+                <div class="row">
+                    <div class="col-md-12 col-lg-12" style="text-align: center;">
+
+                        <div class="col-sm-7">
+                            <div>
+                                <address>
+                                    三世书系统<br />
+                                    <abbr title="Phone">Mobile: </abbr>
+                                    13430337730<br />
+                                    <abbr title="E-Mail">E-Mail: </abbr>
+                                    <a href="mailto:13430337730@139.com">13430337730@139.com</a><br />
+                                    <abbr title="E-Mail">E-Mail: </abbr>
+                                    <a href="mailto:BerryBCLove@Gmail.com">BerryBCLove@Gmail.com</a><br />
+                                    <abbr title="E-Mail">E-Mail: </abbr>
+                                    <a href="mailto:Berry_BC_@163.com">Berry_BC_@163.com</a><br />
+
+                                    <br />
+                                    <a href="/TOS.aspx">服务条款 ( Terms Of Service )</a><br />
+                                    Copyright © 2015-2016.Berry Cui All rights reserved.<br />
+                                </address>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div>
+                                <address>
+                                    请我喝杯咖啡呗~<br />
+                                    请扫支付宝二维码~<br />
+                                    <img src="/img/zhifu.jpg" height="200" width="200" />
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- /.footer -->
+
+
+
+    </form>
+
+
+
+
+
+
+
+
+</body>
+</html>

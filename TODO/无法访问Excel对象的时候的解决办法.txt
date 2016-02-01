@@ -1,0 +1,11 @@
+即在C:/Windows/System32/config/systemprofile和C:/Windows/SysWOW64/config/systemprofile目录下创建名为Desktop目录即可解决问题
+
+or 
+
+
+ 开始->运行-> inetmgr -> 在IIS信息管理器中，找到 应用程序池 -> DefaultAppPool -> 右键 设置应用程序池默认设置 -> 标识：LocalSystem (本地系统)  -> 确定. 重启 应用程序池。
+
+
+
+
+ 开始->运行-> inetmgr -> 在IIS信息管理器中，找到 应用程序池 -> DefaultAppPool -> 右键 设置应用程序池默认设置 -->32位为true
