@@ -77,6 +77,7 @@ Partial Class BSDetails_GSMBSCData
         Dim dateWhatNow As Date
         Dim strtmpFileName As String
         Dim bwGetEnterWorker As BackgroundWorker
+        Dim arrobjParaOfBGWorker As Object()
 
 
 
@@ -114,14 +115,23 @@ Partial Class BSDetails_GSMBSCData
         If strDir.Count > 0 Then
             strtmpFileName = IO.Path.GetFileName(strDir(0))
             dateWhatNow = New Date(strtmpFileName.Substring(intWhereYear, 4), strtmpFileName.Substring(intWhereMonth, 2), strtmpFileName.Substring(intWhereDay, 2), strtmpFileName.Substring(intWhereHour, 2), strtmpFileName.Substring(intWhereMin, 2), strtmpFileName.Substring(intWhereSec, 2))
-                            bwGetEnterWorker = New BackgroundWorker
-            
-            
-            bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_BSC_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"))
-            bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_Cell_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json"))
-            txtLogMessage.Text += "完成入数过程" & vbCrLf
+            bwGetEnterWorker = New BackgroundWorker
+            AddHandler bwGetEnterWorker.DoWork, AddressOf bwGetEnterWorker_DoWork
+            arrobjParaOfBGWorker = {strDir(0), dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json")}
+            bwGetEnterWorker.RunWorker(arrobjParaOfBGWorker)
+            'Application("bwBSInsert") = bwGetEnterWorker
+
+
+
+            'bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_BSC_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"))
+            'bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_Cell_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json"))
+            '--------------以下移入Timer
+            'txtLogMessage.Text += "完成入数过程" & vbCrLf
         Else
             txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+
+
+
 
         End If
 
@@ -145,7 +155,9 @@ Partial Class BSDetails_GSMBSCData
     Private Sub bwGetEnterWorker_DoWork(ByRef progress As Integer, ByRef _result As Object, ByVal ParamArray arguments As Object())
         Try
 
-            
+            bscpCommonLibrary.HandelDailyAccessBSCPara(arguments(0), "dt_GSMP_BSC_Daily", arguments(1), arguments(2))
+            bscpCommonLibrary.HandelDailyAccessBSCPara(arguments(0), "dt_GSMP_Cell_Daily", arguments(1), arguments(3))
+
         Catch ex As Exception
             _result = ex.Message
         End Try
