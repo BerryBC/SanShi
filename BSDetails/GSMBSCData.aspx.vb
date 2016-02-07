@@ -76,6 +76,7 @@ Partial Class BSDetails_GSMBSCData
         Dim strDir As New List(Of String)
         Dim dateWhatNow As Date
         Dim strtmpFileName As String
+        Dim bwGetEnterWorker As BackgroundWorker
 
 
 
@@ -101,7 +102,7 @@ Partial Class BSDetails_GSMBSCData
         If System.IO.Directory.Exists(txtUpDatePath.Text) Then
             strtmpListDir = (From T In IO.Directory.GetFiles(txtUpDatePath.Text, strHeadOfSource & "*.mdb", IO.SearchOption.AllDirectories)).ToList
         End If
-
+        txtLogMessage.Text += "查找完文件了" & vbCrLf
 
         intWhereYear = txtUpdateSource.Text.IndexOf("%yyyy")
         intWhereMonth = txtUpdateSource.Text.IndexOf("%mm") - 1
@@ -113,9 +114,12 @@ Partial Class BSDetails_GSMBSCData
         If strDir.Count > 0 Then
             strtmpFileName = IO.Path.GetFileName(strDir(0))
             dateWhatNow = New Date(strtmpFileName.Substring(intWhereYear, 4), strtmpFileName.Substring(intWhereMonth, 2), strtmpFileName.Substring(intWhereDay, 2), strtmpFileName.Substring(intWhereHour, 2), strtmpFileName.Substring(intWhereMin, 2), strtmpFileName.Substring(intWhereSec, 2))
+                            bwGetEnterWorker = New BackgroundWorker
+            
+            
             bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_BSC_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"))
-            '-------------小区级入数过程
-            '---------------要用P数的文件名来更新入数时间
+            bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_Cell_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json"))
+            txtLogMessage.Text += "完成入数过程" & vbCrLf
         Else
             txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
 
@@ -131,6 +135,20 @@ Partial Class BSDetails_GSMBSCData
         btnGoInsert.Enabled = False
         txtUpDatePath.Enabled = True
         txtUpdateSource.Enabled = True
+
+    End Sub
+    
+    
+    ''' <summary>
+    ''' This operation will work without the end.
+    ''' </summary>
+    Private Sub bwGetEnterWorker_DoWork(ByRef progress As Integer, ByRef _result As Object, ByVal ParamArray arguments As Object())
+        Try
+
+            
+        Catch ex As Exception
+            _result = ex.Message
+        End Try
 
     End Sub
 
