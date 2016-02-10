@@ -190,19 +190,19 @@ Public Class GSMCellPara
             aceAccess.Dispose()
             aceAccess = Nothing
             drtmpBscListRow = Nothing
-            listBscList.Clear()
+            If listBscList.Count > 0 Then listBscList.Clear()
             listBscList = Nothing
-            listBSCPara.Clear()
+            If listBSCPara.Count > 0 Then listBSCPara.Clear()
             listBSCPara = Nothing
-            listtmpBSCPara.Clear()
+            If listtmpBSCPara.Count > 0 Then listtmpBSCPara.Clear()
             listtmpBSCPara = Nothing
-            listtmpBSCParaEveryBSC.Clear()
+            If listtmpBSCParaEveryBSC.Count > 0 Then listtmpBSCParaEveryBSC.Clear()
             listtmpBSCParaEveryBSC = Nothing
             scmdCommand.Dispose()
             scmdCommand = Nothing
             dtOrgData.Dispose()
             dtOrgData = Nothing
-            listOriPara.Clear()
+            If listOriPara.Count > 0 Then listOriPara.Clear()
             listOriPara = Nothing
             boptmpBSCPara = Nothing
             drtmpBSCCompareOf = Nothing
@@ -210,7 +210,7 @@ Public Class GSMCellPara
             sabConfigSQLSandBSCList = Nothing
             dtCellID.Dispose()
             dtCellID = Nothing
-            listdCellID.Clear()
+            If listdCellID.Count > 0 Then listdCellID.Clear()
 
 
 

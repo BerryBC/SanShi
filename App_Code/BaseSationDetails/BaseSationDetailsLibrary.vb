@@ -364,6 +364,29 @@ Public Class BaseSationDetailsLibrary
         End Try
     End Function
 
+    Public Sub UpdateParaDate(strConfigName As String, dateUpdateDate As Date)
+
+        Dim scmdCMD As SqlCommand
+        Dim spConfigName As SqlParameter
+        Dim spUpdateDate As SqlParameter
+        Try
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_UpdateParaDate", "ConnectionBaseStationDetailsDB")
+            spConfigName = New SqlParameter("@ConfigName", SqlDbType.VarChar, 50)
+            spUpdateDate = New SqlParameter("@UpDateDate", SqlDbType.DateTime)
+            spConfigName.Value = strConfigName
+            spUpdateDate.Value = dateUpdateDate
+            scmdCMD.Parameters.Add(spConfigName)
+            scmdCMD.Parameters.Add(spUpdateDate)
+            sqllSSLibrary.ExecNonQuery(scmdCMD)
+        Catch ex As Exception
+            Throw New Exception(ex.Message, ex)
+            scmdCMD.Dispose()
+            scmdCMD = Nothing
+        End Try
+
+
+    End Sub
+
 
 
 End Class

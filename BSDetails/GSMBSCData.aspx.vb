@@ -5,7 +5,7 @@ Partial Class BSDetails_GSMBSCData
     Dim bsdlCommonLibrary As BaseSationDetailsLibrary = New BaseSationDetailsLibrary
     Dim ucUserManage As UserLibrary = New UserLibrary
     Dim bscpCommonLibrary As BSCPara = New BSCPara
-    dim gsmcCommonLibrary as gsmcellpara = new gsmcellpara
+    Dim gsmcCommonLibrary As GSMCellPara = New GSMCellPara
 
     Private Sub BSDetails_GSMBSCData_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim bolIsPowerEnough As Boolean = False
@@ -18,9 +18,16 @@ Partial Class BSDetails_GSMBSCData
 
         If Not IsPostBack Then
             If bolIsPowerEnough Then BindConfigData()
+            If Application("bwBSParaInsert") IsNot Nothing Then
+                timerLoading.Enabled = True
+                plYeahGo.Visible = True
+                btnWantModify.Enabled = False
+                btnConfirmModify.Enabled = False
+                btnGoInsert.Enabled = False
+                txtLogMessage.Text += "已经有入数过程在运行了，请稍等。" & vbCrLf
 
+            End If
         End If
-
     End Sub
 
     Private Sub BindConfigData()
@@ -122,12 +129,14 @@ Partial Class BSDetails_GSMBSCData
             bwGetEnterWorker.RunWorker(arrobjParaOfBGWorker)
             Application("bwBSParaInsert") = bwGetEnterWorker
 
+            timerLoading.Enabled = True
+            plYeahGo.Visible = True
+            txtLogMessage.Text += "开始入数了哦~" & vbCrLf
 
 
-            'bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_BSC_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"))
-            'bscpCommonLibrary.HandelDailyAccessBSCPara(strDir(0), "dt_GSMP_Cell_Daily", dateWhatNow, Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json"))
-            '--------------以下移入Timer
-            'txtLogMessage.Text += "完成入数过程" & vbCrLf
+            '-----------------要先判断是否有入数过程在进行
+
+
         Else
             txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
 
@@ -136,8 +145,6 @@ Partial Class BSDetails_GSMBSCData
 
         End If
 
-        btnWantModify.Enabled = True
-        btnGoInsert.Enabled = True
     End Sub
 
     Private Sub btnWantModify_Click(sender As Object, e As EventArgs) Handles btnWantModify.Click
@@ -148,23 +155,30 @@ Partial Class BSDetails_GSMBSCData
         txtUpdateSource.Enabled = True
 
     End Sub
-    
-    
+
+
     ''' <summary>
     ''' This operation will work without the end.
     ''' </summary>
     Private Sub bwGetEnterWorker_DoWork(ByRef progress As Integer, ByRef _result As Object, ByVal ParamArray arguments As Object())
+        Dim intBSCResult As Integer
+        Dim intCellResult As Integer
         Try
 
-            bscpCommonLibrary.HandelDailyAccessBSCPara(arguments(0), "dt_GSMP_BSC_Daily", arguments(1), arguments(2))
-            gsmcCommonLibrary.HandelDailyAccessGSMCellPara(arguments(0), "dt_GSMP_Cell_Daily", arguments(1), arguments(3),"SELECT [CELL],[ID] FROM [SanShi_BaseSationDetails].[dbo].[dt_GSM_ID]")
-
+            intBSCResult = bscpCommonLibrary.HandelDailyAccessBSCPara(arguments(0), "dt_GSMP_BSC_Daily", arguments(1), arguments(2))
+            intCellResult = gsmcCommonLibrary.HandelDailyAccessGSMCellPara(arguments(0), "dt_GSMP_Cell_Daily", arguments(1), arguments(3), "SELECT [CELL],[ID] FROM [SanShi_BaseSationDetails].[dbo].[dt_GSM_ID]")
+            bsdlCommonLibrary.UpdateParaDate("GSM Daily Para", arguments(1))
+            If intBSCResult < 0 Or intCellResult < 0 Then
+                _result = -44
+            Else
+                _result = 88
+            End If
         Catch ex As Exception
             _result = ex.Message
         End Try
 
     End Sub
-    
+
     Private Sub timerLoading_Tick(sender As Object, e As EventArgs) Handles timerLoading.Tick
         Dim globalWorker As BackgroundWorker
         Dim intReuslt As Integer
@@ -192,52 +206,38 @@ Partial Class BSDetails_GSMBSCData
                 If IsNumeric(globalWorker.Result) Then
                     intReuslt = Convert.ToInt32(globalWorker.Result)
                     If intReuslt = 0 Then
-'                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    在配置：" & txtConfigName.Text & " 中找不到文件", "", txtLogMessage)
-'            txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                        txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
                     ElseIf intReuslt = -44 Then
-'                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    在配置：" & txtConfigName.Text & " 中入数失败", "", txtLogMessage)
-'                              txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                        txtLogMessage.Text += "入数失败了哟~" & vbCrLf
                     ElseIf intReuslt = 88 Then
-'                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    配置：" & txtConfigName.Text & " 入数成功", "", txtLogMessage)
-'                             txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                        txtLogMessage.Text += "成功了哟~" & vbCrLf
                     End If
 
                 Else
-'                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    配置：" & txtConfigName.Text & " 的入数过程出错，错误为：" & globalWorker.Result, "", txtLogMessage)
-'            txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                    txtLogMessage.Text += "在例行P数据处理时出错，错误是：" & globalWorker.Result & vbCrLf
                 End If
-'                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    完成配置：" & txtConfigName.Text & " 的进行入数过程运行", "", txtLogMessage)
-'                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
 
-'            txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
-'                        txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                txtLogMessage.Text += "已经完成了例行P的处理了哦~" & vbCrLf
 
 
                 plYeahGo.Visible = False
                 timerLoading.Enabled = False
-
+                btnGoInsert.Enabled = True
+                btnWantModify.Enabled = True
                 globalWorker = Nothing
                 Application("bwBSParaInsert") = Nothing
 
             End If
         Catch ex As Exception
-'            If Session("SanShiUserName") Is Nothing Then
-'                erlErrorReport.ReportServerError(10, "", ex.Message, Now)
-'                Response.Redirect("/ReportErrorLog.aspx?ep=10&eu=" & "")
-'            Else
-'                erlErrorReport.ReportServerError(10, Session("SanShiUserName"), ex.Message, Now)
-'                Response.Redirect("/ReportErrorLog.aspx?ep=10&eu=" & Session("SanShiUserName"))
-'
-'            End If
 
         End Try
 
 
     End Sub
 
-    
-    
-    
-    
+
+
+
+
 
 End Class
