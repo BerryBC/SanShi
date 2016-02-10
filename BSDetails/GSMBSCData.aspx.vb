@@ -5,6 +5,7 @@ Partial Class BSDetails_GSMBSCData
     Dim bsdlCommonLibrary As BaseSationDetailsLibrary = New BaseSationDetailsLibrary
     Dim ucUserManage As UserLibrary = New UserLibrary
     Dim bscpCommonLibrary As BSCPara = New BSCPara
+    dim gsmcCommonLibrary as gsmcellpara = new gsmcellpara
 
     Private Sub BSDetails_GSMBSCData_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim bolIsPowerEnough As Boolean = False
@@ -119,7 +120,7 @@ Partial Class BSDetails_GSMBSCData
             AddHandler bwGetEnterWorker.DoWork, AddressOf bwGetEnterWorker_DoWork
             arrobjParaOfBGWorker = {strDir(0), dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json")}
             bwGetEnterWorker.RunWorker(arrobjParaOfBGWorker)
-            'Application("bwBSInsert") = bwGetEnterWorker
+            Application("bwBSParaInsert") = bwGetEnterWorker
 
 
 
@@ -156,12 +157,87 @@ Partial Class BSDetails_GSMBSCData
         Try
 
             bscpCommonLibrary.HandelDailyAccessBSCPara(arguments(0), "dt_GSMP_BSC_Daily", arguments(1), arguments(2))
-            bscpCommonLibrary.HandelDailyAccessBSCPara(arguments(0), "dt_GSMP_Cell_Daily", arguments(1), arguments(3))
+            gsmcCommonLibrary.HandelDailyAccessGSMCellPara(arguments(0), "dt_GSMP_Cell_Daily", arguments(1), arguments(3),"SELECT [CELL],[ID] FROM [SanShi_BaseSationDetails].[dbo].[dt_GSM_ID]")
 
         Catch ex As Exception
             _result = ex.Message
         End Try
 
     End Sub
+    
+    Private Sub timerLoading_Tick(sender As Object, e As EventArgs) Handles timerLoading.Tick
+        Dim globalWorker As BackgroundWorker
+        Dim intReuslt As Integer
+        Try
+
+
+            globalWorker = Nothing
+            If Application("bwBSParaInsert") IsNot Nothing Then
+                globalWorker = DirectCast(Application("bwBSParaInsert"), BackgroundWorker)
+            Else
+
+
+                plYeahGo.Visible = False
+                timerLoading.Enabled = False
+
+            End If
+
+
+            If lblLoading.Text.Length > 40 Then
+                lblLoading.Text = lblLoading.Text.Substring(0, 10)
+            End If
+            lblLoading.Text = lblLoading.Text & "."
+            If globalWorker.Result IsNot Nothing Then
+
+                If IsNumeric(globalWorker.Result) Then
+                    intReuslt = Convert.ToInt32(globalWorker.Result)
+                    If intReuslt = 0 Then
+'                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    在配置：" & txtConfigName.Text & " 中找不到文件", "", txtLogMessage)
+'            txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                    ElseIf intReuslt = -44 Then
+'                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    在配置：" & txtConfigName.Text & " 中入数失败", "", txtLogMessage)
+'                              txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                    ElseIf intReuslt = 88 Then
+'                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    配置：" & txtConfigName.Text & " 入数成功", "", txtLogMessage)
+'                             txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                    End If
+
+                Else
+'                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    配置：" & txtConfigName.Text & " 的入数过程出错，错误为：" & globalWorker.Result, "", txtLogMessage)
+'            txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                End If
+'                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    完成配置：" & txtConfigName.Text & " 的进行入数过程运行", "", txtLogMessage)
+'                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
+
+'            txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+'                        txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+
+
+                plYeahGo.Visible = False
+                timerLoading.Enabled = False
+
+                globalWorker = Nothing
+                Application("bwBSParaInsert") = Nothing
+
+            End If
+        Catch ex As Exception
+'            If Session("SanShiUserName") Is Nothing Then
+'                erlErrorReport.ReportServerError(10, "", ex.Message, Now)
+'                Response.Redirect("/ReportErrorLog.aspx?ep=10&eu=" & "")
+'            Else
+'                erlErrorReport.ReportServerError(10, Session("SanShiUserName"), ex.Message, Now)
+'                Response.Redirect("/ReportErrorLog.aspx?ep=10&eu=" & Session("SanShiUserName"))
+'
+'            End If
+
+        End Try
+
+
+    End Sub
+
+    
+    
+    
+    
 
 End Class

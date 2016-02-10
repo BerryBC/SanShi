@@ -32,6 +32,12 @@
                             <asp:Button ID="btnConfirmModify" runat="server" class="btn btn-success" Text="确定修改表格更新信息" Style="margin: 10px;" Enabled="false" />
                             <asp:Button ID="btnGoInsert" runat="server" Text="开始入数" class="btn btn-warning" />
                             <asp:Timer ID="timerLoading" runat="server" Enabled="false" Interval="500"></asp:Timer>
+                            <asp:Panel ID="plYeahGo" runat="server" Visible="False" Style="text-align: center;">
+                                <div class="alert alert-success" role="alert" style="margin-top: 5px;">
+                                    <asp:Label ID="lblLoading" runat="server" Text="Inserting"></asp:Label>
+                                </div>
+                            </asp:Panel>                        
+                        
                         </div>
                     </div>
                 </div>
