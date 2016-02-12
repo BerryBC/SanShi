@@ -10,6 +10,7 @@ Partial Class BSDetails_GSMBSCData
     Private Sub BSDetails_GSMBSCData_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim bolIsPowerEnough As Boolean = False
 
+try
         btnWantModify.CssClass = "btn btn-info"
         btnConfirmModify.CssClass = "btn btn-success"
         txtLogMessage.CssClass = "form-control"
@@ -28,6 +29,19 @@ Partial Class BSDetails_GSMBSCData
 
             End If
         End If
+        
+                Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(12, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(12, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & Session("SanShiUserName"))
+
+            End If
+
+        End Try
+        
     End Sub
 
     Private Sub BindConfigData()
@@ -40,10 +54,15 @@ Partial Class BSDetails_GSMBSCData
             txtLastUpdateTime.Text = dtCellParaDetailsMana.Rows(0).Item("LastUpdateTime").ToString
             txtUpDatePath.Text = dtCellParaDetailsMana.Rows(0).Item("UpDatePath").ToString
             txtUpdateSource.Text = dtCellParaDetailsMana.Rows(0).Item("UpdateSourceName").ToString
-        Catch ex As Exception
+                Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(12, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(12, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & Session("SanShiUserName"))
 
-
-
+            End If
 
         End Try
 
@@ -57,6 +76,8 @@ Partial Class BSDetails_GSMBSCData
         txtUpDatePath.Enabled = False
         txtUpdateSource.Enabled = False
 
+try
+
         intResult = bsdlCommonLibrary.ModifyParaConfig("GSM Daily Para", txtUpDatePath.Text, txtUpdateSource.Text)
 
         If intResult = 88 Then
@@ -66,7 +87,17 @@ Partial Class BSDetails_GSMBSCData
         End If
 
         BindConfigData()
+                Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(12, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(12, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & Session("SanShiUserName"))
 
+            End If
+
+        End Try
     End Sub
 
     Private Sub btnGoInsert_Click(sender As Object, e As EventArgs) Handles btnGoInsert.Click
@@ -87,7 +118,7 @@ Partial Class BSDetails_GSMBSCData
         Dim bwGetEnterWorker As BackgroundWorker
         Dim arrobjParaOfBGWorker As Object()
 
-
+try
 
         intJ = txtUpdateSource.Text.IndexOf("*")
         intK = txtUpdateSource.Text.IndexOf("%")
@@ -144,7 +175,17 @@ Partial Class BSDetails_GSMBSCData
 
 
         End If
+                Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(12, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(12, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & Session("SanShiUserName"))
 
+            End If
+
+        End Try
     End Sub
 
     Private Sub btnWantModify_Click(sender As Object, e As EventArgs) Handles btnWantModify.Click
@@ -228,7 +269,15 @@ Partial Class BSDetails_GSMBSCData
                 Application("bwBSParaInsert") = Nothing
 
             End If
-        Catch ex As Exception
+                Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(12, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(12, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & Session("SanShiUserName"))
+
+            End If
 
         End Try
 
