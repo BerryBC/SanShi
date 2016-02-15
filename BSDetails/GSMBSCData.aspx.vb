@@ -6,31 +6,32 @@ Partial Class BSDetails_GSMBSCData
     Dim ucUserManage As UserLibrary = New UserLibrary
     Dim bscpCommonLibrary As BSCPara = New BSCPara
     Dim gsmcCommonLibrary As GSMCellPara = New GSMCellPara
+    Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
 
     Private Sub BSDetails_GSMBSCData_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim bolIsPowerEnough As Boolean = False
 
-try
-        btnWantModify.CssClass = "btn btn-info"
-        btnConfirmModify.CssClass = "btn btn-success"
-        txtLogMessage.CssClass = "form-control"
-        btnGoInsert.CssClass = "btn btn-warning"
-        bolIsPowerEnough = ucUserManage.CheckPower(Session, 9, Response)
+        Try
+            btnWantModify.CssClass = "btn btn-info"
+            btnConfirmModify.CssClass = "btn btn-success"
+            txtLogMessage.CssClass = "form-control"
+            btnGoInsert.CssClass = "btn btn-warning"
+            bolIsPowerEnough = ucUserManage.CheckPower(Session, 9, Response)
 
-        If Not IsPostBack Then
-            If bolIsPowerEnough Then BindConfigData()
-            If Application("bwBSParaInsert") IsNot Nothing Then
-                timerLoading.Enabled = True
-                plYeahGo.Visible = True
-                btnWantModify.Enabled = False
-                btnConfirmModify.Enabled = False
-                btnGoInsert.Enabled = False
-                txtLogMessage.Text += "已经有入数过程在运行了，请稍等。" & vbCrLf
+            If Not IsPostBack Then
+                If bolIsPowerEnough Then BindConfigData()
+                If Application("bwBSParaInsert") IsNot Nothing Then
+                    timerLoading.Enabled = True
+                    plYeahGo.Visible = True
+                    btnWantModify.Enabled = False
+                    btnConfirmModify.Enabled = False
+                    btnGoInsert.Enabled = False
+                    txtLogMessage.Text += "已经有入数过程在运行了，请稍等。" & vbCrLf
 
+                End If
             End If
-        End If
-        
-                Catch ex As Exception
+
+        Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
                 erlErrorReport.ReportServerError(12, "", ex.Message, Now)
                 Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
@@ -41,7 +42,7 @@ try
             End If
 
         End Try
-        
+
     End Sub
 
     Private Sub BindConfigData()
@@ -54,7 +55,7 @@ try
             txtLastUpdateTime.Text = dtCellParaDetailsMana.Rows(0).Item("LastUpdateTime").ToString
             txtUpDatePath.Text = dtCellParaDetailsMana.Rows(0).Item("UpDatePath").ToString
             txtUpdateSource.Text = dtCellParaDetailsMana.Rows(0).Item("UpdateSourceName").ToString
-                Catch ex As Exception
+        Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
                 erlErrorReport.ReportServerError(12, "", ex.Message, Now)
                 Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
@@ -76,18 +77,18 @@ try
         txtUpDatePath.Enabled = False
         txtUpdateSource.Enabled = False
 
-try
+        Try
 
-        intResult = bsdlCommonLibrary.ModifyParaConfig("GSM Daily Para", txtUpDatePath.Text, txtUpdateSource.Text)
+            intResult = bsdlCommonLibrary.ModifyParaConfig("GSM Daily Para", txtUpDatePath.Text, txtUpdateSource.Text)
 
-        If intResult = 88 Then
-            txtLogMessage.Text += "修改配置成功！" & vbCrLf
-        ElseIf intResult = -44 Then
-            txtLogMessage.Text += "修改配置失败....T_T。" & vbCrLf
-        End If
+            If intResult = 88 Then
+                txtLogMessage.Text += "修改配置成功！" & vbCrLf
+            ElseIf intResult = -44 Then
+                txtLogMessage.Text += "修改配置失败....T_T。" & vbCrLf
+            End If
 
-        BindConfigData()
-                Catch ex As Exception
+            BindConfigData()
+        Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
                 erlErrorReport.ReportServerError(12, "", ex.Message, Now)
                 Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
@@ -118,64 +119,64 @@ try
         Dim bwGetEnterWorker As BackgroundWorker
         Dim arrobjParaOfBGWorker As Object()
 
-try
+        Try
 
-        intJ = txtUpdateSource.Text.IndexOf("*")
-        intK = txtUpdateSource.Text.IndexOf("%")
-        If intJ <> -1 And intK <> -1 Then
-            intI = CommonLibrary.GetMinNumber(intJ, intK)
-            strHeadOfSource = txtUpdateSource.Text.Substring(0, intI)
-        ElseIf intJ = -1 And intK = -1 Then
-            strHeadOfSource = ""
-        ElseIf intJ = -1 Then
-            strHeadOfSource = txtUpdateSource.Text.Substring(0, intK)
-        Else
-            strHeadOfSource = txtUpdateSource.Text.Substring(0, intJ)
-        End If
-
-
-
-        btnWantModify.Enabled = False
-        btnConfirmModify.Enabled = False
-        btnGoInsert.Enabled = False
-
-        If System.IO.Directory.Exists(txtUpDatePath.Text) Then
-            strtmpListDir = (From T In IO.Directory.GetFiles(txtUpDatePath.Text, strHeadOfSource & "*.mdb", IO.SearchOption.AllDirectories)).ToList
-        End If
-        txtLogMessage.Text += "查找完文件了" & vbCrLf
-
-        intWhereYear = txtUpdateSource.Text.IndexOf("%yyyy")
-        intWhereMonth = txtUpdateSource.Text.IndexOf("%mm") - 1
-        intWhereDay = txtUpdateSource.Text.IndexOf("%dd") - 2
-        intWhereHour = txtUpdateSource.Text.IndexOf("%hh") - 3
-        intWhereMin = txtUpdateSource.Text.IndexOf("%MM") - 4
-        intWhereSec = txtUpdateSource.Text.IndexOf("%ss") - 5
-        strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay, intWhereHour, intWhereMin, intWhereSec)
-        If strDir.Count > 0 Then
-            strtmpFileName = IO.Path.GetFileName(strDir(0))
-            dateWhatNow = New Date(strtmpFileName.Substring(intWhereYear, 4), strtmpFileName.Substring(intWhereMonth, 2), strtmpFileName.Substring(intWhereDay, 2), strtmpFileName.Substring(intWhereHour, 2), strtmpFileName.Substring(intWhereMin, 2), strtmpFileName.Substring(intWhereSec, 2))
-            bwGetEnterWorker = New BackgroundWorker
-            AddHandler bwGetEnterWorker.DoWork, AddressOf bwGetEnterWorker_DoWork
-            arrobjParaOfBGWorker = {strDir(0), dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json")}
-            bwGetEnterWorker.RunWorker(arrobjParaOfBGWorker)
-            Application("bwBSParaInsert") = bwGetEnterWorker
-
-            timerLoading.Enabled = True
-            plYeahGo.Visible = True
-            txtLogMessage.Text += "开始入数了哦~" & vbCrLf
-
-
-            '-----------------要先判断是否有入数过程在进行
-
-
-        Else
-            txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+            intJ = txtUpdateSource.Text.IndexOf("*")
+            intK = txtUpdateSource.Text.IndexOf("%")
+            If intJ <> -1 And intK <> -1 Then
+                intI = CommonLibrary.GetMinNumber(intJ, intK)
+                strHeadOfSource = txtUpdateSource.Text.Substring(0, intI)
+            ElseIf intJ = -1 And intK = -1 Then
+                strHeadOfSource = ""
+            ElseIf intJ = -1 Then
+                strHeadOfSource = txtUpdateSource.Text.Substring(0, intK)
+            Else
+                strHeadOfSource = txtUpdateSource.Text.Substring(0, intJ)
+            End If
 
 
 
+            btnWantModify.Enabled = False
+            btnConfirmModify.Enabled = False
+            btnGoInsert.Enabled = False
 
-        End If
-                Catch ex As Exception
+            If System.IO.Directory.Exists(txtUpDatePath.Text) Then
+                strtmpListDir = (From T In IO.Directory.GetFiles(txtUpDatePath.Text, strHeadOfSource & "*.mdb", IO.SearchOption.AllDirectories)).ToList
+            End If
+            txtLogMessage.Text += "查找完文件了" & vbCrLf
+
+            intWhereYear = txtUpdateSource.Text.IndexOf("%yyyy")
+            intWhereMonth = txtUpdateSource.Text.IndexOf("%mm") - 1
+            intWhereDay = txtUpdateSource.Text.IndexOf("%dd") - 2
+            intWhereHour = txtUpdateSource.Text.IndexOf("%hh") - 3
+            intWhereMin = txtUpdateSource.Text.IndexOf("%MM") - 4
+            intWhereSec = txtUpdateSource.Text.IndexOf("%ss") - 5
+            strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay, intWhereHour, intWhereMin, intWhereSec)
+            If strDir.Count > 0 Then
+                strtmpFileName = IO.Path.GetFileName(strDir(0))
+                dateWhatNow = New Date(strtmpFileName.Substring(intWhereYear, 4), strtmpFileName.Substring(intWhereMonth, 2), strtmpFileName.Substring(intWhereDay, 2), strtmpFileName.Substring(intWhereHour, 2), strtmpFileName.Substring(intWhereMin, 2), strtmpFileName.Substring(intWhereSec, 2))
+                bwGetEnterWorker = New BackgroundWorker
+                AddHandler bwGetEnterWorker.DoWork, AddressOf bwGetEnterWorker_DoWork
+                arrobjParaOfBGWorker = {strDir(0), dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json")}
+                bwGetEnterWorker.RunWorker(arrobjParaOfBGWorker)
+                Application("bwBSParaInsert") = bwGetEnterWorker
+
+                timerLoading.Enabled = True
+                plYeahGo.Visible = True
+                txtLogMessage.Text += "开始入数了哦~" & vbCrLf
+
+
+                '-----------------要先判断是否有入数过程在进行
+
+
+            Else
+                txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+
+
+
+
+            End If
+        Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
                 erlErrorReport.ReportServerError(12, "", ex.Message, Now)
                 Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
@@ -269,7 +270,7 @@ try
                 Application("bwBSParaInsert") = Nothing
 
             End If
-                Catch ex As Exception
+        Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
                 erlErrorReport.ReportServerError(12, "", ex.Message, Now)
                 Response.Redirect("/ReportErrorLog.aspx?ep=12&eu=" & "")
