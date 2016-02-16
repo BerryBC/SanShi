@@ -13,91 +13,91 @@ Partial Class Test_JustText
     Inherits System.Web.UI.Page
     Dim ucUserManage As UserLibrary
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'Dim ss As List(Of String)
-        'Dim exlExl As LoadExcel
-        'Dim xlApp As Excel.Application = Nothing
-        'Dim xlWorkBooks As Excel.Workbooks = Nothing
-        'Dim xlWorkBook As Excel.Workbook = Nothing
-        'Dim xlWorkSheets As Excel.Sheets = Nothing
+    'Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    '    'Dim ss As List(Of String)
+    '    'Dim exlExl As LoadExcel
+    '    'Dim xlApp As Excel.Application = Nothing
+    '    'Dim xlWorkBooks As Excel.Workbooks = Nothing
+    '    'Dim xlWorkBook As Excel.Workbook = Nothing
+    '    'Dim xlWorkSheets As Excel.Sheets = Nothing
 
 
-        'xlApp = New Excel.Application
-        'xlApp.DisplayAlerts = False
-        'xlWorkBooks = xlApp.Workbooks
-        'xlWorkBook = xlWorkBooks.Open(TextBox1.Text)
-
-
-
-        ''Label1.Text = System.IO.Directory.Exists(TextBox1.Text)
-        ''If System.IO.Directory.Exists(TextBox1.Text) Then
-        ''    ss = (From T In IO.Directory.GetFiles(TextBox1.Text, "*.*", IO.SearchOption.TopDirectoryOnly)).ToList
-        ''End If
-        ''For Each sst As String In ss
-        ''    Label1.Text = Label1.Text & sst & vbCrLf
-        ''Next
-        'exlExl = New LoadExcel(TextBox1.Text)
-        'exlExl.GetInformation()
-        'Label1.Text = exlExl.strSheets.Count.ToString
-        ''Label1.Text = xlWorkBook.Sheets.ToString
-
-
-        'Dim srGetData As StreamReader
+    '    'xlApp = New Excel.Application
+    '    'xlApp.DisplayAlerts = False
+    '    'xlWorkBooks = xlApp.Workbooks
+    '    'xlWorkBook = xlWorkBooks.Open(TextBox1.Text)
 
 
 
-        'srGetData = New StreamReader(TextBox1.Text, System.Text.Encoding.GetEncoding("GB2312"))
-        'srGetData.ReadLine()
-        'srGetData.ReadLine()
-
-        'Label1.Text = srGetData.ReadLine().Split(Chr(9))(0)
-
-
-
-        ''Label1.Text = Asc(TextBox1.Text)
-        'Dim aceAccess As LoadAccess
-        'Dim dtTest As DataTable
-        'aceAccess = New LoadAccess("C:\Users\Berry\Desktop\临时数据\0114\GSC CDD_20160114101059.mdb")
-        'dtTest = aceAccess.ReturnAll("RACLP")
-        'DataList1.DataSource = dtTest
-        'DataList1.DataBind()
-        'Dim bsdlCommonLibrary As BaseSationDetailsLibrary = New BaseSationDetailsLibrary
-        'DataList1.DataSource = bsdlCommonLibrary.GetParameterConfig("LTE Daily Para")
-        'DataList1.DataBind()
+    '    ''Label1.Text = System.IO.Directory.Exists(TextBox1.Text)
+    '    ''If System.IO.Directory.Exists(TextBox1.Text) Then
+    '    ''    ss = (From T In IO.Directory.GetFiles(TextBox1.Text, "*.*", IO.SearchOption.TopDirectoryOnly)).ToList
+    '    ''End If
+    '    ''For Each sst As String In ss
+    '    ''    Label1.Text = Label1.Text & sst & vbCrLf
+    '    ''Next
+    '    'exlExl = New LoadExcel(TextBox1.Text)
+    '    'exlExl.GetInformation()
+    '    'Label1.Text = exlExl.strSheets.Count.ToString
+    '    ''Label1.Text = xlWorkBook.Sheets.ToString
 
 
-        'Dim bscpCommonLibrary As BSCPara = New BSCPara
-        'DataList1.DataSource = bscpCommonLibrary.HandelDailyAccessBSCPara("C:\Users\Berry\Desktop\临时数据\0114\GSC CDD_20160114101059.mdb", "dt_GSMP_BSC_Daily", Date.Now, Server.MapPath("/BSDetails/BSCParaConfig.json"))
-        'DataList1.DataBind()
-
-
-        'SaveBSCParaConfig()
-        'SaveCellParaConfig()
-
-
-        'Dim gsmcGetPara As GSMCellPara = New GSMCellPara
-        'Dim ii As Integer
-        'Label1.text = Date.Now.ToString
-        'ii = gsmcGetPara.HandelDailyAccessGSMCellPara("C:\Users\Berry\Desktop\临时数据\0114\GSC CDD_20160114101059.mdb", "dt_GSMP_Cell_Daily", Date.Now, Server.MapPath("/BSDetails/GSMCellParaConfig.json"), "SELECT [CELL],[ID] FROM [SanShi_BaseSationDetails].[dbo].[dt_GSM_ID]")
-        'Label1.text = Label1.text & Date.Now.ToString
+    '    'Dim srGetData As StreamReader
 
 
 
-        'SaveBSCParaDD()
-    End Sub
+    '    'srGetData = New StreamReader(TextBox1.Text, System.Text.Encoding.GetEncoding("GB2312"))
+    '    'srGetData.ReadLine()
+    '    'srGetData.ReadLine()
 
-    Private Sub Test_JustText_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim bolIsPowerEnough As Boolean = False
-        ucUserManage = New UserLibrary
+    '    'Label1.Text = srGetData.ReadLine().Split(Chr(9))(0)
 
-        If Not IsPostBack Then
-            Label1.Text = System.IO.Directory.Exists(TextBox1.Text)
-            Label1.Text = Application("NowUser:" & Session("SanShiUserName")) & "---" & Request.UserAgent.ToString & "<br/>---------"
 
-            bolIsPowerEnough = ucUserManage.CheckPower(Session, 2, Response)
 
-        End If
-    End Sub
+    '    ''Label1.Text = Asc(TextBox1.Text)
+    '    'Dim aceAccess As LoadAccess
+    '    'Dim dtTest As DataTable
+    '    'aceAccess = New LoadAccess("C:\Users\Berry\Desktop\临时数据\0114\GSC CDD_20160114101059.mdb")
+    '    'dtTest = aceAccess.ReturnAll("RACLP")
+    '    'DataList1.DataSource = dtTest
+    '    'DataList1.DataBind()
+    '    'Dim bsdlCommonLibrary As BaseSationDetailsLibrary = New BaseSationDetailsLibrary
+    '    'DataList1.DataSource = bsdlCommonLibrary.GetParameterConfig("LTE Daily Para")
+    '    'DataList1.DataBind()
+
+
+    '    'Dim bscpCommonLibrary As BSCPara = New BSCPara
+    '    'DataList1.DataSource = bscpCommonLibrary.HandelDailyAccessBSCPara("C:\Users\Berry\Desktop\临时数据\0114\GSC CDD_20160114101059.mdb", "dt_GSMP_BSC_Daily", Date.Now, Server.MapPath("/BSDetails/BSCParaConfig.json"))
+    '    'DataList1.DataBind()
+
+
+    '    'SaveBSCParaConfig()
+    '    'SaveCellParaConfig()
+
+
+    '    'Dim gsmcGetPara As GSMCellPara = New GSMCellPara
+    '    'Dim ii As Integer
+    '    'Label1.text = Date.Now.ToString
+    '    'ii = gsmcGetPara.HandelDailyAccessGSMCellPara("C:\Users\Berry\Desktop\临时数据\0114\GSC CDD_20160114101059.mdb", "dt_GSMP_Cell_Daily", Date.Now, Server.MapPath("/BSDetails/GSMCellParaConfig.json"), "SELECT [CELL],[ID] FROM [SanShi_BaseSationDetails].[dbo].[dt_GSM_ID]")
+    '    'Label1.text = Label1.text & Date.Now.ToString
+
+
+
+    '    'SaveBSCParaDD()
+    'End Sub
+
+    'Private Sub Test_JustText_Load(sender As Object, e As EventArgs) Handles Me.Load
+    '    Dim bolIsPowerEnough As Boolean = False
+    '    ucUserManage = New UserLibrary
+
+    '    If Not IsPostBack Then
+    '        Label1.Text = System.IO.Directory.Exists(TextBox1.Text)
+    '        Label1.Text = Application("NowUser:" & Session("SanShiUserName")) & "---" & Request.UserAgent.ToString & "<br/>---------"
+
+    '        bolIsPowerEnough = ucUserManage.CheckPower(Session, 2, Response)
+
+    '    End If
+    'End Sub
 
     Private Sub SaveBSCParaConfig()
         Dim strPathConfig As String
@@ -320,7 +320,4 @@ Partial Class Test_JustText
 
     End Sub
 
-    Private Sub LinkButton1_Click(sender As Object, e As EventArgs) Handles LinkButton1.Click
-
-    End Sub
 End Class
