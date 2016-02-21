@@ -202,7 +202,7 @@ Partial Class BSDetails_GSMBSCData
     ''' <summary>
     ''' This operation will work without the end.
     ''' </summary>
-    Private Sub bwGetEnterWorker_DoWork(ByRef progress As Integer, ByRef _result As Object, ByVal ParamArray arguments As Object())
+    Private Sub bwGetEnterWorker_DoWork(ByRef progress As Integer, ByRef _result As Object, ByRef OutputTheTmp As String, ByVal ParamArray arguments As Object())
         Dim intBSCResult As Integer
         Dim intCellResult As Integer
         Try

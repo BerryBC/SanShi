@@ -40,6 +40,7 @@ Public Class BackgroundWorker
     End Property
     Private _progress As Integer = 0
 
+
     ''' <summary>
     ''' A object that you can use it to save the result of the operation.
     ''' </summary>
@@ -62,6 +63,19 @@ Public Class BackgroundWorker
             Return False
         End Get
     End Property
+
+    Public Property OutPut() As String
+        Get
+            Return OutputTheTmp
+        End Get
+        Set(value As String)
+            OutputTheTmp = value
+        End Set
+    End Property
+    Private OutputTheTmp As String = ""
+
+
+
 #End Region
 
 #Region "Events"
@@ -77,7 +91,7 @@ Public Class BackgroundWorker
     ''' <param name="arguments">
     ''' The parameters which will be passed to operation method
     ''' </param>
-    Public Delegate Sub DoWorkEventHandler(ByRef progress As Integer, ByRef _result As Object, ByVal arguments As Object())
+    Public Delegate Sub DoWorkEventHandler(ByRef progress As Integer, ByRef _result As Object, ByRef OutputTheTmp As String, ByVal arguments As Object())
 
     Public Event DoWork As DoWorkEventHandler
 #End Region
@@ -96,7 +110,7 @@ Public Class BackgroundWorker
 
     Private Sub Worker()
         _progress = 0
-        RaiseEvent DoWork(_progress, _result, _arguments)
+        RaiseEvent DoWork(_progress, _result, OutputTheTmp, _arguments)
         _progress = 100
     End Sub
 End Class

@@ -314,7 +314,7 @@ Partial Class BSDetails_BaseSationDetails
     ''' <summary>
     ''' This operation will work without the end.
     ''' </summary>
-    Private Sub bwGetEnterWorker_DoWork(ByRef progress As Integer, ByRef _result As Object, ByVal ParamArray arguments As Object())
+    Private Sub bwGetEnterWorker_DoWork(ByRef progress As Integer, ByRef _result As Object, ByRef OutputTheTmp As String, ByVal ParamArray arguments As Object())
         Try
 
             _result = bsdlCommonLibrary.BulkCopyToSQLServer(txtDataTableName.Text, txtUpDatePath.Text, txtFileSuffix.Text, txtIFExcelThenSheetName.Text, Convert.ToInt32(txtMultiFile.Text), txtUpdateSource.Text, Convert.ToInt32(txtNumberOfConfig.Text))

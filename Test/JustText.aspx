@@ -74,7 +74,7 @@
 
 
     </asp:DataList>--%>
-                <div class="container-fluid" style ="text-align :left ">
+<%--                <div class="container-fluid" style ="text-align :left ">
 
                 <div class="row">
                         <div class="col-sm-3 col-md-2 sidebar">
@@ -105,6 +105,6 @@
                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 本书内容可以分为3部分。<br /><br /> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 第一部分(第1章一第5章)阐述通信基础知识和模拟通信原理。其中第2章(确知信号)是为了满足一些学校和专业的需要而增加的，对于许多本科通信工程专业的教学，完全可以跳过此章；第3章(随机信号)视需要情况可以作复习性讲述。<br /><br /> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 第二部分(第6章～第10章)主要论述数字通信、模拟信号的数字传输和数字信号的最佳接收原理。由于技术的不断发展和创新，数字调制和数字带通传输的内容非常丰富，将其放在一章内讲述会使篇幅过长，故分为两章(第7章和第8章)讲述，并且第8章的内容可以视需要，选用其中一部分学习，或者跳过不学，不会影响后面章节的理解。<br /><br /> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 第三部分(第11章～第14章)讨论数字通信中的编码和同步等技术，以及简要介绍诵倍网的概念。
             </div>
           </div></div> </div> 
-                </div>
+                </div>--%>
 </asp:Content>
 

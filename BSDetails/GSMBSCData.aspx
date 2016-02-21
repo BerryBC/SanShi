@@ -1,8 +1,10 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="GSMBSCData.aspx.vb" Inherits="BSDetails_GSMBSCData" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<%----第12号页面--%>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always">
@@ -36,8 +38,8 @@
                                 <div class="alert alert-success" role="alert" style="margin-top: 5px;">
                                     <asp:Label ID="lblLoading" runat="server" Text="Inserting"></asp:Label>
                                 </div>
-                            </asp:Panel>                        
-                        
+                            </asp:Panel>
+
                         </div>
                     </div>
                 </div>
