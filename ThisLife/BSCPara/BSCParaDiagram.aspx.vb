@@ -1,13 +1,16 @@
 ﻿Imports System.Data
 Imports System.IO
 Imports System.Data.SqlClient
+Imports SQLServerLibrary
 
 Partial Class ThisLife_BSCPara_BSCParaDiagram
     Inherits System.Web.UI.Page
     Dim bscpCommonLibrary As BSCPara = New BSCPara
-    Dim sqllSSLibrary As SQLServerLibrary = New SQLServerLibrary
+    Dim sqllSSLibrary As LoadSQLServer = New LoadSQLServer
     Shared listBSCParaConfig As List(Of BSCParaSingleDiagram)
     Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
+
+
 
     Private Sub ThisLife_BSCPara_BSCParaDiagram_Load(sender As Object, e As EventArgs) Handles Me.Load
 
@@ -15,6 +18,8 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
             Dim strJsonLoad As String
             Dim intI As Integer
             Dim ddlitemConfig As ListItem
+            Dim bsdlCommonLibrary As BaseSationDetailsLibrary = New BaseSationDetailsLibrary
+            Dim dtCellParaDetailsMana As DataTable
 
             btnGoLastPage.CssClass = "btn btn-danger"
             btnGoNextPage.CssClass = "btn btn-danger"
@@ -22,6 +27,8 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
             btnGoFrontPage.CssClass = "btn btn-danger"
             Try
 
+                dtCellParaDetailsMana = bsdlCommonLibrary.GetParameterConfig("GSM Daily Para")
+                lblLastUpdateTime.Text = dtCellParaDetailsMana.Rows(0).Item("LastUpdateTime").ToString
 
 
                 strJsonLoad = File.ReadAllText(Server.MapPath("/ThisLife/BSCPara/Config/GSMBSCParaSingleConfig.json"))
@@ -133,7 +140,7 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
 
 
 
-            scmdCMD = sqllSSLibrary.GetCommandStr(strFilterSQL, "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandStr(strFilterSQL, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             dtBaseSationDetailsMana = sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
 
 

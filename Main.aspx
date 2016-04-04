@@ -40,10 +40,10 @@
                         </div>
 
                         <div class="col-md-4">
-                            <h4>GSM小区级参数查询</h4>
-                            <p>查出GSM小区级参数、修改历史。（以大规项目收集信息为准）</p>
+                            <h4>两点之间距离值计算</h4>
+                            <p>批量计算两份表中两点间距离的计算。（按一定粒度来计算）</p>
                             <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="/ThisLife/DistanceOfTwoSpot/DistanceOfTwoSpot.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
                             <h4>TD小区级参数查询</h4>
@@ -92,7 +92,7 @@
                         <div class="col-md-4">
                             <h4>用户管理</h4>
                             <p>管理三世书中的用户。</p>
-                            <p><a class="btn btn-default" href="/UserManagement/SuManagement.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="/HeavenlyStem/UserManagement/SuManagement.aspx" role="button">Karma Gain »</a></p>
                         </div>
                     </div>
                 </div>
@@ -108,19 +108,25 @@
                         <div class="col-md-4">
                             <h4>基站基础信息管理</h4>
                             <p>管理三世书中所使用的基础信息表格以及更新来源。</p>
-                            <p><a class="btn btn-default" href="/BSDetails/BaseSationDetails.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="/EarthlyBranch/BSDetails/BaseSationDetails.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
                             <h4>GSM参数信息管理</h4>
                             <p>管理三世书中所使用的GSM参数信息表格以及更新来源。</p>
-                            <p><a class="btn btn-default" href="/BSDetails/GSMBSCData.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="/EarthlyBranch/BSDetails/GSMBSCData.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
                             <h4>列队插入数据库的数据</h4>
                             <p>管理基站基础信息以及GSM参数信息管理的列队入数</p>
-                            <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/BSDetails/InsertQueueOfBSCPara.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="/EarthlyBranch/BSDetails/InsertQueueOfBSCPara.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>导入2G在NQI上的数据</h4>
+                            <p>把2G在NQI上的网格小区每日指标导入系统</p>
+                            <p style="color: red;">（仍在建设中） </p>
+                            <p><a class="btn btn-default" href="/EarthlyBranch/TrafficStatistics/GSMIndexOfCell.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+
 
                     </div>
                 </div>

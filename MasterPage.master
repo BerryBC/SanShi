@@ -43,7 +43,7 @@
                     <div class="collapse navbar-collapse navbar-right" id="dropdown-box-1">
 
                         <ul class="nav navbar-nav">
-                            <li><a href="/UserManagement/SelfUserManagement.aspx">当前用户名为 : <asp:Label ID="lblUserName" runat="server" Text="Label"></asp:Label></a></li>
+                            <li><a href="/HeavenlyStem/UserManagement/SelfUserManagement.aspx">当前用户名为 : <asp:Label ID="lblUserName" runat="server" Text="Label"></asp:Label></a></li>
                             <li><a href="/main.aspx">目录</a></li>
                             <li class="dropdown" role="presentation">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">个人 <span class="badge">
@@ -51,7 +51,7 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu bullet fadeIn" role="menu">
-                                    <li><a href="/UserManagement/SelfUserManagement.aspx">个人资料</a></li>
+                                    <li><a href="/HeavenlyStem/UserManagement/SelfUserManagement.aspx">个人资料</a></li>
                                     <li><asp:LinkButton ID="lbExit" runat="server" Text ="退出"></asp:LinkButton></li>
                                 </ul>
                             </li>

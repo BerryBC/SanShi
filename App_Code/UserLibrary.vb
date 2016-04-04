@@ -3,11 +3,14 @@ Imports System.Data.SqlClient
 Imports SQLServerLibrary
 Imports System.Data
 Imports CommonLibrary
+Imports SQLServerLibrary.LoadSQLServer
 
 Public Class UserLibrary
     Implements IDisposable
-    Dim sqllSSLibrary As SQLServerLibrary
+    Dim sqllSSLibrary As LoadSQLServer
     Dim clCommon As CommonLibrary
+
+
 
     Public Function AddUser(strUserName As String, strPassword As String, strPhoneNumber As String, strRealChineseName As String, strCompanyName As String, strEMail As String, strQQ As String) As Integer
         Dim scmdCMD As SqlCommand
@@ -22,7 +25,7 @@ Public Class UserLibrary
         Try
 
 
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_AddUser", "ConnectionUserDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_AddUser", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
 
 
             spName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
@@ -81,7 +84,7 @@ Public Class UserLibrary
         Dim dtUserDetail As DataTable
         Try
 
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_LoginCheck", "ConnectionUserDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_LoginCheck", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
 
 
             spName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
@@ -116,7 +119,7 @@ Public Class UserLibrary
 
 
     Public Sub New()
-        sqllSSLibrary = New SQLServerLibrary
+        sqllSSLibrary = New LoadSQLServer
         clCommon = New CommonLibrary
     End Sub
 
@@ -144,7 +147,7 @@ Public Class UserLibrary
                 If hccCookies("SanShiUserName") IsNot Nothing Then
 
                     '有登陆Cookies的就登陆登陆用户
-                    scmdCMD = sqllSSLibrary.GetCommandProc("proc_GetPowerLevelByUserName", "ConnectionUserDB")
+                    scmdCMD = sqllSSLibrary.GetCommandProc("proc_GetPowerLevelByUserName", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
                     spName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
                     spName.Value = hccCookies("SanShiUserName").ToString
 
@@ -214,7 +217,7 @@ Public Class UserLibrary
         Dim dtUserDetail As DataTable
         Try
 
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_LoadUserDataByKeyWord", "ConnectionUserDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_LoadUserDataByKeyWord", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
 
 
             spKeyWord = New SqlParameter("@KeyWord", SqlDbType.VarChar, 40)
@@ -246,7 +249,7 @@ Public Class UserLibrary
 
         Try
 
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ChangePassword", "ConnectionUserDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ChangePassword", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
 
 
             spName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
@@ -283,7 +286,7 @@ Public Class UserLibrary
 
         Try
 
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ChangePowerLevel", "ConnectionUserDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ChangePowerLevel", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
 
 
             spName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
@@ -319,7 +322,7 @@ Public Class UserLibrary
         Dim dtUserDetail As DataTable
         Try
 
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_LoadUserDataByUserName", "ConnectionUserDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_LoadUserDataByUserName", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
 
 
             spUserName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
@@ -359,7 +362,7 @@ Public Class UserLibrary
         Try
 
 
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ModifyUserInfo", "ConnectionUserDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ModifyUserInfo", CommonLibrary.GetSQLServerConnect("ConnectionUserDB"))
 
 
             spName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)

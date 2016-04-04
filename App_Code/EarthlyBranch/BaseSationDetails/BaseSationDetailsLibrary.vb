@@ -8,21 +8,22 @@ Imports ExcelLibrary.LoadExcel
 Imports ExcelLibrary
 Imports System.Data.OleDb
 Imports AccessLibrary
+Imports SQLServerLibrary.LoadSQLServer
 
 
 Public Class BaseSationDetailsLibrary
-    Dim sqllSSLibrary As SQLServerLibrary
+    Dim sqllSSLibrary As LoadSQLServer
 
 
     Public Sub New()
-        sqllSSLibrary = New SQLServerLibrary()
+        sqllSSLibrary = New LoadSQLServer()
     End Sub
 
     Public Function ReturnBaseSationDetailsMan() As DataTable
         Dim scmdCMD As SqlCommand
         Dim dtBaseSationDetailsMana As DataTable
         Try
-            scmdCMD = sqllSSLibrary.GetCommandStr("select * from dt_ManagementTable", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandStr("select * from dt_ManagementTable", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             dtBaseSationDetailsMana = sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
             Return dtBaseSationDetailsMana
         Catch ex As Exception
@@ -39,7 +40,7 @@ Public Class BaseSationDetailsLibrary
         Dim dtBaseSationDetailsMana As DataTable
         Dim spID As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_GetSomeDataTableConfig", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_GetSomeDataTableConfig", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             spID = New SqlParameter("@ID", SqlDbType.Int)
             spID.Value = intConfigID
             scmdCMD.Parameters.Add(spID)
@@ -68,7 +69,7 @@ Public Class BaseSationDetailsLibrary
         Dim spUpdateSource As SqlParameter
         Dim spReturnValue As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ModifyDataTableConfig", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ModifyDataTableConfig", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             spDataTableID = New SqlParameter("@DataTableID", SqlDbType.Int)
             spConfigName = New SqlParameter("@ConfigName", SqlDbType.VarChar, 50)
             spDataTableName = New SqlParameter("@DataTableName", SqlDbType.VarChar, 50)
@@ -125,7 +126,7 @@ Public Class BaseSationDetailsLibrary
         Dim dtData As DataTable
         Dim scmdCommand As SqlCommand
         Try
-            scmdCommand = sqllSSLibrary.GetCommandStr("delete from " & strDataTableName & ";", "ConnectionBaseStationDetailsDB")
+            scmdCommand = sqllSSLibrary.GetCommandStr("delete from " & strDataTableName & ";", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             sqllSSLibrary.ExecNonQuery(scmdCommand)
             intJ = strUpdateSource.IndexOf("*")
             intK = strUpdateSource.IndexOf("%")
@@ -147,7 +148,7 @@ Public Class BaseSationDetailsLibrary
             intWhereMonth = strUpdateSource.IndexOf("%mm") - 1
             intWhereDay = strUpdateSource.IndexOf("%dd") - 2
             strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
-            dtFormat = sqllSSLibrary.ReturnFormat(strDataTableName, "ConnectionBaseStationDetailsDB")
+            dtFormat = sqllSSLibrary.ReturnFormat(strDataTableName, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             If intMultiFile = 0 Then
                 If strDir.Count > 0 Then
 
@@ -181,7 +182,7 @@ Public Class BaseSationDetailsLibrary
 
                     dtExl = exlExl.GetData(strIFExcelThenSheetName)
                     dtData = CommonLibrary.ReturnNewNormalDT(dtExl, dtFormat)
-                    sqllSSLibrary.BlukInsert(strDataTableName, dtData, "ConnectionBaseStationDetailsDB")
+                    sqllSSLibrary.BlukInsert(strDataTableName, dtData, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
 
                     If exlExl.strSheets.Count > 0 Then
                         dtData.Dispose()
@@ -199,7 +200,7 @@ Public Class BaseSationDetailsLibrary
                         csvCSV = New LoadCSV(strtmpFileName)
                     End If
                     dtCsv = csvCSV.GetDataViaTxtReader(dtFormat)
-                    sqllSSLibrary.BlukInsert(strDataTableName, dtCsv, "ConnectionBaseStationDetailsDB")
+                    sqllSSLibrary.BlukInsert(strDataTableName, dtCsv, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
                     dtCsv.Dispose()
                     dtCsv = Nothing
                     csvCSV.Dispose()
@@ -223,7 +224,7 @@ Public Class BaseSationDetailsLibrary
     Public Sub AddConfig()
         Dim scmdCMD As SqlCommand
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_AddConfig", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_AddConfig", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
         Catch ex As Exception
             Throw New Exception(ex.Message, ex)
@@ -237,7 +238,7 @@ Public Class BaseSationDetailsLibrary
         Dim scmdCMD As SqlCommand
         Dim spDataTableID As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_UpdateDate", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_UpdateDate", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             spDataTableID = New SqlParameter("@DataTableID", SqlDbType.Int)
             spDataTableID.Value = intDataTableID
             scmdCMD.Parameters.Add(spDataTableID)
@@ -256,7 +257,7 @@ Public Class BaseSationDetailsLibrary
         Dim spDataTableName As SqlParameter
         Dim spReturnValue As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_HowManyDateRow", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_HowManyDateRow", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             spDataTableName = New SqlParameter("@TableName", SqlDbType.VarChar, 200)
             spReturnValue = New SqlParameter("ReturnValue", SqlDbType.Int, 4)
             spDataTableName.Value = strDataTable
@@ -288,7 +289,7 @@ Public Class BaseSationDetailsLibrary
                 strWhatLog = strLogStr
                 txtLogTextBox.Text = txtLogTextBox.Text & Now.ToString & strWhatLog & vbCrLf
             End If
-            scmdCMD = sqllSSLibrary.GetCommandProc("[proc_LogBaseSationConfig]", "ConnectionLogDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("[proc_LogBaseSationConfig]", CommonLibrary.GetSQLServerConnect("ConnectionLogDB"))
             spLogString = New SqlParameter("@LogString", SqlDbType.Text)
             spLogString.Value = strWhatLog
             scmdCMD.Parameters.Add(spLogString)
@@ -304,7 +305,7 @@ Public Class BaseSationDetailsLibrary
         Dim scmdCMD As SqlCommand
         Dim dtBaseSationDetailsMana As DataTable
         Try
-            scmdCMD = sqllSSLibrary.GetCommandStr("select * from dt_ManagementParameter", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandStr("select * from dt_ManagementParameter", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             dtBaseSationDetailsMana = sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
             dtBaseSationDetailsMana = (From someDTR As DataRow In dtBaseSationDetailsMana.AsEnumerable Where someDTR.Field(Of String)("ConfigName") = strWhichConfig Select someDTR).CopyToDataTable
             Return dtBaseSationDetailsMana
@@ -323,7 +324,7 @@ Public Class BaseSationDetailsLibrary
         Dim dtBaseSationDetailsMana As DataTable
 
         Try
-            scmdCMD = sqllSSLibrary.GetCommandStr("select * from dt_ManagementParameter", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandStr("select * from dt_ManagementParameter", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             dtBaseSationDetailsMana = sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
             Return dtBaseSationDetailsMana
         Catch ex As Exception
@@ -342,7 +343,7 @@ Public Class BaseSationDetailsLibrary
         Dim spUpdateSource As SqlParameter
         Dim spReturnValue As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ModifyParaConfig", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ModifyParaConfig", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             spConfigName = New SqlParameter("@ConfigName", SqlDbType.VarChar, 50)
             spUpDatePath = New SqlParameter("@UpDatePath", SqlDbType.VarChar, 100)
             spUpdateSource = New SqlParameter("@UpDateSource", SqlDbType.VarChar, 100)
@@ -370,7 +371,7 @@ Public Class BaseSationDetailsLibrary
         Dim spConfigName As SqlParameter
         Dim spUpdateDate As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_UpdateParaDate", "ConnectionBaseStationDetailsDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_UpdateParaDate", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             spConfigName = New SqlParameter("@ConfigName", SqlDbType.VarChar, 50)
             spUpdateDate = New SqlParameter("@UpDateDate", SqlDbType.DateTime)
             spConfigName.Value = strConfigName

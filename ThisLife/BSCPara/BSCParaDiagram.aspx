@@ -22,8 +22,13 @@
                             请输入需查询的BSC（多个BSC请以逗号隔开）：<asp:TextBox ID="txtSearchWhat" runat="server"></asp:TextBox>
                             <asp:Button ID="btnSearch" runat="server" class="btn btn-success" CommandName="search" Text="GO" />
                         </div>
-                        <br />
+                                                <br />
                         <div style="text-align: right">
+                            更新时间为：<asp:Label ID="lblLastUpdateTime" runat="server" Text=""></asp:Label>
+                        </div>
+
+                        <br />
+                        <div >
 
                             <asp:DropDownList ID="ddlWhichPara" runat="server" class="form-control" AutoPostBack="True"></asp:DropDownList>
                         </div>

@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.VisualBasic
 Imports System.Security.Cryptography
 Imports System.Data
+Imports System.Data.SqlClient
 
 Public Class CommonLibrary
     Public Function StringTranscodingToMD5(strString As String) As String
@@ -332,6 +333,61 @@ Public Class CommonLibrary
         Return strlDir
     End Function
 
+    Public Shared Function GetAfterOneDateFile(ByRef strlFile As List(Of String), intWhereYear As Integer, intWhereMonth As Integer, intWhereDay As Integer, dateOneDate As Date) As List(Of String)
+        Dim strtmpFileName As String
+        Dim strtmpOnlyFileName As String
+        Dim strlDir As New List(Of String)
+        Dim intYear As Integer
+        Dim intMonth As Integer
+        Dim intDay As Integer
+        Dim dateSourceDate As Date
+        If intWhereYear < 0 Then
+            intWhereYear = 0
+        End If
+        If intWhereMonth < 0 Then
+            intWhereMonth = 0
+        End If
+        If intWhereDay < 0 Then
+            intWhereDay = 1
+        End If
+        intYear = 1988
+        intMonth = 11
+        intDay = 12
 
+        strlDir.Clear()
+        For Each strtmpFileName In strlFile
+            strtmpOnlyFileName = IO.Path.GetFileName(strtmpFileName)
+
+            If strtmpOnlyFileName.Length > (CommonLibrary.GetMaxNumber(intWhereDay + 4, CommonLibrary.GetMaxNumber(intWhereMonth + 2, intWhereYear + 2)) + 1) Then
+                If (IsNumeric(strtmpOnlyFileName.Substring(intWhereYear, 4)) And IsNumeric(strtmpOnlyFileName.Substring(intWhereMonth, 2)) And IsNumeric(strtmpOnlyFileName.Substring(intWhereDay, 2))) Then
+                    intYear = CType(strtmpOnlyFileName.Substring(intWhereYear, 4), Integer)
+                    intMonth = CType(strtmpOnlyFileName.Substring(intWhereMonth, 2), Integer)
+                    intDay = CType(strtmpOnlyFileName.Substring(intWhereDay, 2), Integer)
+                End If
+            End If
+            dateSourceDate = CommonLibrary.GetPureDate(intYear, intMonth, intDay)
+            If dateSourceDate > dateOneDate Then
+                strlDir.Add(strtmpFileName)
+            End If
+        Next
+        Return strlDir
+    End Function
+
+    Public Shared Function GetSQLServerConnect(strDateBase As String) As SqlConnection
+        Dim scConn As SqlConnection
+        Dim strWhichDB As String
+        Try
+
+
+            strWhichDB = ConfigurationManager.AppSettings(strDateBase).ToString()
+            scConn = New SqlConnection(strWhichDB)
+            Return scConn
+
+        Catch ex As Exception
+            Throw New Exception(ex.Message, ex)
+        End Try
+
+
+    End Function
 
 End Class

@@ -2,15 +2,18 @@
 Imports SQLServerLibrary
 Imports System.Data.SqlClient
 Imports System.Data
+Imports SQLServerLibrary.LoadSQLServer
 
 
 
 Public Class ErrorReportLibrary
 
-    Dim sqllSSLibrary As SQLServerLibrary
+    Dim sqllSSLibrary As LoadSQLServer
+
+
 
     Public Sub New()
-        sqllSSLibrary = New SQLServerLibrary
+        sqllSSLibrary = New LoadSQLServer
     End Sub
 
     Public Sub ReportServerError(intErrorPage As Integer, strErrorUser As String, strErrorMsg As String, ByRef dtErrorDateTime As DateTime)
@@ -20,7 +23,7 @@ Public Class ErrorReportLibrary
         Dim spErrorMsg As SqlParameter
         Dim spErrorDateTime As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ServerErrorLog", "ConnectionLogDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_ServerErrorLog", CommonLibrary.GetSQLServerConnect("ConnectionLogDB"))
 
             spErrorPage = New SqlParameter("@ErrorPage", SqlDbType.Int)
             spErrorUser = New SqlParameter("@ErrorUser", SqlDbType.VarChar, 40)
@@ -61,7 +64,7 @@ Public Class ErrorReportLibrary
         Dim spErrorMsg As SqlParameter
         Dim spErrorDateTime As SqlParameter
         Try
-            scmdCMD = sqllSSLibrary.GetCommandProc("proc_UserReportErrorLog", "ConnectionLogDB")
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_UserReportErrorLog", CommonLibrary.GetSQLServerConnect("ConnectionLogDB"))
 
             spErrorPage = New SqlParameter("@ErrorPage", SqlDbType.Int)
             spErrorUser = New SqlParameter("@ErrorUser", SqlDbType.VarChar, 40)

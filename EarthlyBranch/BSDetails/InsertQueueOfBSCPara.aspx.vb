@@ -79,10 +79,6 @@ Partial Class BSDetails_InsertQueueOfBSCPara
 
     End Sub
 
-    Private Sub cblWhichBaseSationDetailsToInsert_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cblWhichBaseSationDetailsToInsert.SelectedIndexChanged
-        'txtLogMessage.Text += "1" & vbCrLf
-        'txtLogMessage.Text += cblWhichBaseSationDetailsToInsert.SelectedItem.Value & vbCrLf
-    End Sub
 
     Private Sub btnGoInsert_Click(sender As Object, e As EventArgs) Handles btnGoInsert.Click
         Dim cblitemCheckChecked As ListItem
@@ -152,13 +148,15 @@ Partial Class BSDetails_InsertQueueOfBSCPara
                 End If
 
             Next
-            txtLogMessage.Text += "--------------------" & vbCrLf
-            txtLogMessage.Text += "基站信息表的选择完毕" & vbCrLf
-            txtLogMessage.Text += "--------------------" & vbCrLf
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("列队插入数据库--基站信息表的选择完毕", "", txtLogMessage)
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
+
+
 
             If cblWhichBSCParaToInsert.Items(0).Selected Or cblWhichBSCParaToInsert.Items(1).Selected Then
-                txtLogMessage.Text += "有选择将例行P文件入到数据库" & vbCrLf
-
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("列队插入数据库--有选择将例行P文件入到数据库", "", txtLogMessage)
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
                 dtCellParaDetailsMana = bsdlCommonLibrary.GetParameterConfig("GSM Daily Para")
                 strBSCParaUpDatePath = dtCellParaDetailsMana.Rows(0).Item("UpDatePath").ToString
                 strBSCParaUpdateSource = dtCellParaDetailsMana.Rows(0).Item("UpdateSourceName").ToString
@@ -178,7 +176,8 @@ Partial Class BSDetails_InsertQueueOfBSCPara
                 If System.IO.Directory.Exists(strBSCParaUpDatePath) Then
                     strtmpListDir = (From T In IO.Directory.GetFiles(strBSCParaUpDatePath, strHeadOfSource & "*.mdb", IO.SearchOption.AllDirectories)).ToList
                 End If
-                txtLogMessage.Text += "查找完文件了" & vbCrLf
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("列队插入数据库--查找完文件了", "", txtLogMessage)
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
                 intWhereYear = strHeadOfSource.IndexOf("%yyyy")
                 intWhereMonth = strHeadOfSource.IndexOf("%mm") - 1
                 intWhereDay = strHeadOfSource.IndexOf("%dd") - 2
@@ -190,18 +189,23 @@ Partial Class BSDetails_InsertQueueOfBSCPara
                 If strDir.Count > 0 Then
                     strtmpFileName = IO.Path.GetFileName(strDir(0))
                     dateWhatNow = New Date(strtmpFileName.Substring(intWhereYear, 4), strtmpFileName.Substring(intWhereMonth, 2), strtmpFileName.Substring(intWhereDay, 2), strtmpFileName.Substring(intWhereHour, 2), strtmpFileName.Substring(intWhereMin, 2), strtmpFileName.Substring(intWhereSec, 2))
-                    arrobjParaOfBSCPara = {strDir(0), dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json"), cblWhichBSCParaToInsert.Items(0).Selected, cblWhichBSCParaToInsert.Items(1).Selected}
-                    txtLogMessage.Text += "找到例行P文件了，最新的文件日期是: " & dateWhatNow.ToString & vbCrLf
+                    arrobjParaOfBSCPara = {strDir(0), dateWhatNow, Server.MapPath("/EarthlyBranch/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/EarthlyBranch/BSDetails/Config/GSMCellParaConfig.json"), cblWhichBSCParaToInsert.Items(0).Selected, cblWhichBSCParaToInsert.Items(1).Selected}
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("列队插入数据库--找到例行P文件了，最新的文件日期是: " & dateWhatNow.ToString, "", txtLogMessage)
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
                     '-----------------要先判断是否有入数过程在进行
                     bolBSCPara = True
 
                 Else
-                    txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("列队插入数据库--找不到例行P数文件哟: ", "", txtLogMessage)
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
                 End If
             End If
-            txtLogMessage.Text += "--------------------" & vbCrLf
-            txtLogMessage.Text += "例行P的入数选择完毕" & vbCrLf
-            txtLogMessage.Text += "--------------------" & vbCrLf
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("列队插入数据库--例行P的入数选择完毕", "", txtLogMessage)
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
+
+
+
 
             If bolDataBaseSation And Not bolBSCPara Then
                 arrobjParaOfBGWorker = {listbsdipBSInsertPara, Nothing}
@@ -329,29 +333,35 @@ Partial Class BSDetails_InsertQueueOfBSCPara
             If globalWorker.Result IsNot Nothing Then
                 If globalWorker.Progress < 100 Then
                     If intglobalProgress <> globalWorker.Progress Then
-                        txtLogMessage.Text += globalWorker.OutPut
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation(globalWorker.OutPut, "", txtLogMessage)
+
                         globalWorker.OutPut = ""
                         Application("intQueueOfBSCInsertProgress") = globalWorker.Progress
                     End If
 
                 Else
-                    txtLogMessage.Text += globalWorker.OutPut
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation(globalWorker.OutPut, "", txtLogMessage)
                     globalWorker.OutPut = ""
 
                     If IsNumeric(globalWorker.Result) Then
                         intReuslt = Convert.ToInt32(globalWorker.Result)
                         If intReuslt = -44 Then
-                            txtLogMessage.Text += "入数失败了哟~" & vbCrLf
+                            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("入数失败了哟~", "", txtLogMessage)
+                            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
+
                         ElseIf intReuslt = 88 Then
-                            txtLogMessage.Text += "完成了" & vbCrLf
+                            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("完成了", "", txtLogMessage)
+                            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
                         End If
 
                     Else
-                        txtLogMessage.Text += "在例行P数据处理时出错，错误是：" & globalWorker.Result & vbCrLf
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("在例行P数据处理时出错，错误是：" & globalWorker.Result, "", txtLogMessage)
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
+
                     End If
 
-                    txtLogMessage.Text += "已经对所有入数的过程过了一遍了~" & vbCrLf
-                    txtLogMessage.Text += "------------*-*-*-*-*-*-*-*-*-*-*---------------" & vbCrLf
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("已经对所有入数的过程过了一遍了~", "", txtLogMessage)
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
 
 
 

@@ -26,8 +26,8 @@ Partial Class BSDetails_GSMBSCData
                     btnWantModify.Enabled = False
                     btnConfirmModify.Enabled = False
                     btnGoInsert.Enabled = False
-                    txtLogMessage.Text += "已经有入数过程在运行了，请稍等。" & vbCrLf
-
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("例行P--已经有入数过程在运行了，请稍等。", "", txtLogMessage)
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
                 End If
             End If
 
@@ -83,6 +83,7 @@ Partial Class BSDetails_GSMBSCData
 
             If intResult = 88 Then
                 txtLogMessage.Text += "修改配置成功！" & vbCrLf
+
             ElseIf intResult = -44 Then
                 txtLogMessage.Text += "修改配置失败....T_T。" & vbCrLf
             End If
@@ -143,7 +144,8 @@ Partial Class BSDetails_GSMBSCData
             If System.IO.Directory.Exists(txtUpDatePath.Text) Then
                 strtmpListDir = (From T In IO.Directory.GetFiles(txtUpDatePath.Text, strHeadOfSource & "*.mdb", IO.SearchOption.AllDirectories)).ToList
             End If
-            txtLogMessage.Text += "查找完文件了" & vbCrLf
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("例行P--查找完文件了。", "", txtLogMessage)
+            bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
 
             intWhereYear = txtUpdateSource.Text.IndexOf("%yyyy")
             intWhereMonth = txtUpdateSource.Text.IndexOf("%mm") - 1
@@ -157,21 +159,24 @@ Partial Class BSDetails_GSMBSCData
                 dateWhatNow = New Date(strtmpFileName.Substring(intWhereYear, 4), strtmpFileName.Substring(intWhereMonth, 2), strtmpFileName.Substring(intWhereDay, 2), strtmpFileName.Substring(intWhereHour, 2), strtmpFileName.Substring(intWhereMin, 2), strtmpFileName.Substring(intWhereSec, 2))
                 bwGetEnterWorker = New BackgroundWorker
                 AddHandler bwGetEnterWorker.DoWork, AddressOf bwGetEnterWorker_DoWork
-                arrobjParaOfBGWorker = {strDir(0), dateWhatNow, Server.MapPath("/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/BSDetails/Config/GSMCellParaConfig.json")}
+                arrobjParaOfBGWorker = {strDir(0), dateWhatNow, Server.MapPath("/EarthlyBranch/BSDetails/Config/BSCParaConfig.json"), Server.MapPath("/EarthlyBranch/BSDetails/Config/GSMCellParaConfig.json")}
                 bwGetEnterWorker.RunWorker(arrobjParaOfBGWorker)
                 Application("bwBSParaInsert") = bwGetEnterWorker
 
                 timerLoading.Enabled = True
                 plYeahGo.Visible = True
-                txtLogMessage.Text += "开始入数了哦~" & vbCrLf
-
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("例行P--开始入数了。", "", txtLogMessage)
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ",", txtLogMessage)
 
                 '-----------------要先判断是否有入数过程在进行
 
 
             Else
-                txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
-
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("例行P--找不到例行P数文件哟。", "", txtLogMessage)
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
+                btnWantModify.Enabled = True
+                btnConfirmModify.Enabled = False
+                btnGoInsert.Enabled = True
 
 
 
@@ -248,18 +253,25 @@ Partial Class BSDetails_GSMBSCData
                 If IsNumeric(globalWorker.Result) Then
                     intReuslt = Convert.ToInt32(globalWorker.Result)
                     If intReuslt = 0 Then
-                        txtLogMessage.Text += "找不到例行P数文件哟" & vbCrLf
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("例行P--找不到例行P数文件哟。", "", txtLogMessage)
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
+
                     ElseIf intReuslt = -44 Then
-                        txtLogMessage.Text += "入数失败了哟~" & vbCrLf
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("例行P--入数失败了哟~", "", txtLogMessage)
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
                     ElseIf intReuslt = 88 Then
-                        txtLogMessage.Text += "成功了哟~" & vbCrLf
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("例行P--成功了哟~", "", txtLogMessage)
+                        bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
                     End If
 
                 Else
-                    txtLogMessage.Text += "在例行P数据处理时出错，错误是：" & globalWorker.Result & vbCrLf
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("在例行P数据处理时出错，错误是：" & globalWorker.Result, "", txtLogMessage)
+                    bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
                 End If
 
                 txtLogMessage.Text += "已经完成了例行P的处理了哦~" & vbCrLf
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("已经完成了例行P的处理了哦~", "", txtLogMessage)
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
 
 
                 plYeahGo.Visible = False
