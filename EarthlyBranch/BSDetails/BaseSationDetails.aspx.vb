@@ -24,7 +24,7 @@ Partial Class BSDetails_BaseSationDetails
         txtLogMessage.CssClass = "form-control"
         btnGoInsert.CssClass = "btn btn-warning"
         btnCheckHowCount.CssClass = "btn btn-info"
-
+        btnCheckAllTheInformation.CssClass = "btn btn-primary"
         Try
 
             bolIsPowerEnough = ucUserManage.CheckPower(Session, 9, Response)
@@ -35,6 +35,7 @@ Partial Class BSDetails_BaseSationDetails
                     timerLoading.Enabled = True
                     btnWantModify.Enabled = False
                     btnCheckHowCount.Enabled = False
+                    btnCheckAllTheInformation.Enabled = False
                     btnConfirmModify.Enabled = False
                     btnGoInsert.Enabled = False
                     btnAddOneConfig.Enabled = False
@@ -108,6 +109,7 @@ Partial Class BSDetails_BaseSationDetails
             txtNumberOfConfig.Text = e.CommandArgument
             btnWantModify.Enabled = True
             btnCheckHowCount.Enabled = True
+            btnCheckAllTheInformation.Enabled = True
             btnGoInsert.Enabled = True
         End If
     End Sub
@@ -115,6 +117,7 @@ Partial Class BSDetails_BaseSationDetails
     Private Sub btnWantModify_Click(sender As Object, e As EventArgs) Handles btnWantModify.Click
         btnWantModify.Enabled = False
         btnCheckHowCount.Enabled = False
+        btnCheckAllTheInformation.Enabled = False
         btnConfirmModify.Enabled = True
         txtDataTableName.Enabled = True
         txtFileSuffix.Enabled = True
@@ -140,6 +143,7 @@ Partial Class BSDetails_BaseSationDetails
             End If
             btnWantModify.Enabled = True
             btnCheckHowCount.Enabled = True
+            btnCheckAllTheInformation.Enabled = True
             btnGoInsert.Enabled = False
             btnConfirmModify.Enabled = False
             txtDataTableName.Enabled = False
@@ -177,6 +181,7 @@ Partial Class BSDetails_BaseSationDetails
         timerLoading.Enabled = True
         btnWantModify.Enabled = False
         btnCheckHowCount.Enabled = False
+        btnCheckAllTheInformation.Enabled = False
         btnConfirmModify.Enabled = False
         btnGoInsert.Enabled = False
         btnAddOneConfig.Enabled = False
@@ -237,6 +242,7 @@ Partial Class BSDetails_BaseSationDetails
                 If txtNumberOfConfig.Text <> "" Then
                     btnWantModify.Enabled = True
                     btnCheckHowCount.Enabled = True
+                    btnCheckAllTheInformation.Enabled = True
                     btnGoInsert.Enabled = True
                 End If
                 globalWorker = Nothing
@@ -282,6 +288,7 @@ Partial Class BSDetails_BaseSationDetails
                 timerLoading.Enabled = False
                 btnWantModify.Enabled = True
                 btnCheckHowCount.Enabled = True
+                btnCheckAllTheInformation.Enabled = True
                 btnGoInsert.Enabled = True
                 globalWorker = Nothing
                 Application("bwBSInsert") = Nothing
@@ -365,5 +372,39 @@ Partial Class BSDetails_BaseSationDetails
 
 
         End Try
+    End Sub
+
+    Private Sub btnCheckAllTheInformation_Click(sender As Object, e As EventArgs) Handles btnCheckAllTheInformation.Click
+        Dim dtBaseSationDetailsMana As DataTable
+        Dim drtmpEverRow As DataRow
+
+
+
+        Try
+            dtBaseSationDetailsMana = bsdlCommonLibrary.ReturnBaseSationDetailsMan()
+
+            For Each drtmpEverRow In dtBaseSationDetailsMana.Rows
+                drtmpEverRow.Item("DataTableName").ToString()
+
+
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("    配置(" & drtmpEverRow.Item("DataTableID").ToString() & "):" & drtmpEverRow.Item("ConfigName").ToString() & " 的目标表有数据 " & bsdlCommonLibrary.HowManyRowsOfDataTable(drtmpEverRow.Item("DataTableName").ToString()) & " 行，最新更新于:" & drtmpEverRow.Item("LastUpdateTime").ToString() & " ，更新文件为:" & drtmpEverRow.Item("LastUpdateFile").ToString(), "", txtLogMessage)
+                bsdlCommonLibrary.LogOnTextBoxAndDataBaseForBaseSation("", ".", txtLogMessage)
+
+            Next
+
+
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(10, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=10&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(10, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=10&eu=" & Session("SanShiUserName"))
+
+            End If
+
+
+        End Try
+
     End Sub
 End Class

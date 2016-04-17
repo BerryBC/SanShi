@@ -55,3 +55,4 @@ Public Class BscOriginalPara
     Public strBSCName As String
     Public drParaRow As DataRow
 End Class
+

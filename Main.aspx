@@ -46,16 +46,10 @@
                             <p><a class="btn btn-default" href="/ThisLife/DistanceOfTwoSpot/DistanceOfTwoSpot.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
-                            <h4>TD小区级参数查询</h4>
-                            <p>查出TD小区级参数、修改历史。（以基站信息表信息为准）</p>
+                            <h4>多元线性回归计算</h4>
+                            <p>根据数据查找出多元线性回归的系数，用来计算两个或以上变量时的线性系数。</p>
                             <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
-                        </div>
-                        <div class="col-md-4">
-                            <h4>LTE小区级参数查询</h4>
-                            <p>查出LTE小区级参数、修改历史。（以基站信息表信息为准）</p>
-                            <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="/ThisLife/MultipleLinearRegression/CountMultipleLinearRegression.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
                             <h4>保障期间通报发布</h4>
@@ -63,6 +57,13 @@
                             <p style="color: red;">（仍在建设中） </p>
                             <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                                                <div class="col-md-4">
+                            <h4>LTE小区级参数查询</h4>
+                            <p>查出LTE小区级参数、修改历史。（以基站信息表信息为准）</p>
+                            <p style="color: red;">（仍在建设中） </p>
+                            <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+
                     </div>
                 </div>
 
@@ -123,10 +124,13 @@
                         <div class="col-md-4">
                             <h4>导入2G在NQI上的数据</h4>
                             <p>把2G在NQI上的网格小区每日指标导入系统</p>
-                            <p style="color: red;">（仍在建设中） </p>
                             <p><a class="btn btn-default" href="/EarthlyBranch/TrafficStatistics/GSMIndexOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
-
+                        <div class="col-md-4">
+                            <h4>基站信息Log信息</h4>
+                            <p>查看基站信息的Log信息</p>
+                            <p><a class="btn btn-default" href="/EarthlyBranch/LogViewer/BaseSationDetailsLogViewer.aspx" role="button">Karma Gain »</a></p>
+                        </div>
 
                     </div>
                 </div>

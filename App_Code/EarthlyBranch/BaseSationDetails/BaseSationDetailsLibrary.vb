@@ -209,6 +209,7 @@ Public Class BaseSationDetailsLibrary
             Else
                 Return -44
             End If
+            UpdateConfigDate(intNumberOfConfig, IO.Path.GetFileName(strDir(0)))
         Catch ex As Exception
             Throw New Exception(ex.Message, ex)
             scmdCommand.Dispose()
@@ -216,9 +217,22 @@ Public Class BaseSationDetailsLibrary
             Return -44
 
         End Try
-        UpdateConfigDate(intNumberOfConfig)
         Return 88
     End Function
+
+    Public Sub DeleteConfig(ByRef intWhatNumber As Integer)
+        Dim scmdCMD As SqlCommand
+        Try
+            scmdCMD = sqllSSLibrary.GetCommandStr("delete from dt_ManagementTable where [DataTableID]=" & intWhatNumber.ToString & ";", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
+            sqllSSLibrary.ExecNonQuery(scmdCMD)
+
+        Catch ex As Exception
+            Throw New Exception(ex.Message, ex)
+            scmdCMD.Dispose()
+            scmdCMD = Nothing
+        End Try
+
+    End Sub
 
 
     Public Sub AddConfig()
@@ -234,14 +248,18 @@ Public Class BaseSationDetailsLibrary
 
     End Sub
 
-    Public Sub UpdateConfigDate(intDataTableID As Integer)
+    Public Sub UpdateConfigDate(intDataTableID As Integer, strFileName As String)
         Dim scmdCMD As SqlCommand
         Dim spDataTableID As SqlParameter
+        Dim spFileName As SqlParameter
         Try
             scmdCMD = sqllSSLibrary.GetCommandProc("proc_UpdateDate", CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             spDataTableID = New SqlParameter("@DataTableID", SqlDbType.Int)
+            spFileName = New SqlParameter("@FileName", SqlDbType.VarChar, 100)
+            spFileName.Value = strFileName
             spDataTableID.Value = intDataTableID
             scmdCMD.Parameters.Add(spDataTableID)
+            scmdCMD.Parameters.Add(spFileName)
             sqllSSLibrary.ExecNonQuery(scmdCMD)
         Catch ex As Exception
             Throw New Exception(ex.Message, ex)
@@ -249,7 +267,6 @@ Public Class BaseSationDetailsLibrary
             scmdCMD = Nothing
         End Try
     End Sub
-
 
 
     Public Function HowManyRowsOfDataTable(strDataTable As String) As Integer
@@ -286,7 +303,7 @@ Public Class BaseSationDetailsLibrary
                 strWhatLog = "------------------------------------------------------------"
                 txtLogTextBox.Text = txtLogTextBox.Text & strWhatLog & vbCrLf
             Else
-                strWhatLog = strLogStr
+                strWhatLog = " " & strLogStr
                 txtLogTextBox.Text = txtLogTextBox.Text & Now.ToString & strWhatLog & vbCrLf
             End If
             scmdCMD = sqllSSLibrary.GetCommandProc("[proc_LogBaseSationConfig]", CommonLibrary.GetSQLServerConnect("ConnectionLogDB"))

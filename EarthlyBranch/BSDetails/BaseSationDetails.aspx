@@ -78,6 +78,7 @@
                         <asp:Button ID="btnConfirmModify" runat="server" class="btn btn-success" Text="确定修改表格更新信息" Style="margin: 10px;" Enabled="false" />
                         <asp:Button ID="btnGoInsert" runat="server" Text="开始入数" class="btn btn-warning" Enabled="false" />
                         <asp:Button ID="btnCheckHowCount" runat="server" class="btn btn-info" Text="查询该表格现在记录数" Style="margin: 10px;" Enabled="false" /><br />
+                        <asp:Button ID="btnCheckAllTheInformation" runat="server" class="btn btn-primary" Text="查询所有表格" Style="margin: 10px;" Enabled="true" /><br />
 
                         <asp:Panel ID="plYeahGo" runat="server" Visible="False" Style="text-align: center;">
                             <div class="alert alert-success" role="alert" style="margin-top: 5px;">
