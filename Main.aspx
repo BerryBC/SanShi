@@ -132,6 +132,12 @@
                             <p><a class="btn btn-default" href="/EarthlyBranch/LogViewer/BaseSationDetailsLogViewer.aspx" role="button">Karma Gain »</a></p>
                         </div>
 
+                        <div class="col-md-4">
+                            <h4>GSM的BSC及小区记录参数信息</h4>
+                            <p>修改及查看每天例行P查什么数</p>
+                            <p><a class="btn btn-default" href="/EarthlyBranch/BSDetails/GSMParaConfigPage.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+
                     </div>
                 </div>
 

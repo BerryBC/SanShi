@@ -91,25 +91,36 @@ Public Class GSMCellPara
 
 
             For Each tblTableBscList In sabConfigSQLSandBSCList.listtblBscList
-                odbcOleDBCommand = New OleDbCommand("SELECT " & tblTableBscList.strBSCName & " FROM " & tblTableBscList.strTableName & " GROUP BY " & tblTableBscList.strBSCName & ";")
-                dttmpData = aceAccess.GetAccessDataTable(odbcOleDBCommand)
-                For Each drtmpBscListRow In dttmpData.Rows
-                    listBscList.Add（drtmpBscListRow(0))
-                Next
+                Try
+
+                    odbcOleDBCommand = New OleDbCommand("SELECT " & tblTableBscList.strBSCName & " FROM " & tblTableBscList.strTableName & " GROUP BY " & tblTableBscList.strBSCName & ";")
+                    dttmpData = aceAccess.GetAccessDataTable(odbcOleDBCommand)
+                    For Each drtmpBscListRow In dttmpData.Rows
+                        listBscList.Add（drtmpBscListRow(0))
+                    Next
+                Catch ex As Exception
+
+                End Try
             Next
 
             For Each pasTmpParaAndSQL In sabConfigSQLSandBSCList.listpasParaAndSQLS
-                odbcOleDBCommand = New OleDbCommand(pasTmpParaAndSQL.strSQLStatements)
-                dttmpData = aceAccess.GetAccessDataTable(odbcOleDBCommand)
-                listtmpBSCPara = New List(Of List(Of Object))
-                For Each drtmpBscListRow In dttmpData.Rows
-                    listtmpBSCParaEveryBSC = New List(Of Object)
-                    For intI = 0 To drtmpBscListRow.ItemArray.Count - 1
-                        listtmpBSCParaEveryBSC.Add(drtmpBscListRow(intI))
+                Try
+
+                    odbcOleDBCommand = New OleDbCommand(pasTmpParaAndSQL.strSQLStatements)
+                    dttmpData = aceAccess.GetAccessDataTable(odbcOleDBCommand)
+                    listtmpBSCPara = New List(Of List(Of Object))
+                    For Each drtmpBscListRow In dttmpData.Rows
+                        listtmpBSCParaEveryBSC = New List(Of Object)
+                        For intI = 0 To drtmpBscListRow.ItemArray.Count - 1
+                            listtmpBSCParaEveryBSC.Add(drtmpBscListRow(intI))
+                        Next
+                        listtmpBSCPara.Add（listtmpBSCParaEveryBSC）
                     Next
-                    listtmpBSCPara.Add（listtmpBSCParaEveryBSC）
-                Next
-                listBSCPara.Add(listtmpBSCPara)
+                    listBSCPara.Add(listtmpBSCPara)
+                Catch ex As Exception
+                    listtmpBSCPara = New List(Of List(Of Object))
+                    listBSCPara.Add(listtmpBSCPara)
+                End Try
             Next
 
             aceAccess.Close()
@@ -137,10 +148,16 @@ Public Class GSMCellPara
                         Next
                     Else
                         For Each listtmpBSCParaEveryBSC In listtmpBSCPara
-                            If ((listtmpBSCParaEveryBSC(0).ToString = drtmpBscListRow(1)) And (listtmpBSCParaEveryBSC(1) IsNot Nothing)) Then
-                                drtmpBscListRow(strWhichPara) = listtmpBSCParaEveryBSC(1)
-                                listtmpBSCPara.Remove(listtmpBSCParaEveryBSC)
-                                Exit For
+                            If ((listtmpBSCParaEveryBSC(0).ToString = drtmpBscListRow(1)) And (listtmpBSCParaEveryBSC(1) IsNot Nothing) And (listtmpBSCParaEveryBSC(1) IsNot DBNull.Value)) Then
+                                Try
+                                    drtmpBscListRow(strWhichPara) = CTypeDynamic(listtmpBSCParaEveryBSC(1), dtFormat.Columns(strWhichPara).DataType)
+                                    listtmpBSCPara.Remove(listtmpBSCParaEveryBSC)
+                                    Exit For
+                                Catch ex As Exception
+                                    drtmpBscListRow(strWhichPara) = DBNull.Value
+
+                                    Exit For
+                                End Try
                             End If
                         Next
                     End If

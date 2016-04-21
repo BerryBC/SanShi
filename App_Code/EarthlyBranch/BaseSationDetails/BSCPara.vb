@@ -77,16 +77,21 @@ Public Class BSCPara
             Next
 
             For Each pasTmpParaAndSQL In sabConfigSQLSandBSCList.listpasParaAndSQLS
-                odbcOleDBCommand = New OleDbCommand(pasTmpParaAndSQL.strSQLStatements)
-                dttmpData = aceAccess.GetAccessDataTable(odbcOleDBCommand)
-                listtmpBSCPara = New List(Of List(Of Object))
-                For Each drtmpBscListRow In dttmpData.Rows
-                    listtmpBSCParaEveryBSC = New List(Of Object)
-                    listtmpBSCParaEveryBSC.Add(drtmpBscListRow(0))
-                    listtmpBSCParaEveryBSC.Add(drtmpBscListRow(1))
-                    listtmpBSCPara.Add（listtmpBSCParaEveryBSC）
-                Next
-                listBSCPara.Add(listtmpBSCPara)
+                Try
+
+                    odbcOleDBCommand = New OleDbCommand(pasTmpParaAndSQL.strSQLStatements)
+                    dttmpData = aceAccess.GetAccessDataTable(odbcOleDBCommand)
+                    listtmpBSCPara = New List(Of List(Of Object))
+                    For Each drtmpBscListRow In dttmpData.Rows
+                        listtmpBSCParaEveryBSC = New List(Of Object)
+                        listtmpBSCParaEveryBSC.Add(drtmpBscListRow(0))
+                        listtmpBSCParaEveryBSC.Add(drtmpBscListRow(1))
+                        listtmpBSCPara.Add（listtmpBSCParaEveryBSC）
+                    Next
+                    listBSCPara.Add(listtmpBSCPara)
+                Catch ex As Exception
+
+                End Try
             Next
 
             aceAccess.Close()
