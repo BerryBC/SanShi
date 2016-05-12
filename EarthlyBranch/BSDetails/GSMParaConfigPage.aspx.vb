@@ -6,11 +6,15 @@ Partial Class EarthlyBranch_BSDetails_GSMParaConfig_GSMParaConfigPage
     Inherits System.Web.UI.Page
     Dim dtBaseSationDetailsMana As DataTable
     Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
+    Dim ucUserManage As UserLibrary = New UserLibrary
+
 
     Private Sub EarthlyBranch_BSDetails_GSMParaConfig_GSMParaConfigPage_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
 
             If Not IsPostBack Then
+                ucUserManage.CheckPower(Session, 9, Response)
+
                 If Session.Item("ParaAndSQL") IsNot Nothing Then
                     dtBaseSationDetailsMana = CType(Session.Item("ParaAndSQL"), DataTable)
                 Else

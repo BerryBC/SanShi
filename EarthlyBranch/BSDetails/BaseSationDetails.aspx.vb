@@ -27,10 +27,8 @@ Partial Class BSDetails_BaseSationDetails
         btnCheckAllTheInformation.CssClass = "btn btn-primary"
         Try
 
-            bolIsPowerEnough = ucUserManage.CheckPower(Session, 9, Response)
-            If bolIsPowerEnough Then
 
-                If Application("bwBSInsert") IsNot Nothing Then
+            If Application("bwBSInsert") IsNot Nothing Then
                     plYeahGo.Visible = True
                     timerLoading.Enabled = True
                     btnWantModify.Enabled = False
@@ -51,10 +49,10 @@ Partial Class BSDetails_BaseSationDetails
 
 
 
-                If Not IsPostBack Then
-                    BindConfigData()
+            If Not IsPostBack Then
+                bolIsPowerEnough = ucUserManage.CheckPower(Session, 9, Response)
+                BindConfigData()
 
-                End If
             End If
 
         Catch ex As Exception

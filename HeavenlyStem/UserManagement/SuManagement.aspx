@@ -126,7 +126,7 @@
                                 </span>
                                 <br />
                                 <br />
-                                <asp:Button ID="btnGoFixPW" runat="server" class="btn btn-success" Text="Change Power Level" Style="margin-bottom: 10px;" />
+                                <asp:Button ID="btnGoFixPW" runat="server" class="btn btn-success" Text="Reset Passwork" Style="margin-bottom: 10px;" />
                                 <asp:Button ID="btnBackFPW" runat="server" class="btn btn-danger" Text="Back" Style="margin-bottom: 10px;" CausesValidation="false" /><br />
                                 <br />
                             </asp:Panel>

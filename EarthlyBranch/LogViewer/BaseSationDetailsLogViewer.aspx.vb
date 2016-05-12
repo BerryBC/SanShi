@@ -6,6 +6,7 @@ Imports System.Data
 Partial Class EarthlyBranch_LogViewer_BaseSationDetailsLogViewer
     Inherits System.Web.UI.Page
 
+    Dim ucUserManage As UserLibrary = New UserLibrary
     Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
     Dim sqllSSLibrary As LoadSQLServer = New LoadSQLServer
 
@@ -20,6 +21,8 @@ Partial Class EarthlyBranch_LogViewer_BaseSationDetailsLogViewer
         Try
 
             If Not IsPostBack Then
+                ucUserManage.CheckPower(Session, 9, Response)
+
                 txtLogMessage.CssClass = "form-control"
                 LogDataBind(3)
             End If

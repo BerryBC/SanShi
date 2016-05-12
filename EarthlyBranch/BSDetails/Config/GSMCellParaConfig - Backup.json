@@ -1,0 +1,189 @@
+﻿{
+"listpasParaAndSQLS" : [
+  {
+"strColName" : "TRX",
+"strSQLStatements" : "SELECT RXMOP_RXOTRX.CELL, Count(RXMOP_RXOTRX.MO) AS MO之计数 FROM RXMOP_RXOTRX GROUP BY RXMOP_RXOTRX.CELL;"}
+,
+  {
+"strColName" : "NumberOfFN",
+"strSQLStatements" : "TRANSFORM First(RLCFP.DCHNO &\" \") AS DCHNOFirst SELECT RLCFP.CELL FROM RLCFP GROUP BY RLCFP.CELL PIVOT RLCFP.CHGR;"}
+,
+  {
+"strColName" : "HR_TRX",
+"strSQLStatements" : "SELECT RFCAP.CELL, [RFCAP]![HRCSCC]/16 AS HRCSCC FROM RFCAP GROUP BY RFCAP.CELL, [RFCAP]![HRCSCC]/16;"}
+,
+  {
+"strColName" : "AHR_TRX",
+"strSQLStatements" : "SELECT RFCAP.CELL, [RFCAP]![HRCSCC]/16 AS HRCSCC FROM RFCAP GROUP BY RFCAP.CELL, [RFCAP]![HRCSCC]/16;"}
+,
+  {
+"strColName" : "CCCH",
+"strSQLStatements" : "SELECT RLCRP.CELL, RLCRP.BCCH FROM RLCRP GROUP BY RLCRP.CELL, RLCRP.BCCH;"}
+,
+  {
+"strColName" : "SDCCH",
+"strSQLStatements" : "SELECT RLCRP.CELL, RLCRP.SDCCH FROM RLCRP GROUP BY RLCRP.CELL, RLCRP.SDCCH;"}
+,
+  {
+"strColName" : "ACCMIN",
+"strSQLStatements" : "SELECT RLSSP.CELL, RLSSP.ACCMIN FROM RLSSP GROUP BY RLSSP.CELL, RLSSP.ACCMIN;"}
+,
+  {
+"strColName" : "CRH",
+"strSQLStatements" : "SELECT RLSSP.CELL, RLSSP.CRH FROM RLSSP GROUP BY RLSSP.CELL, RLSSP.CRH;"}
+,
+  {
+"strColName" : "PDCHPREEMPT",
+"strSQLStatements" : "SELECT RLGSP.CELL, RLGSP.PDCHPREEMPT FROM RLGSP GROUP BY RLGSP.CELL, RLGSP.PDCHPREEMPT;"}
+,
+  {
+"strColName" : "TBFDLLIM",
+"strSQLStatements" : "SELECT RLGSP.CELL, RLGSP.TBFDLLIM FROM RLGSP GROUP BY RLGSP.CELL, RLGSP.TBFDLLIM;"}
+,
+  {
+"strColName" : "FPDCH",
+"strSQLStatements" : "SELECT RLGSP.CELL, RLGSP.FPDCH FROM RLGSP GROUP BY RLGSP.CELL, RLGSP.FPDCH;"}
+,
+  {
+"strColName" : "CB",
+"strSQLStatements" : "SELECT RLSBP.CELL, RLSBP.CB FROM RLSBP GROUP BY RLSBP.CELL, RLSBP.CB;"}
+,
+  {
+"strColName" : "CBQ",
+"strSQLStatements" : "SELECT RLSBP.CELL, RLSBP.CBQ FROM RLSBP GROUP BY RLSBP.CELL, RLSBP.CBQ;"}
+,
+  {
+"strColName" : "MAXRET",
+"strSQLStatements" : "SELECT RLSBP.CELL, RLSBP.MAXRET FROM RLSBP GROUP BY RLSBP.CELL, RLSBP.MAXRET;"}
+,
+  {
+"strColName" : "CRO",
+"strSQLStatements" : "SELECT RLSBP.CELL, RLSBP.CRO FROM RLSBP GROUP BY RLSBP.CELL, RLSBP.CRO;"}
+,
+  {
+"strColName" : "TO",
+"strSQLStatements" : "SELECT RLSBP.CELL, RLSBP.TO FROM RLSBP GROUP BY RLSBP.CELL, RLSBP.TO;"}
+,
+  {
+"strColName" : "PT",
+"strSQLStatements" : "SELECT RLSBP.CELL, RLSBP.PT FROM RLSBP GROUP BY RLSBP.CELL, RLSBP.PT;"}
+,
+  {
+"strColName" : "MSRXMIN",
+"strSQLStatements" : "SELECT RLLOP.CELL, RLLOP.MSRXMIN FROM RLLOP GROUP BY RLLOP.CELL, RLLOP.MSRXMIN;"}
+,
+  {
+"strColName" : "MSRXSUFF",
+"strSQLStatements" : "SELECT RLLOP.CELL, RLLOP.MSRXSUFF FROM RLLOP GROUP BY RLLOP.CELL, RLLOP.MSRXSUFF;"}
+,
+  {
+"strColName" : "BSPWRB",
+"strSQLStatements" : "SELECT RLCPP.CELL, RLCPP.BSPWRB FROM RLCPP GROUP BY RLCPP.CELL, RLCPP.BSPWRB;"}
+,
+  {
+"strColName" : "BSPWRT",
+"strSQLStatements" : "SELECT RLCPP.CELL, RLCPP.BSPWRT FROM RLCPP GROUP BY RLCPP.CELL, RLCPP.BSPWRT;"}
+,
+  {
+"strColName" : "MSTXPWR",
+"strSQLStatements" : "SELECT RLCPP.CELL, RLCPP.MSTXPWR FROM RLCPP GROUP BY RLCPP.CELL, RLCPP.MSTXPWR;"}
+,
+  {
+"strColName" : "LAYER",
+"strSQLStatements" : "SELECT RLLHP.CELL, RLLHP.LAYER FROM RLLHP GROUP BY RLLHP.CELL, RLLHP.LAYER;"}
+,
+  {
+"strColName" : "LAYERTHR",
+"strSQLStatements" : "SELECT RLLHP.CELL, RLLHP.LAYERTHR FROM RLLHP GROUP BY RLLHP.CELL, RLLHP.LAYERTHR;"}
+,
+  {
+"strColName" : "LAYERHYST",
+"strSQLStatements" : "SELECT RLLHP.CELL, RLLHP.LAYERHYST FROM RLLHP GROUP BY RLLHP.CELL, RLLHP.LAYERHYST;"}
+,
+  {
+"strColName" : "PSSTEMP",
+"strSQLStatements" : "SELECT RLLHP.CELL, RLLHP.PSSTEMP FROM RLLHP GROUP BY RLLHP.CELL, RLLHP.PSSTEMP;"}
+,
+  {
+"strColName" : "PTIMTEMP",
+"strSQLStatements" : "SELECT RLLHP.CELL, RLLHP.PTIMTEMP FROM RLLHP GROUP BY RLLHP.CELL, RLLHP.PTIMTEMP;"}
+,
+  {
+"strColName" : "FASTMSREG",
+"strSQLStatements" : "SELECT RLLHP.CELL, RLLHP.FASTMSREG FROM RLLHP GROUP BY RLLHP.CELL, RLLHP.FASTMSREG;"}
+,
+  {
+"strColName" : "NUMREQEGPRSBPC",
+"strSQLStatements" : "SELECT RLBDP.CELL, Sum(RLBDP.NUMREQEGPRSBPC) AS NUMREQEGPRSBPCSum FROM RLBDP GROUP BY RLBDP.CELL;"}
+,
+  {
+"strColName" : "CGI",
+"strSQLStatements" : "SELECT RLDEP.CELL, RLDEP.CGI FROM RLDEP GROUP BY RLDEP.CELL, RLDEP.CGI;"}
+,
+  {
+"strColName" : "BSIC",
+"strSQLStatements" : "SELECT RLDEP.CELL, RLDEP.BSIC FROM RLDEP GROUP BY RLDEP.CELL, RLDEP.BSIC;"}
+,
+  {
+"strColName" : "BCCHNO",
+"strSQLStatements" : "SELECT RLDEP.CELL, RLDEP.BCCHNO FROM RLDEP GROUP BY RLDEP.CELL, RLDEP.BCCHNO;"}
+,
+  {
+"strColName" : "AGBLK",
+"strSQLStatements" : "SELECT RLDEP.CELL, RLDEP.AGBLK FROM RLDEP GROUP BY RLDEP.CELL, RLDEP.AGBLK;"}
+,
+  {
+"strColName" : "MFRS",
+"strSQLStatements" : "SELECT RLDEP.CELL, RLDEP.MFRMS FROM RLDEP GROUP BY RLDEP.CELL, RLDEP.MFRMS;"}
+
+],
+"listtblBscList" : [
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RXMOP_RXOTRX"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLCFP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RFCAP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLCRP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLSSP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLGSP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLSBP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLLOP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLCPP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLLHP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLBDP"}
+,
+  {
+"strBSCName" : "CELL",
+"strTableName" : "RLDEP"}
+
+]}

@@ -18,10 +18,9 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="col-md-4">
-                            <h4>全网级历史话务查询</h4>
-                            <p>查出全网级历史话务，包括GSM、TDS、TDL的全网级历史业务量。</p>
-                            <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/test/justtext.aspx" role="button">Karma Gain »</a></p>
+                            <h4>GSM网格小区指标批量导出</h4>
+                            <p>批量导出GSM网格小区列表信息。</p>
+                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
                     </div>
                 </div>

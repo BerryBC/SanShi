@@ -273,12 +273,12 @@ Partial Class ThisLife_MultipleLinearRegression_CountMultipleLinearRegression
         txtResults.Text += "-----------------------------------" & vbCrLf
         txtResults.Text += "Order为:" & intOrder + 1 & vbCrLf
 
-        For i = 0 To intHowMuchLine
-            doubletmpEle = 0
-            For j = 0 To intOrder
-                doubletmpEle = doubleBasicDataOfX(j, i) * doubleCoefficient(i)
-            Next
-        Next
+        'For i = 0 To intHowMuchLine
+        '    doubletmpEle = 0
+        '    For j = 0 To intOrder
+        '        doubletmpEle = doubleBasicDataOfX(j, i) * doubleCoefficient(i)
+        '    Next
+        'Next
 
     End Sub
 
