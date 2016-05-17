@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Data.SqlClient
 Imports SQLServerLibrary
+Imports CSVLibrary
 
 Partial Class ThisLife_BSCPara_BSCParaDiagram
     Inherits System.Web.UI.Page
@@ -120,6 +121,7 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
         Dim intOnePageNumber As Integer
 
         Try
+            plFaild.Visible = False
 
             dtSortData = New DataTable
 
@@ -445,4 +447,155 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
         BindDataOfBSCPara(0)
 
     End Sub
+
+    Private Sub btnGoDownload_Click(sender As Object, e As EventArgs) Handles btnGoDownload.Click
+        Dim strDownloadAdd As String
+
+        Try
+
+
+            strDownloadAdd = SaveToCSVToDownLoad()
+            plFaild.Visible = False
+            If strDownloadAdd = "Faild" Then
+                plFaild.Visible = True
+                lblError.Text = "导出数据出错"
+            End If
+            Response.Redirect("http://" & strDownloadAdd, False)
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(11, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=11&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(11, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=11&eu=" & Session("SanShiUserName"))
+
+            End If
+        End Try
+
+    End Sub
+
+
+
+    Private Function SaveToCSVToDownLoad() As String
+        Dim scmdCMD As SqlCommand
+        Dim dtBaseSationDetailsMana As DataTable
+        Dim listOnRoad As List(Of Integer)
+        Dim drDataInDataTable As DataRow
+        Dim strFilterSQL As String
+        Dim liststrFilterEle As List(Of String)
+        Dim strtmpFilterSQL As String
+        Dim dtSortData As DataTable
+        Dim drSortDataRow As DataRow
+        Dim strSaveAsFileName As String
+        Dim csvCSV As LoadCSV
+        Dim bolSaveSuccess As Boolean
+        Try
+
+            dtSortData = New DataTable
+
+
+
+            listOnRoad = listBSCParaConfig(CType(ddlWhichPara.SelectedItem.Value, Integer)).listOnRoad
+            strSaveAsFileName = Now.ToString("yyyyMMddHHmmss") & "-" & ddlWhichPara.SelectedItem.Text.Replace(" ", "_") & "-" & Session("SanShiUserName") & ".csv"
+
+            '加上对逗号的区分
+            strFilterSQL = listBSCParaConfig(CType(ddlWhichPara.SelectedItem.Value, Integer)).strSQLS
+            liststrFilterEle = txtSearchWhat.Text.Replace("，", ",").Split(",").ToList
+            If liststrFilterEle.Count > 0 Then strFilterSQL += " where "
+
+            For Each strtmpFilterSQL In liststrFilterEle
+                strFilterSQL += "[BSC] like '%" & strtmpFilterSQL & "%' or "
+            Next
+
+            strFilterSQL = strFilterSQL.Substring(0, strFilterSQL.Length - 3)
+
+
+
+            scmdCMD = sqllSSLibrary.GetCommandStr(strFilterSQL, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
+            dtBaseSationDetailsMana = sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
+
+
+            dtSortData.Columns.Add(New System.Data.DataColumn("BSC", dtBaseSationDetailsMana.Columns(0).DataType))
+            dtSortData.Columns.Add(New System.Data.DataColumn(dtBaseSationDetailsMana.Columns(listOnRoad(1)).ColumnName, dtBaseSationDetailsMana.Columns(listOnRoad(1)).DataType))
+            dtSortData.Columns.Add(New System.Data.DataColumn(dtBaseSationDetailsMana.Columns(listOnRoad(2)).ColumnName, dtBaseSationDetailsMana.Columns(listOnRoad(2)).DataType))
+            dtSortData.Columns.Add(New System.Data.DataColumn("Redundancy", GetType(Integer)))
+            dtSortData.Columns.Add(New System.Data.DataColumn("Percent", GetType(Double)))
+
+            For Each drDataInDataTable In dtBaseSationDetailsMana.Rows
+                drSortDataRow = dtSortData.NewRow
+                drSortDataRow.Item(0) = drDataInDataTable(0)
+                drSortDataRow.Item(1) = drDataInDataTable(listOnRoad(1))
+                drSortDataRow.Item(2) = drDataInDataTable(listOnRoad(2))
+                drSortDataRow.Item(3) = drDataInDataTable(listOnRoad(1)) - drDataInDataTable(listOnRoad(2))
+                drSortDataRow.Item(4) = HowMuchNowUseOfPercent(drDataInDataTable(listOnRoad(2)), drDataInDataTable(listOnRoad(1)))
+                dtSortData.Rows.Add(drSortDataRow)
+            Next
+
+
+
+            If lblBSCDown.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(0).Caption & " DESC"
+            ElseIf lblBSCUp.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(0).Caption & " ASC"
+            ElseIf lblNumeratorDown.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(1).Caption & " DESC"
+            ElseIf lblNumeratorUp.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(1).Caption & " ASC"
+            ElseIf lblDenominatorDown.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(2).Caption & " DESC"
+            ElseIf lblDenominatorUp.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(2).Caption & " ASC"
+            ElseIf lblRedundancyDown.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(3).Caption & " DESC"
+            ElseIf lblRedundancyUp.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(3).Caption & " ASC"
+            ElseIf lblPercentDown.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(4).Caption & " DESC"
+            ElseIf lblPercentUp.Visible Then
+                dtSortData.DefaultView.Sort = dtSortData.Columns(4).Caption & " ASC"
+
+            End If
+
+            dtSortData = dtSortData.DefaultView.ToTable
+
+            csvCSV = New LoadCSV(Server.MapPath("/TmpFiles/") & strSaveAsFileName)
+            bolSaveSuccess = csvCSV.SaveASNewOne(dtSortData)
+
+
+
+            scmdCMD.Dispose()
+            scmdCMD = Nothing
+            dtBaseSationDetailsMana.Dispose()
+            dtBaseSationDetailsMana = Nothing
+            dtSortData.Dispose()
+            dtSortData = Nothing
+
+
+            listOnRoad = Nothing
+            drDataInDataTable = Nothing
+            liststrFilterEle = Nothing
+
+            Return Request.Url.Host & "/TmpFiles/" & strSaveAsFileName
+
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(11, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=11&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(11, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=11&eu=" & Session("SanShiUserName"))
+
+            End If
+            Return "Faild"
+        End Try
+
+
+
+
+
+
+    End Function
+
+
+
 End Class

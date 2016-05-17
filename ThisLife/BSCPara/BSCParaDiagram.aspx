@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/MasterPage.master" AutoEventWireup="false" CodeFile="BSCParaDiagram.aspx.vb" Inherits="ThisLife_BSCPara_BSCParaDiagram" %>
+
 <%----第11号页面--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -22,13 +23,18 @@
                             请输入需查询的BSC（多个BSC请以逗号隔开）：<asp:TextBox ID="txtSearchWhat" runat="server"></asp:TextBox>
                             <asp:Button ID="btnSearch" runat="server" class="btn btn-success" CommandName="search" Text="GO" />
                         </div>
-                                                <br />
+                        <br />
+                        <div style="text-align: right;">
+                            <asp:Button ID="btnGoDownload" runat="server" Text="下载当前数据" class="btn btn-info" />
+                        </div>
+
+                        <br />
                         <div style="text-align: right">
                             更新时间为：<asp:Label ID="lblLastUpdateTime" runat="server" Text=""></asp:Label>
                         </div>
 
                         <br />
-                        <div >
+                        <div>
 
                             <asp:DropDownList ID="ddlWhichPara" runat="server" class="form-control" AutoPostBack="True"></asp:DropDownList>
                         </div>
@@ -93,9 +99,10 @@
                                     ControlToValidate="txtPage" ErrorMessage="请输入数字" ForeColor="red"
                                     ValidationExpression="[1-9]+(\d)*"></asp:RegularExpressionValidator>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style ="margin-top :6px;"> 
-                               请选择每页显示的行数： </div>
-                           
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="margin-top: 6px;">
+                                请选择每页显示的行数：
+                            </div>
+
                             <div style="text-align: center; align-items: center;" class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                 <asp:DropDownList ID="ddlHowManyRow" runat="server" AutoPostBack="True" class="form-control">
                                     <asp:ListItem Text="10" Value="10" Selected="True"></asp:ListItem>
@@ -116,14 +123,14 @@
 
                             <asp:Panel ID="plFaild" runat="server" Visible="false">
                                 <div id="divFaild" class="alert alert-danger" role="alert" style="margin-top: 5px;">
-                                    <strong>数据为空或没有配置文件</strong>
+                                    <strong>
+                                        <asp:Label ID="lblError" runat="server" Text="数据为空或没有配置文件"></asp:Label></strong>
                                 </div>
                             </asp:Panel>
 
 
 
                         </div>
-
 
                     </div>
             </section>
