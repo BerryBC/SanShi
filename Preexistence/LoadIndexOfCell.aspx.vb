@@ -9,6 +9,7 @@ Partial Class Preexistence_LoadIndexOfCell
     Inherits System.Web.UI.Page
     Dim ucUserManage As UserLibrary = New UserLibrary
     Dim sqllSSLibrary As LoadSQLServer = New LoadSQLServer
+    Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
 
     Private Sub SaveIndexFile(strSQLS As String)
         Dim scmdCommand As SqlCommand
@@ -27,72 +28,85 @@ Partial Class Preexistence_LoadIndexOfCell
         Dim csvCSV As LoadCSV
         Dim strSaveFileName As String
 
-        intBeford = 0
+
+        Try
 
 
+            intBeford = 0
 
-        scmdCommand = sqllSSLibrary.GetCommandStr(strSQLS, CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
-        dtIndexOfGSMCell = sqllSSLibrary.GetSQLServerDataTable(scmdCommand)
+            scmdCommand = sqllSSLibrary.GetCommandStr(strSQLS, CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
+            dtIndexOfGSMCell = sqllSSLibrary.GetSQLServerDataTable(scmdCommand)
 
-        tableHtmlTable = tbOutPut
-        thrHead = New TableHeaderRow
+            tableHtmlTable = tbOutPut
+            thrHead = New TableHeaderRow
 
-        For Each dcColoumnForHead In dtIndexOfGSMCell.Columns
-            thcHead = New TableHeaderCell
-            thcHead.Text = dcColoumnForHead.Caption
-            thcHead.BorderStyle = BorderStyle.Groove
-            thcHead.VerticalAlign = VerticalAlign.Middle
-            thcHead.HorizontalAlign = HorizontalAlign.Center
-            thcHead.Wrap = False
+            For Each dcColoumnForHead In dtIndexOfGSMCell.Columns
+                thcHead = New TableHeaderCell
+                thcHead.Text = dcColoumnForHead.Caption
+                thcHead.BorderStyle = BorderStyle.Groove
+                thcHead.VerticalAlign = VerticalAlign.Middle
+                thcHead.HorizontalAlign = HorizontalAlign.Center
+                thcHead.Wrap = False
 
-            thrHead.Cells.Add(thcHead)
-        Next
+                thrHead.Cells.Add(thcHead)
+            Next
 
-        tableHtmlTable.Rows.AddAt(0, thrHead)
+            tableHtmlTable.Rows.AddAt(0, thrHead)
 
-        intMaxDataTableCols = dtIndexOfGSMCell.Columns.Count
+            intMaxDataTableCols = dtIndexOfGSMCell.Columns.Count
 
-        For Each drLoadData In dtIndexOfGSMCell.Rows
-            If intBeford >= 10 Then
-                Exit For
-            Else
+            For Each drLoadData In dtIndexOfGSMCell.Rows
+                If intBeford >= 10 Then
+                    Exit For
+                Else
 
-                tbrContent = New TableRow
-                For i = 0 To intMaxDataTableCols - 1
-                    tbcContent = New TableCell
-                    tbcContent.Text = drLoadData.Item(i).ToString
-                    tbcContent.BorderStyle = BorderStyle.Groove
-                    tbcContent.VerticalAlign = VerticalAlign.Middle
-                    tbcContent.HorizontalAlign = HorizontalAlign.Center
-                    tbcContent.Wrap = False
-                    tbrContent.Cells.Add(tbcContent)
-                Next
-                tableHtmlTable.Rows.Add(tbrContent)
-                intBeford += 1
+                    tbrContent = New TableRow
+                    For i = 0 To intMaxDataTableCols - 1
+                        tbcContent = New TableCell
+                        tbcContent.Text = drLoadData.Item(i).ToString
+                        tbcContent.BorderStyle = BorderStyle.Groove
+                        tbcContent.VerticalAlign = VerticalAlign.Middle
+                        tbcContent.HorizontalAlign = HorizontalAlign.Center
+                        tbcContent.Wrap = False
+                        tbrContent.Cells.Add(tbcContent)
+                    Next
+                    tableHtmlTable.Rows.Add(tbrContent)
+                    intBeford += 1
+                End If
+            Next
+
+            If dtIndexOfGSMCell.Rows.Count > 10 Then
+                lblLoading.Text = "还剩余 " & dtIndexOfGSMCell.Rows.Count - 10 & " 行没有显示，请下载完整数据"
+                plForShowMessage.Visible = True
             End If
-        Next
-
-        If dtIndexOfGSMCell.Rows.Count > 10 Then
-            lblLoading.Text = "还剩余 " & dtIndexOfGSMCell.Rows.Count - 10 & " 行没有显示，请下载完整数据"
-            plForShowMessage.Visible = True
-        End If
 
 
-        strSaveFileName = Now.ToString("yyyyMMddHHmmss") & "-网格小区列表导出-" & Session("SanShiUserName") & ".csv"
+            strSaveFileName = Now.ToString("yyyyMMddHHmmss") & "-网格小区列表导出-" & Session("SanShiUserName") & ".csv"
 
-        csvCSV = New LoadCSV(Server.MapPath("/TmpFiles/") & strSaveFileName)
-        bolSaveSuccess = csvCSV.SaveASNewOne(dtIndexOfGSMCell)
-        'If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName.Substring(0, Len(strSaveFileName) - 4) & ".zip")
+            csvCSV = New LoadCSV(Server.MapPath("/TmpFiles/") & strSaveFileName)
+            bolSaveSuccess = csvCSV.SaveASNewOne(dtIndexOfGSMCell)
+            'If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName.Substring(0, Len(strSaveFileName) - 4) & ".zip")
 
-        'hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
-        'hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
-        If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName & ".zip")
+            'hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
+            'hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
+            If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName & ".zip")
 
-        hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName & ".zip"
-        hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName & ".zip"
+            hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName & ".zip"
+            hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName & ".zip"
 
-        plGoClickQuery.Visible = False
-        plDownLoadAddress.Visible = True
+            plGoClickQuery.Visible = False
+            plDownLoadAddress.Visible = True
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
+
+            End If
+
+        End Try
 
     End Sub
 
@@ -103,75 +117,88 @@ Partial Class Preexistence_LoadIndexOfCell
     Private Sub btnRunQuery_Click(sender As Object, e As EventArgs) Handles btnRunQuery.Click
         Dim bolIsHaveWord As Boolean
 
-
-        bolIsHaveWord = False
-
-        btnRunQuery.Enabled = False
-        btnRunQuery.CssClass = "form-control btn-warning"
+        Try
 
 
+            bolIsHaveWord = False
+
+            btnRunQuery.Enabled = False
+            btnRunQuery.CssClass = "form-control btn-warning"
 
 
 
-        If txtPartition.Text.Length > 0 Then
-            bolIsHaveWord = True
-        End If
-        If txtGrid.Text.Length > 0 Then
-            bolIsHaveWord = True
-        End If
-        If txtBSC.Text.Length > 0 Then
-            bolIsHaveWord = True
-        End If
-        If txtCell.Text.Length > 0 Then
-            bolIsHaveWord = True
-        End If
-        If Not bolIsHaveWord Then
-            lblWrongDate.Text = "不能不设置条件"
-            plError.Visible = True
-            plGoClickQuery.Visible = False
+
+
+            If txtPartition.Text.Length > 0 Then
+                bolIsHaveWord = True
+            End If
+            If txtGrid.Text.Length > 0 Then
+                bolIsHaveWord = True
+            End If
+            If txtBSC.Text.Length > 0 Then
+                bolIsHaveWord = True
+            End If
+            If txtCell.Text.Length > 0 Then
+                bolIsHaveWord = True
+            End If
+            If Not bolIsHaveWord Then
+                lblWrongDate.Text = "不能不设置条件"
+                plError.Visible = True
+                plGoClickQuery.Visible = False
+                plDownLoadAddress.Visible = False
+                plForShowMessage.Visible = False
+                btnRunQuery.Enabled = True
+
+                Exit Sub
+
+            End If
+
+            If ddlWhatTime.SelectedValue >= 100 Then
+                If (txtBeginDate.Text.Length <> 10 And txtEndDate.Text.Length <> 10) Then
+                    lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
+                    plError.Visible = True
+                    plGoClickQuery.Visible = False
+                    plDownLoadAddress.Visible = False
+                    plForShowMessage.Visible = False
+                    btnRunQuery.Enabled = True
+
+
+                    Exit Sub
+                End If
+                If (Not IsDateString(txtBeginDate.Text) And Not IsDateString(txtBeginDate.Text)) Then
+                    lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
+                    plError.Visible = True
+                    plGoClickQuery.Visible = False
+                    plDownLoadAddress.Visible = False
+                    plForShowMessage.Visible = False
+                    btnRunQuery.Enabled = True
+
+                    Exit Sub
+                End If
+
+
+            End If
+            lblGoClickQuery.Text = "正在处理，请耐心等候"
+
             plDownLoadAddress.Visible = False
+            plGoClickQuery.Visible = True
+            plError.Visible = False
             plForShowMessage.Visible = False
-            btnRunQuery.Enabled = True
+            btnRunQuery.Enabled = False
+            btnRunQuery.CssClass = "form-control btn-warning"
 
-            Exit Sub
+            timerGo.Enabled = True
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
 
-        End If
-
-        If ddlWhatTime.SelectedValue >= 100 Then
-            If (txtBeginDate.Text.Length <> 10 And txtEndDate.Text.Length <> 10) Then
-                lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
-                plError.Visible = True
-                plGoClickQuery.Visible = False
-                plDownLoadAddress.Visible = False
-                plForShowMessage.Visible = False
-                btnRunQuery.Enabled = True
-
-
-                Exit Sub
-            End If
-            If (Not IsDateString(txtBeginDate.Text) And Not IsDateString(txtBeginDate.Text)) Then
-                lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
-                plError.Visible = True
-                plGoClickQuery.Visible = False
-                plDownLoadAddress.Visible = False
-                plForShowMessage.Visible = False
-                btnRunQuery.Enabled = True
-
-                Exit Sub
             End If
 
-
-        End If
-        lblGoClickQuery.Text = "正在处理，请耐心等候"
-
-        plDownLoadAddress.Visible = False
-        plGoClickQuery.Visible = True
-        plError.Visible = False
-        plForShowMessage.Visible = False
-        btnRunQuery.Enabled = False
-        btnRunQuery.CssClass = "form-control btn-warning"
-
-        timerGo.Enabled = True
+        End Try
 
 
     End Sub
@@ -187,22 +214,36 @@ Partial Class Preexistence_LoadIndexOfCell
 
     Private Sub Preexistence_LoadIndexOfCell_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim liAllData As ListItem
-        If Not IsPostBack Then
-            ucUserManage.CheckPower(Session, 1, Response)
-            If CType(Session("PowerLevel"), Integer) >= 3 Then
-                liAllData = New ListItem
-                liAllData.Text = "自定义"
-                liAllData.Value = 100
-                ddlWhatTime.Items.Add(liAllData)
-                txtBeginDate.Text = "1988-12-21"
-                txtEndDate.Text = "2016-05-03"
+        Try
+
+            If Not IsPostBack Then
+                ucUserManage.CheckPower(Session, 1, Response)
+                If CType(Session("PowerLevel"), Integer) >= 3 Then
+                    liAllData = New ListItem
+                    liAllData.Text = "自定义"
+                    liAllData.Value = 100
+                    ddlWhatTime.Items.Add(liAllData)
+                    txtBeginDate.Text = "1988-12-21"
+                    txtEndDate.Text = "2016-05-03"
+                End If
             End If
-        End If
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
+
+            End If
+
+        End Try
 
     End Sub
 
     Private Function IsDateString(strInString As String) As Boolean
         Dim strTestDateString As String
+
         strTestDateString = strInString.Substring(0, 4)
         If Not IsNumeric(strTestDateString) Then
             Return False
@@ -246,88 +287,64 @@ Partial Class Preexistence_LoadIndexOfCell
         Dim bolIsHaveWord As Boolean
 
 
-
-        timerGo.Enabled = False
-
+        Try
 
 
-
-        bolIsHaveWord = False
-
-        btnRunQuery.Enabled = False
-        btnRunQuery.CssClass = "form-control btn-warning"
+            timerGo.Enabled = False
 
 
 
-        strSQLSHandel = "SELECT  * FROM [SanShi_Traffic].[dbo].[dt_GSM_Daily_Grib_Traffic] Where ( "
 
-        strPartition = txtPartition.Text.Split(",")
-        strGrib = txtGrid.Text.Split(",")
-        strBSC = txtBSC.Text.Split(",")
-        strCell = txtCell.Text.Split(",")
+            bolIsHaveWord = False
 
-        If txtPartition.Text.Length > 0 Then
-            For Each strSingleWord In strPartition
-                strSingleWord = strSingleWord.Replace(" ", "")
-                strSingleWord = strSingleWord.Replace("'", "")
-                strSQLSHandel += "[网格九分区]='" & strSingleWord & "' or "
-            Next
-            bolIsHaveWord = True
-        End If
-        If txtGrid.Text.Length > 0 Then
-            For Each strSingleWord In strGrib
-                strSingleWord = strSingleWord.Replace(" ", "")
-                strSingleWord = strSingleWord.Replace("'", "")
-                strSQLSHandel += "[网格]='" & strSingleWord & "' or "
-            Next
-            bolIsHaveWord = True
-        End If
-        If txtBSC.Text.Length > 0 Then
-            For Each strSingleWord In strBSC
-                strSingleWord = strSingleWord.Replace(" ", "")
-                strSingleWord = strSingleWord.Replace("'", "")
-                strSQLSHandel += "[Bsc(GSM_CELL)]='" & strSingleWord & "' or "
-            Next
-            bolIsHaveWord = True
-        End If
-        If txtCell.Text.Length > 0 Then
-            For Each strSingleWord In strCell
-                strSingleWord = strSingleWord.Replace(" ", "")
-                strSingleWord = strSingleWord.Replace("'", "")
-                strSQLSHandel += "[Moid(GSM_CELL)]='" & strSingleWord & "' or "
-            Next
-            bolIsHaveWord = True
-        End If
-        If bolIsHaveWord Then
-            strSQLSHandel = Left(strSQLSHandel, Len(strSQLSHandel) - 3) & ") and "
-        Else
-            lblWrongDate.Text = "不能不设置条件"
-            plError.Visible = True
-            plGoClickQuery.Visible = False
-            plDownLoadAddress.Visible = False
-            plForShowMessage.Visible = False
-            btnRunQuery.Enabled = True
-
-            Exit Sub
-
-        End If
-
-        If ddlWhatTime.SelectedValue < 100 Then
-            strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & Now.AddDays(-ddlWhatTime.SelectedValue).ToShortDateString & "' and [Datetime Id(GSM_CELL)]<='" & Now.ToShortDateString & "')"
-        Else
-            If (txtBeginDate.Text.Length <> 10 And txtEndDate.Text.Length <> 10) Then
-                lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
-                plError.Visible = True
-                plGoClickQuery.Visible = False
-                plDownLoadAddress.Visible = False
-                plForShowMessage.Visible = False
-                btnRunQuery.Enabled = True
+            btnRunQuery.Enabled = False
+            btnRunQuery.CssClass = "form-control btn-warning"
 
 
-                Exit Sub
+
+            strSQLSHandel = "SELECT  * FROM [SanShi_Traffic].[dbo].[dt_GSM_Daily_Grib_Traffic] Where ( "
+
+            strPartition = txtPartition.Text.Split(",")
+            strGrib = txtGrid.Text.Split(",")
+            strBSC = txtBSC.Text.Split(",")
+            strCell = txtCell.Text.Split(",")
+
+            If txtPartition.Text.Length > 0 Then
+                For Each strSingleWord In strPartition
+                    strSingleWord = strSingleWord.Replace(" ", "")
+                    strSingleWord = strSingleWord.Replace("'", "")
+                    strSQLSHandel += "[网格九分区]='" & strSingleWord & "' or "
+                Next
+                bolIsHaveWord = True
             End If
-            If (Not IsDateString(txtBeginDate.Text) And Not IsDateString(txtBeginDate.Text)) Then
-                lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
+            If txtGrid.Text.Length > 0 Then
+                For Each strSingleWord In strGrib
+                    strSingleWord = strSingleWord.Replace(" ", "")
+                    strSingleWord = strSingleWord.Replace("'", "")
+                    strSQLSHandel += "[网格]='" & strSingleWord & "' or "
+                Next
+                bolIsHaveWord = True
+            End If
+            If txtBSC.Text.Length > 0 Then
+                For Each strSingleWord In strBSC
+                    strSingleWord = strSingleWord.Replace(" ", "")
+                    strSingleWord = strSingleWord.Replace("'", "")
+                    strSQLSHandel += "[Bsc(GSM_CELL)]='" & strSingleWord & "' or "
+                Next
+                bolIsHaveWord = True
+            End If
+            If txtCell.Text.Length > 0 Then
+                For Each strSingleWord In strCell
+                    strSingleWord = strSingleWord.Replace(" ", "")
+                    strSingleWord = strSingleWord.Replace("'", "")
+                    strSQLSHandel += "[Moid(GSM_CELL)]='" & strSingleWord & "' or "
+                Next
+                bolIsHaveWord = True
+            End If
+            If bolIsHaveWord Then
+                strSQLSHandel = Left(strSQLSHandel, Len(strSQLSHandel) - 3) & ") and "
+            Else
+                lblWrongDate.Text = "不能不设置条件"
                 plError.Visible = True
                 plGoClickQuery.Visible = False
                 plDownLoadAddress.Visible = False
@@ -335,13 +352,50 @@ Partial Class Preexistence_LoadIndexOfCell
                 btnRunQuery.Enabled = True
 
                 Exit Sub
+
             End If
 
-            strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & txtBeginDate.Text & "' and [Datetime Id(GSM_CELL)]<='" & txtEndDate.Text & "')"
+            If ddlWhatTime.SelectedValue < 100 Then
+                strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & Now.AddDays(-ddlWhatTime.SelectedValue).ToShortDateString & "' and [Datetime Id(GSM_CELL)]<='" & Now.ToShortDateString & "')"
+            Else
+                If (txtBeginDate.Text.Length <> 10 And txtEndDate.Text.Length <> 10) Then
+                    lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
+                    plError.Visible = True
+                    plGoClickQuery.Visible = False
+                    plDownLoadAddress.Visible = False
+                    plForShowMessage.Visible = False
+                    btnRunQuery.Enabled = True
 
-        End If
 
-        SaveIndexFile(strSQLSHandel)
+                    Exit Sub
+                End If
+                If (Not IsDateString(txtBeginDate.Text) And Not IsDateString(txtBeginDate.Text)) Then
+                    lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
+                    plError.Visible = True
+                    plGoClickQuery.Visible = False
+                    plDownLoadAddress.Visible = False
+                    plForShowMessage.Visible = False
+                    btnRunQuery.Enabled = True
+
+                    Exit Sub
+                End If
+
+                strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & txtBeginDate.Text & "' and [Datetime Id(GSM_CELL)]<='" & txtEndDate.Text & "')"
+
+            End If
+
+            SaveIndexFile(strSQLSHandel)
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
+
+            End If
+
+        End Try
 
     End Sub
 End Class

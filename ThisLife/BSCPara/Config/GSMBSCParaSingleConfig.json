@@ -1,4 +1,4 @@
-[
+﻿[
   {
 "strTitle" : "BSC SAE 1153定义容量",
 "strSQLS" : "select * from dt_GSMP_BSC_Daily ",
@@ -16,5 +16,22 @@
   17,
   21
 ]}
-
+,
+  {
+"strTitle" : "6000 License 占用数",
+"strSQLS" : "select * from dt_GSMP_BSC_Daily ",
+"listOnRoad" : [
+  0,
+  7,
+  22
+]}
+,
+  {
+"strTitle" : "EDGE License 占用数",
+"strSQLS" : "select * from dt_GSMP_BSC_Daily ",
+"listOnRoad" : [
+  0,
+  5,
+  19
+]}
 ]

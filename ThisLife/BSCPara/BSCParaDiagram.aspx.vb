@@ -9,6 +9,7 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
     Dim sqllSSLibrary As LoadSQLServer = New LoadSQLServer
     Shared listBSCParaConfig As List(Of BSCParaSingleDiagram)
     Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
+    Dim ucUserManage As UserLibrary = New UserLibrary
 
 
 
@@ -26,6 +27,7 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
             btnGoFirstPage.CssClass = "btn btn-danger"
             btnGoFrontPage.CssClass = "btn btn-danger"
             Try
+                ucUserManage.CheckPower(Session, 1, Response)
 
                 dtCellParaDetailsMana = bsdlCommonLibrary.GetParameterConfig("GSM Daily Para")
                 lblLastUpdateTime.Text = dtCellParaDetailsMana.Rows(0).Item("LastUpdateTime").ToString
