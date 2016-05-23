@@ -32,10 +32,10 @@
         </security>
   </system.webServer>
   <appSettings>
-    <add key="ConnectionUserDB" value="Server=GZDWCUIBINGLONG\BERRYBCSQLSERVER;DataBase=SanShi_User;uid=sa;pwd=Nj@321" />
-    <add key="ConnectionLogDB" value="Server=GZDWCUIBINGLONG\BERRYBCSQLSERVER;DataBase=SanShi_Log;uid=sa;pwd=Nj@321" />
-    <add key="ConnectionBaseStationDetailsDB" value="Server=GZDWCUIBINGLONG\BERRYBCSQLSERVER;DataBase=SanShi_BaseSationDetails;uid=sa;pwd=Nj@321" />
-    <add key="ConnectionTrafficDB" value="Server=GZDWCUIBINGLONG\BERRYBCSQLSERVER;DataBase=SanShi_Traffic;uid=sa;pwd=Nj@321" />
+    <add key="ConnectionUserDB" value="Server=GZDWCUIBINGLONG\BERRYSQLSERVER;DataBase=SanShi_User;uid=sa;pwd=Nj@321" />
+    <add key="ConnectionLogDB" value="Server=GZDWCUIBINGLONG\BERRYSQLSERVER;DataBase=SanShi_Log;uid=sa;pwd=Nj@321" />
+    <add key="ConnectionBaseStationDetailsDB" value="Server=GZDWCUIBINGLONG\BERRYSQLSERVER;DataBase=SanShi_BaseSationDetails;uid=sa;pwd=Nj@321" />
+    <add key="ConnectionTrafficDB" value="Server=GZDWCUIBINGLONG\BERRYSQLSERVER;DataBase=SanShi_Traffic;uid=sa;pwd=Nj@321" />
     <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
   </appSettings>
 </configuration>

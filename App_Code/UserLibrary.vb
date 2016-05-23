@@ -139,7 +139,7 @@ Public Class UserLibrary
                         Return False
                     End If
                 End If
-                If ((hssSession("SanShiUserName").ToString <> "") And (hssSession("PowerLevel").ToString <> "")) Then
+                If ((hssSession("SanShiUserName").ToString <> "") And (hssSession("PowerLevel").ToString <> "") And (hssSession("PowerLevel") > 0)) Then
                     Return True
                 End If
             End If
