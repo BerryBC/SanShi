@@ -286,6 +286,11 @@ Partial Class ThisLife_MultipleLinearRegression_CountMultipleLinearRegression
         If Not IsPostBack Then
             txtResults.CssClass = "form-control"
             btnGoCount.CssClass = "btn btn-warning  form-control"
+            If CType(Session("PowerLevel"), Integer) < 9 Then
+                Response.Redirect("/JustBuilding.aspx", False)
+
+            End If
+
         End If
     End Sub
 End Class

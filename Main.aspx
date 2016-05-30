@@ -20,7 +20,7 @@
                         <div class="col-md-4">
                             <h4>GSM网格小区指标批量导出</h4>
                             <p>批量导出GSM网格小区列表信息。</p>
-                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadIndexOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
                     </div>
                 </div>
@@ -51,10 +51,9 @@
                             <p><a class="btn btn-default" href="/ThisLife/MultipleLinearRegression/CountMultipleLinearRegression.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
-                            <h4>保障期间通报发布</h4>
-                            <p>根据保障期间实时话务自动生成通报以及小区指标情况。</p>
-                            <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
+                            <h4>更新保障小区列表</h4>
+                            <p>根据站点存储的基站信息更新保障小区列表。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/RenewTheGuaranteeCellList/RenewGCellListGuide.aspx" role="button">Karma Gain »</a></p>
                         </div>
                                                 <div class="col-md-4">
                             <h4>LTE小区级参数查询</h4>

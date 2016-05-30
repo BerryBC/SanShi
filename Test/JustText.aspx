@@ -106,5 +106,14 @@
             </div>
           </div></div> </div> 
                 </div>--%>
+    <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple">
+        <asp:ListItem Text ="asdf"></asp:ListItem>
+        <asp:ListItem Text ="asdf"></asp:ListItem>
+        <asp:ListItem Text ="asdf"></asp:ListItem>
+        <asp:ListItem Text ="asdf"></asp:ListItem>
+        <asp:ListItem Text ="asdf"></asp:ListItem>
+        <asp:ListItem Text ="asdf"></asp:ListItem>
+        <asp:ListItem Text ="asdf"></asp:ListItem>
+    </asp:ListBox>
 </asp:Content>
 

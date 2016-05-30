@@ -209,8 +209,13 @@ Public Class CommonLibrary
             End If
         Next i
 
-        If dtFormat.Columns(0).ColumnName = "msc_id" And dtFormat.Columns(3).ColumnName = "BSIC" Then
-            bolIsNetworkSupport = True
+        If dtFormat.Columns.Count >= 4 Then
+
+            If dtFormat.Columns(0).ColumnName = "msc_id" And dtFormat.Columns(3).ColumnName = "BSIC" Then
+                bolIsNetworkSupport = True
+            Else
+                bolIsNetworkSupport = False
+            End If
         Else
             bolIsNetworkSupport = False
         End If
