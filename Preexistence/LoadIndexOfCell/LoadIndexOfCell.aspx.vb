@@ -89,10 +89,12 @@ Partial Class Preexistence_LoadIndexOfCell
 
             'hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
             'hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
-            If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName & ".zip")
+            'If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName & ".zip")
 
-            hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName & ".zip"
-            hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName & ".zip"
+            'hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName & ".zip"
+            'hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName & ".zip"
+            hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName
+            hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName
 
             plGoClickQuery.Visible = False
             plDownLoadAddress.Visible = True

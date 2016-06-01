@@ -55,11 +55,10 @@
                             <p>根据站点存储的基站信息更新保障小区列表。</p>
                             <p><a class="btn btn-default" href="/ThisLife/RenewTheGuaranteeCellList/RenewGCellListGuide.aspx" role="button">Karma Gain »</a></p>
                         </div>
-                                                <div class="col-md-4">
-                            <h4>LTE小区级参数查询</h4>
-                            <p>查出LTE小区级参数、修改历史。（以基站信息表信息为准）</p>
-                            <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
+                        <div class="col-md-4">
+                            <h4>基站信息表格下载</h4>
+                            <p>下载全网各类基站的信息</p>
+                            <p><a class="btn btn-default" href="/ThisLife/DownBSDetailTable/BSDetailTableDownload.aspx" role="button">Karma Gain »</a></p>
                         </div>
 
                     </div>

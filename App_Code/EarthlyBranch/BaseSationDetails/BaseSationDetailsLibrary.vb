@@ -147,7 +147,17 @@ Public Class BaseSationDetailsLibrary
             intWhereYear = strUpdateSource.IndexOf("%yyyy")
             intWhereMonth = strUpdateSource.IndexOf("%mm") - 1
             intWhereDay = strUpdateSource.IndexOf("%dd") - 2
-            strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
+
+
+
+
+            If strHeadOfSource = "载调&传输提单汇总表" Then
+                strDir = strtmpListDir.ToList
+
+            Else
+
+                strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
+            End If
             dtFormat = sqllSSLibrary.ReturnFormat(strDataTableName, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             If intMultiFile = 0 Then
                 If strDir.Count > 0 Then
@@ -175,7 +185,10 @@ Public Class BaseSationDetailsLibrary
                 '如果是Excel格式的
                 For Each strtmpFileName In strDir
                     exlExl = New LoadExcel(strtmpFileName)
-                    exlExl.GetInformation()
+                    If strHeadOfSource <> "载调&传输提单汇总表" Then
+
+                        exlExl.GetInformation()
+                    End If
                     If strIFExcelThenSheetName = "" Then
                         strIFExcelThenSheetName = exlExl.strSheets(0)
                     End If

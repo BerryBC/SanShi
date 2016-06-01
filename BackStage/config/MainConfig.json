@@ -1,6 +1,6 @@
 {
 "intHowManyDaysAgo" : 1,
-"intWhatTimeToRun" : 17,
+"intWhatTimeToRun" : 12,
 "intWhichWeedDayToRun" : 4,
 "bolIsAutoRun" : true,
 "bolRunWhenStart" : true}
