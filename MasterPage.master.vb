@@ -28,6 +28,7 @@ Partial Class MasterPage
                 Session("PowerLevel") = "0"
                 Session("SanShiUserName") = "游客"
                 lbExit.Text = "登陆/注册"
+                Response.Cookies("SanShiUserInfo").Value = Nothing
             Else
                 lblUserName.Text = Session("SanShiUserName")
 

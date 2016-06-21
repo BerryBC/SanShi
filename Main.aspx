@@ -60,6 +60,21 @@
                             <p>下载全网各类基站的信息</p>
                             <p><a class="btn btn-default" href="/ThisLife/DownBSDetailTable/BSDetailTableDownload.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>GSM载调进度查询</h4>
+                            <p>关联NAMS系统、本地生产支撑系统及现网载波数综合查询GSM载调进度。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/DownloadCarrierAdjustmentBill/DownloadCarrierAdjustmentBill.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>保障小区列表下载</h4>
+                            <p>下载曾经保障过的保障小区列表。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/DownHotSpotCellList/HotSpotDownloadGuide.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+                       <div class="col-md-4">
+                            <h4>GSM小区信息展现</h4>
+                            <p>展现GSM小区信息，包含参数、修改历史、地图等信息。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/CellInfo/GSMCellInfo.aspx" role="button">Karma Gain »</a></p>
+                        </div>
 
                     </div>
                 </div>

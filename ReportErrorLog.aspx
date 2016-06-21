@@ -87,7 +87,7 @@ function __doPostBack(eventTarget, eventArgument) {
                             </div>
                             <div class="col-sm-12">
                                 <p>
-                                    &nbsp&nbsp&nbsp&nbsp	烦请填写出错前进行的操作、状态，若能把出错发生时周边发生的事情、周边人说过的话、你所爱的人的名字、你的出生年月日一并填写是最好不过的，感谢！
+                                    &nbsp&nbsp&nbsp&nbsp	烦请填写出错前进行的操作、状态，以方便我们改进，若能把出错发生时周边发生的事情、周边人说过的话、你所爱的人的名字、你的出生年月日一并填写是最好不过的，感谢！
                                 </p>
                                 <br />
                                 <asp:TextBox runat="server" type="text" ID="txtErrorReport" class="form-control" placeholder="错误的详细情况：" TextMode="MultiLine" Height="200px" />

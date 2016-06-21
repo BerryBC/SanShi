@@ -13,14 +13,14 @@
                             1、针对某次保障的整份保障列表下载，包含整个保障期间的所有热点。</br></br>
                 </strong></br>
                            </br>
-                <p><a class="btn btn-default" href="/ThisLife/RenewTheGuaranteeCellList/RenewGCellList.aspx" role="button">全量保障小区</a></p>
+                <p><a class="btn btn-default" href="/ThisLife/DownHotSpotCellList/HotSpotDownloadByEvent.aspx" role="button">全量保障小区</a></p>
             </div>
             <div class="col-sm-6 alert alert-warning" style="text-align: center; text-align: left;">
                 </br><strong>
                             2、挑选热点下载，下载某些热点的保障小区列表。</br></br>
                 </strong></br>
                            </br>
-                <p><a class="btn btn-default" href="/ThisLife/RenewTheGuaranteeCellList/RenewGCellListWithChineseName.aspx" role="button">热点保障小区</a></p>
+                <p><a class="btn btn-default" href="/ThisLife/DownHotSpotCellList/HotSpotDownloadByHotspot.aspx" role="button">热点保障小区</a></p>
             </div>
 
 

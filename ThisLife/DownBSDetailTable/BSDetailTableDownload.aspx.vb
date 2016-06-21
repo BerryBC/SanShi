@@ -15,7 +15,7 @@ Partial Class ThisLife_DownBSDetailTable_BSDetailTableDownload
 
             btnGo.CssClass = "btn btn-warning"
             If Not IsPostBack Then
-                bolIsPowerEnough = ucUserManage.CheckPower(Session, 3, Response)
+                bolIsPowerEnough = ucUserManage.CheckPower(Session, 2, Response)
                 BindConfigData()
 
             End If
@@ -120,6 +120,7 @@ Partial Class ThisLife_DownBSDetailTable_BSDetailTableDownload
                         hlDownloadLink.NavigateUrl = "/TmpFiles/" & strFileName
                         plDownload.Visible = True
                         btnGo.Enabled = False
+
                     End If
                 Next
             End If
@@ -140,5 +141,7 @@ Partial Class ThisLife_DownBSDetailTable_BSDetailTableDownload
     Private Sub lbListOfDetails_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbListOfDetails.SelectedIndexChanged
         plDownload.Visible = False
         btnGo.Enabled = True
+
     End Sub
+
 End Class

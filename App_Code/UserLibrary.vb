@@ -135,9 +135,15 @@ Public Class UserLibrary
             If ((hssSession("SanShiUserName") <> Nothing) And (hssSession("PowerLevel") <> Nothing)) Then
                 If (hasApplication("NowUser:" & hssSession("SanShiUserName")) <> Nothing) Then
                     If (hasApplication("NowUser:" & hssSession("SanShiUserName")) <> strMachineName) Then
-
+                        hssSession("SanShiUserName") = Nothing
+                        hssSession("PowerLevel") = Nothing
                         Return False
                     End If
+                    'ElseIf (hssSession("SanShiUserName") = "游客") Then
+                    '    hssSession("SanShiUserName") = Nothing
+                    '    hssSession("PowerLevel") = Nothing
+                    '    Return False
+
                 End If
                 If ((hssSession("SanShiUserName").ToString <> "") And (hssSession("PowerLevel").ToString <> "") And (hssSession("PowerLevel") > 0)) Then
                     Return True

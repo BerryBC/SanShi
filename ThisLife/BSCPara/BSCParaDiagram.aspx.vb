@@ -28,7 +28,7 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
             btnGoFirstPage.CssClass = "btn btn-danger"
             btnGoFrontPage.CssClass = "btn btn-danger"
             Try
-                ucUserManage.CheckPower(Session, 1, Response)
+                ucUserManage.CheckPower(Session, 2, Response)
 
                 dtCellParaDetailsMana = bsdlCommonLibrary.GetParameterConfig("GSM Daily Para")
                 lblLastUpdateTime.Text = dtCellParaDetailsMana.Rows(0).Item("LastUpdateTime").ToString

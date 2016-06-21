@@ -25,14 +25,15 @@
                         </strong></br>
                            </br>
                            <asp:Button ID="btnGo" runat="server" Text="下载" class="btn btn-warning" />
-
+                        </br>
+                           </br>
 
 
                     </div>
-                    <div class="col-sm-12 alert alert-success" style="text-align: center; margin-top: 20px">
+                    <div class="col-sm-12" style="text-align: center; margin-top: 20px">
 
                         <asp:Panel ID="plDownload" runat="server" Visible="false">
-                            <div style="text-align: center;">
+                            <div style="text-align: center;" class ="alert alert-success">
                                 </br>
                             下载地址为：<asp:HyperLink ID="hlDownloadLink" runat="server"></asp:HyperLink></br>
                            </br>
