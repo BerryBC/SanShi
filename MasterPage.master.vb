@@ -33,6 +33,7 @@ Partial Class MasterPage
                 lblUserName.Text = Session("SanShiUserName")
 
             End If
+            ucUserManage.LogUserURL(Session("SanShiUserName"), Request.Url.Host.ToString & Request.Url.PathAndQuery.ToString, Now)
         End If
 
     End Sub

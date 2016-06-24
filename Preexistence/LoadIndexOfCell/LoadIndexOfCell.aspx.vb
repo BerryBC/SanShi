@@ -143,6 +143,10 @@ Partial Class Preexistence_LoadIndexOfCell
             If txtCell.Text.Length > 0 Then
                 bolIsHaveWord = True
             End If
+            If txtBaseName.Text.Length > 0 Then
+                bolIsHaveWord = True
+            End If
+
             If Not bolIsHaveWord Then
                 lblWrongDate.Text = "不能不设置条件"
                 plError.Visible = True
@@ -284,6 +288,7 @@ Partial Class Preexistence_LoadIndexOfCell
         Dim strGrib() As String
         Dim strBSC() As String
         Dim strCell() As String
+        Dim strBaseName() As String
         Dim strSQLSHandel As String
         Dim strSingleWord As String
         Dim bolIsHaveWord As Boolean
@@ -310,6 +315,7 @@ Partial Class Preexistence_LoadIndexOfCell
             strGrib = txtGrid.Text.Split(",")
             strBSC = txtBSC.Text.Split(",")
             strCell = txtCell.Text.Split(",")
+            strBaseName = txtBaseName.Text.Split(",")
 
             If txtPartition.Text.Length > 0 Then
                 For Each strSingleWord In strPartition
@@ -343,6 +349,15 @@ Partial Class Preexistence_LoadIndexOfCell
                 Next
                 bolIsHaveWord = True
             End If
+            If txtBaseName.Text.Length > 0 Then
+                For Each strSingleWord In strBaseName
+                    strSingleWord = strSingleWord.Replace(" ", "")
+                    strSingleWord = strSingleWord.Replace("'", "")
+                    strSQLSHandel += "[小区名]='" & strSingleWord & "' or "
+                Next
+                bolIsHaveWord = True
+            End If
+
             If bolIsHaveWord Then
                 strSQLSHandel = Left(strSQLSHandel, Len(strSQLSHandel) - 3) & ") and "
             Else

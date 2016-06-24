@@ -28,6 +28,13 @@
                             <td>&nbsp&nbsp小区&nbsp:&nbsp &nbsp&nbsp
                             <asp:TextBox ID="txtCell" runat="server"></asp:TextBox></td>
                         </tr>
+                                                <tr>
+                            <td>&nbsp&nbsp 基站中文名&nbsp:&nbsp
+                            <asp:TextBox ID="txtBaseName" runat="server"></asp:TextBox></td>
+                            <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp &nbsp&nbsp
+                            </td>
+                        </tr>
+
                         <tr style="text-align: center; align-items: center;">
                             <td style="text-align: center; align-items: center;">
                                 <div style="text-align: center; align-items: center;">

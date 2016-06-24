@@ -416,6 +416,44 @@ Public Class UserLibrary
     End Function
 
 
+    Public Function LogUserURL(strUserName As String, strURL As String, dateNow As Date) As Boolean
+        Dim scmdCMD As SqlCommand
+        Dim spName As SqlParameter
+        Dim spURL As SqlParameter
+        Dim spNow As SqlParameter
+        Dim intQueryCount As Integer
+
+        Try
+
+            scmdCMD = sqllSSLibrary.GetCommandProc("proc_LogUserURL", CommonLibrary.GetSQLServerConnect("ConnectionLogDB"))
+
+
+            spName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
+            spNow = New SqlParameter("@CurTime", SqlDbType.DateTime)
+            spURL = New SqlParameter("@URL", SqlDbType.VarChar, 200)
+
+            spName.Value = strUserName
+            spURL.Value = strURL
+            spNow.Value = dateNow
+
+            scmdCMD.Parameters.Add(spName)
+            scmdCMD.Parameters.Add(spURL)
+            scmdCMD.Parameters.Add(spNow)
+
+            intQueryCount = sqllSSLibrary.ExecNonQueryAndReturn(scmdCMD)
+        Catch ex As Exception
+            Throw New Exception(ex.Message, ex)
+            scmdCMD.Dispose()
+            scmdCMD = Nothing
+
+        End Try
+        If intQueryCount > 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
 
 
 
