@@ -149,6 +149,13 @@
                             <p>修改及查看每天例行P查什么数</p>
                             <p><a class="btn btn-default" href="/EarthlyBranch/BSDetails/GSMParaConfigPage.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>用户浏览过哪些网页信息</h4>
+                            <p>查看用户浏览过的URL信息</p>
+                            <p style="color: red;">（仍在建设中） </p>
+
+                            <p><a class="btn btn-default" href="/EarthlyBranch/LogViewer/TrackUserURL.aspx" role="button">Karma Gain »</a></p>
+                        </div>
 
                     </div>
                 </div>
