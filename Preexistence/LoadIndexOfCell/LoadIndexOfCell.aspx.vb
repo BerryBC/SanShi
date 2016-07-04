@@ -10,6 +10,7 @@ Partial Class Preexistence_LoadIndexOfCell
     Dim ucUserManage As UserLibrary = New UserLibrary
     Dim sqllSSLibrary As LoadSQLServer = New LoadSQLServer
     Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
+    Dim gsmioclLibrary As GSMIndexOfCellLibrary = New GSMIndexOfCellLibrary
 
     Private Sub SaveIndexFile(strSQLS As String)
         Dim scmdCommand As SqlCommand
@@ -373,7 +374,7 @@ Partial Class Preexistence_LoadIndexOfCell
             End If
 
             If ddlWhatTime.SelectedValue < 100 Then
-                strSQLSHandel += " ([Day]>='" & Now.AddDays(-ddlWhatTime.SelectedValue).ToShortDateString & "' and [Day]<='" & Now.ToShortDateString & "')"
+                strSQLSHandel += " ([Day]>='" & gsmioclLibrary.GetGSMIndexMaxDate().AddDays(-ddlWhatTime.SelectedValue + 1).ToShortDateString & "' and [Day]<='" & gsmioclLibrary.GetGSMIndexMaxDate().ToShortDateString & "')"
             Else
                 If (txtBeginDate.Text.Length <> 10 And txtEndDate.Text.Length <> 10) Then
                     lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
