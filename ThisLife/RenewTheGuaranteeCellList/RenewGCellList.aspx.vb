@@ -72,6 +72,8 @@ Partial Class ThisLife_RenewTheGuaranteeCellList_RenewGCellList
         Try
 
             If Not IsPostBack Then
+                ucUserManage.CheckPower(Session, 2, Response)
+
                 txtLogMessage.Text = ""
                 plDownload.Visible = False
                 plUpdating.Visible = False

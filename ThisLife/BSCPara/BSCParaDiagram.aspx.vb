@@ -155,13 +155,16 @@ Partial Class ThisLife_BSCPara_BSCParaDiagram
             dtSortData.Columns.Add(New System.Data.DataColumn("Percent", GetType(Double)))
 
             For Each drDataInDataTable In dtBaseSationDetailsMana.Rows
-                drSortDataRow = dtSortData.NewRow
-                drSortDataRow.Item(0) = drDataInDataTable(0)
-                drSortDataRow.Item(1) = drDataInDataTable(listOnRoad(1))
-                drSortDataRow.Item(2) = drDataInDataTable(listOnRoad(2))
-                drSortDataRow.Item(3) = drDataInDataTable(listOnRoad(1)) - drDataInDataTable(listOnRoad(2))
-                drSortDataRow.Item(4) = HowMuchNowUseOfPercent(drDataInDataTable(listOnRoad(2)), drDataInDataTable(listOnRoad(1)))
-                dtSortData.Rows.Add(drSortDataRow)
+                If Not IsDBNull(drDataInDataTable(listOnRoad(1))) And Not IsDBNull(drDataInDataTable(listOnRoad(2))) Then
+                    drSortDataRow = dtSortData.NewRow
+                    drSortDataRow.Item(0) = drDataInDataTable(0)
+                    drSortDataRow.Item(1) = drDataInDataTable(listOnRoad(1))
+                    drSortDataRow.Item(2) = drDataInDataTable(listOnRoad(2))
+                    drSortDataRow.Item(3) = drDataInDataTable(listOnRoad(1)) - drDataInDataTable(listOnRoad(2))
+                    drSortDataRow.Item(4) = HowMuchNowUseOfPercent(drDataInDataTable(listOnRoad(2)), drDataInDataTable(listOnRoad(1)))
+                    dtSortData.Rows.Add(drSortDataRow)
+
+                End If
             Next
 
             intWhatNowPage = intGoPage

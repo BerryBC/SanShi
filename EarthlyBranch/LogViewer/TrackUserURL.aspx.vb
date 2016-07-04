@@ -20,6 +20,14 @@ Partial Class EarthlyBranch_LogViewer_TrackUserURL
                 BindDataOfUserURLLog()
 
             Catch ex As Exception
+                If Session("SanShiUserName") Is Nothing Then
+                    erlErrorReport.ReportServerError(29, "", ex.Message, Now)
+                    Response.Redirect("/ReportErrorLog.aspx?ep=29&eu=" & "")
+                Else
+                    erlErrorReport.ReportServerError(29, Session("SanShiUserName"), ex.Message, Now)
+                    Response.Redirect("/ReportErrorLog.aspx?ep=29&eu=" & Session("SanShiUserName"))
+
+                End If
 
             End Try
 
@@ -106,7 +114,14 @@ Partial Class EarthlyBranch_LogViewer_TrackUserURL
 
 
         Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(29, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=29&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(29, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=29&eu=" & Session("SanShiUserName"))
 
+            End If
 
         End Try
 

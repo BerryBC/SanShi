@@ -12,7 +12,7 @@ Public Class GSMIndexOfCellLibrary
         Dim dtGSMIndexOfCell As DataTable
         Dim dateMaxDate As Date
         Try
-            scmdCMD = sqllSSLibrary.GetCommandStr("SELECT max( [Datetime Id(GSM_CELL)])  FROM dt_GSM_Daily_Grib_Traffic", CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
+            scmdCMD = sqllSSLibrary.GetCommandStr("SELECT max( [Day])  FROM dt_GSM_Daily_Grib_Traffic", CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
             dtGSMIndexOfCell = sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
             If (dtGSMIndexOfCell.Rows(0).Item(0) IsNot Nothing) And (dtGSMIndexOfCell.Rows(0).Item(0) IsNot DBNull.Value) Then
 

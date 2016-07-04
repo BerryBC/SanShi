@@ -12,6 +12,26 @@ Partial Class MasterPage
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
+
+    End Sub
+
+    Protected Sub lbExit_Click(sender As Object, e As EventArgs) Handles lbExit.Click
+        If ((Session("SanShiUserName") <> Nothing) Or (Session("PowerLevel") <> Nothing)) Then
+
+            Session("SanShiUserName") = Nothing
+            Session("PowerLevel") = Nothing
+
+        End If
+        If (Response.Cookies("SanShiUserInfo") Is Nothing) Then
+            Response.Cookies("SanShiUserInfo").Value = Nothing
+
+        End If
+
+        Response.Redirect("/Login.aspx")
+
+    End Sub
+
+    Private Sub MasterPage_Init(sender As Object, e As EventArgs) Handles Me.Init
         Dim bolIsGoInside As Boolean
         If Session("PowerLevel") IsNot Nothing Then
             If Session("PowerLevel") = "0" Then
@@ -37,23 +57,5 @@ Partial Class MasterPage
         End If
 
     End Sub
-
-    Protected Sub lbExit_Click(sender As Object, e As EventArgs) Handles lbExit.Click
-        If ((Session("SanShiUserName") <> Nothing) Or (Session("PowerLevel") <> Nothing)) Then
-
-            Session("SanShiUserName") = Nothing
-            Session("PowerLevel") = Nothing
-
-        End If
-        If (Response.Cookies("SanShiUserInfo") Is Nothing) Then
-            Response.Cookies("SanShiUserInfo").Value = Nothing
-
-        End If
-
-        Response.Redirect("/Login.aspx")
-
-    End Sub
-
-
 End Class
 

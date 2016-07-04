@@ -373,7 +373,7 @@ Partial Class Preexistence_LoadIndexOfCell
             End If
 
             If ddlWhatTime.SelectedValue < 100 Then
-                strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & Now.AddDays(-ddlWhatTime.SelectedValue).ToShortDateString & "' and [Datetime Id(GSM_CELL)]<='" & Now.ToShortDateString & "')"
+                strSQLSHandel += " ([Day]>='" & Now.AddDays(-ddlWhatTime.SelectedValue).ToShortDateString & "' and [Day]<='" & Now.ToShortDateString & "')"
             Else
                 If (txtBeginDate.Text.Length <> 10 And txtEndDate.Text.Length <> 10) Then
                     lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
@@ -397,7 +397,7 @@ Partial Class Preexistence_LoadIndexOfCell
                     Exit Sub
                 End If
 
-                strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & txtBeginDate.Text & "' and [Datetime Id(GSM_CELL)]<='" & txtEndDate.Text & "')"
+                strSQLSHandel += " ([Day]>='" & txtBeginDate.Text & "' and [Day]<='" & txtEndDate.Text & "')"
 
             End If
 
