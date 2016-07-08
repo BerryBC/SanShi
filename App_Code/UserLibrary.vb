@@ -128,6 +128,8 @@ Public Class UserLibrary
         Dim spName As SqlParameter
         Dim dtUserLevelAndMachineName As DataTable
         Dim strDBMachineName As String
+        Dim strMD5MachineName As String
+
 
         Try
 
@@ -160,9 +162,10 @@ Public Class UserLibrary
                     scmdCMD.Parameters.Add(spName)
                     sqllSSLibrary.ExecNonQuery(scmdCMD)
                     dtUserLevelAndMachineName = sqllSSLibrary.GetSQLServerDataTable(scmdCMD)
-                    strDBMachineName = clCommon.StringTranscodingToMD5(strMachineName)
+                    strDBMachineName = clCommon.StringTranscodingToMD5(dtUserLevelAndMachineName.Rows(0)("LastMachineName").ToString)
+                    strMD5MachineName = clCommon.StringTranscodingToMD5(strMachineName)
 
-                    If hccCookies("MachineName").ToString = strDBMachineName Then
+                    If strMD5MachineName = strDBMachineName Then
                         hssSession("SanShiUserName") = hccCookies("SanShiUserName").ToString
                         hssSession("PowerLevel") = dtUserLevelAndMachineName.Rows(0)("PowerLevel").ToString
                         hasApplication("NowUser:" & hssSession("SanShiUserName")) = strMachineName

@@ -92,7 +92,7 @@ Partial Class ThisLife_CellInfo_GSMCellInfo
             strID = GSMCellInfoLibrary.GetIDByEnglishName(strCell)
             dateWhatDate = gsmioclLibrary.GetGSMIndexMaxDate
 
-            strSQLSHandel = "SELECT  * FROM [SanShi_Traffic].[dbo].[dt_GSM_Daily_Grib_Traffic] Where ( [ID]='" & strID & "' and [Datetime Id(GSM_CELL)]>='" & dateWhatDate.AddDays(-10).ToShortDateString & "') order by [Datetime Id(GSM_CELL)] desc"
+            strSQLSHandel = "SELECT  * FROM [SanShi_Traffic].[dbo].[dt_GSM_Daily_Grib_Traffic] Where ( [ID]='" & strID & "' and [Day]>='" & dateWhatDate.AddDays(-10).ToShortDateString & "') order by [Day] desc"
             scmdCommand = sqllSSLibrary.GetCommandStr(strSQLSHandel, CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
             dtIndexOfGSMCell = sqllSSLibrary.GetSQLServerDataTable(scmdCommand)
 

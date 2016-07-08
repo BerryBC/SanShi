@@ -30,7 +30,7 @@ Partial Class Login
 
         If (txtUserName.Text.Trim <> "" And txtPassword.Text.Trim <> "") Then
             Try
-                dtUserDetail = ucUserManage.UserLoginCheck(txtUserName.Text, txtPassword.Text, Request.UserAgent.ToString)
+                dtUserDetail = ucUserManage.UserLoginCheck(txtUserName.Text, txtPassword.Text, clCommon.strGetIp)
             Catch ex As Exception
                 If Session("SanShiUserName") Is Nothing Then
                     erlErrorReport.ReportServerError(1, "", ex.Message, Now)
@@ -48,14 +48,14 @@ Partial Class Login
             If (dtUserDetail.Rows.Count > 0) Then
                 Session("SanShiUserName") = dtUserDetail.Rows(0)("UserName").ToString
                 Session("PowerLevel") = dtUserDetail.Rows(0)("PowerLevel").ToString
-                Application("NowUser:" & dtUserDetail.Rows(0)("UserName").ToString) = Request.UserAgent.ToString
+                Application("NowUser:" & dtUserDetail.Rows(0)("UserName").ToString) = clCommon.strGetIp
 
 
                 If cbRemember.Checked = True Then
 
                     hcCookie = New HttpCookie("SanShiUserInfo")
                     hcCookie.Values.Add("SanShiUserName", dtUserDetail.Rows(0)("UserName").ToString)
-                    hcCookie.Values.Add("MachineName", clCommon.StringTranscodingToMD5(Request.UserAgent.ToString).ToString)
+                    hcCookie.Values.Add("MachineName", clCommon.StringTranscodingToMD5(clCommon.strGetIp).ToString)
                     hcCookie.Expires = DateTime.MaxValue
                     Response.AppendCookie(hcCookie)
                 End If

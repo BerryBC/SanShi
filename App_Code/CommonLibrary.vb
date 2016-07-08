@@ -395,4 +395,16 @@ Public Class CommonLibrary
 
     End Function
 
+
+    Public Function strGetIp() As String
+
+        If (System.Web.HttpContext.Current.Request.ServerVariables("HTTP_VIA") IsNot Nothing) Then
+            Return Split(System.Web.HttpContext.Current.Request.ServerVariables("HTTP_X_FORWARDED_FOR"), ",")(0)
+        Else
+            Return System.Web.HttpContext.Current.Request.ServerVariables("REMOTE_ADDR")
+        End If
+
+    End Function
+
+
 End Class

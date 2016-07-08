@@ -42,7 +42,7 @@ Partial Class MasterPage
         End If
 
         If Not IsPostBack Then
-            bolIsGoInside = ucUserManage.GetInOrGetOut(Session, Request.Cookies.Get("SanShiUserInfo"), Request.UserAgent.ToString, Application)
+            bolIsGoInside = ucUserManage.GetInOrGetOut(Session, Request.Cookies.Get("SanShiUserInfo"), clCommon.strGetIp, Application)
             If Not bolIsGoInside Then
                 lblUserName.Text = "游客"
                 Session("PowerLevel") = "0"
