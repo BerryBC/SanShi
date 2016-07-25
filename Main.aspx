@@ -75,6 +75,11 @@
                             <p>展现GSM小区信息，包含参数、修改历史、地图等信息。</p>
                             <p><a class="btn btn-default" href="/ThisLife/CellInfo/GSMCellInfo.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>服务器文件下载</h4>
+                            <p>下载服务器上固定目录的文件。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/DownBSDetailTable/DownloadServerFiles.aspx" role="button">Karma Gain »</a></p>
+                        </div>
 
                     </div>
                 </div>

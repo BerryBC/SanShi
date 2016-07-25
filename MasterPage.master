@@ -12,15 +12,11 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <script src="<%=ResolveClientUrl("~/JS/jquery.min.js")%>" type="text/javascript"></script>
     <script src="<%=ResolveClientUrl("~/JS/bootstrap.min.js")%>" type="text/javascript"></script>
-
-
-
-
-
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="renderer" content="webkit" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
+    <title>三世书-自前世的爱</title>
+    <link rel="shortcut icon" href="/IMG/pTitle.ico">
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
