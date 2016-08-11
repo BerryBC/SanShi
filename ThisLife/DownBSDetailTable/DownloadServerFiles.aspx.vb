@@ -14,7 +14,7 @@ Partial Class ThisLife_DownBSDetailTable_DownloadServerFiles
 
             btnGo.CssClass = "btn btn-warning"
             If Not IsPostBack Then
-                bolIsPowerEnough = ucUserManage.CheckPower(Session, 0, Response)
+                bolIsPowerEnough = ucUserManage.CheckPower(Session, 4, Response)
                 BindConfigData()
 
             End If
