@@ -16,8 +16,6 @@
   text-transform: uppercase; 
 }
 
-
-
 .navbar-default {
   background-color: #821470;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
@@ -38,7 +36,8 @@
   color: #efefef;
   line-height: normal;
   text-decoration: none;
-  text-transform: uppercase; }
+  text-transform: uppercase; 
+  opacity:1;}
 
 .navbar-default .navbar-nav > li > a {
   color: #fff;
@@ -165,7 +164,7 @@ html{
  * Sections     			*
  ****************************/
 section {
-  padding: 20px; }
+  padding: 10px; }
 
 .contactus {
   background: #f9f9f9; }

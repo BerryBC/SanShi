@@ -1,0 +1,144 @@
+.search-box {
+    position: relative;
+    float: left;
+    width: 30%;
+    padding: 14px 15px 12px 30px;
+    border: none;
+    z-index: 90;
+    opacity: 1;
+}
+
+    .search-box input {
+        padding: 0px 0px 0px 0px;
+        border-radius: 4px;
+        font-size: 14px;
+        z-index: 100;
+        border: none;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-family: Helvetica, "Microsoft Yahei UI";
+        height: 24px;
+        opacity: 1;
+    }
+
+#KeywordDiv {
+    font-family: Helvetica, "Microsoft Yahei UI";
+}
+
+    #KeywordDiv .WantKW {
+        border-radius: 4px;
+        width: 40%;
+        height: 40px;
+        font-size: 16px;
+        padding-left: 6px;
+        border: 1px solid #ccc;
+    }
+
+
+    #KeywordDiv .InputDIV {
+        height: auto;
+        font-size: 18px;
+        text-align: left;
+        padding-bottom: 20px;
+        font-family: Helvetica, "Microsoft Yahei UI";
+    }
+
+#ShowResult {
+    font-family: Helvetica, "Microsoft Yahei UI";
+}
+
+.NOPage {
+    margin-top: 20px;
+    font-size: small;
+    font-family: Helvetica, "Microsoft Yahei UI";
+    text-align: left;
+    display: none;
+}
+
+    .NOPage .btn {
+        margin: 3px;
+        background-color: lightpink;
+    }
+
+
+    .NOPage #ContentPage .Chosen {
+        background-color: darkmagenta;
+        color: lavenderblush;
+    }
+
+.ShowResultCount {
+    margin-top: 20px;
+    font-size: small;
+    font-family: Helvetica, "Microsoft Yahei UI";
+    color: #808080;
+    text-align: right;
+    display: none;
+}
+
+.CannotFind {
+    font-family: Helvetica, "Microsoft Yahei UI";
+    margin-top: 20px;
+}
+
+#ShowResult .ShowEveryResultInfo {
+    padding-top: 20px;
+    text-align: left;
+    width: 60%;
+}
+
+    #ShowResult .ShowEveryResultInfo .ResultHead {
+        font-size: 18px;
+        line-height: 1.2;
+        white-space: nowrap;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        #ShowResult .ShowEveryResultInfo .ResultHead em {
+            color: #EA4335;
+            font-style: normal;
+        }
+
+        #ShowResult .ShowEveryResultInfo .ResultHead a {
+            color: #1a0dab;
+        }
+
+
+            #ShowResult .ShowEveryResultInfo .ResultHead a:visited {
+                color: #609;
+            }
+
+    #ShowResult .ShowEveryResultInfo .ResultContent {
+        font-weight: normal;
+        color: #545454;
+        animation: none;
+        word-wrap: break-word;
+        line-height: 1.8;
+        font-family: Helvetica, "Microsoft Yahei UI";
+        font-size: 13.5px;
+    }
+
+        #ShowResult .ShowEveryResultInfo .ResultContent em {
+            color: #EA4335;
+            font-style: normal;
+        }
+
+    #ShowResult .ShowEveryResultInfo .ResultLink {
+        font-weight: normal;
+        line-height: 16px;
+        white-space: nowrap;
+        font-style: normal;
+        color: #006621;
+        font-size: 13px;
+        font-family: Helvetica, "Microsoft Yahei UI";
+        margin-top: auto;
+        line-height: 1.65;
+    }
+
+        #ShowResult .ShowEveryResultInfo .ResultLink .QuoteFrom {
+            font-size: 13px;
+            cursor: auto;
+            text-decoration: none;
+            color: #666;
+            font-family: Helvetica, "Microsoft Yahei UI";
+        }

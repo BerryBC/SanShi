@@ -99,6 +99,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="wow bounceInLeft" data-wow-delay="0.1s">
+                        <h2 style="border-bottom-style: groove;">英格瑞斯 ( Ingress )</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-md-4">
+                            <h4>工作地预测</h4>
+                            <p>预测用户工作的地方。</p>
+                            <p style="color: red;">（仍在建设中） </p>
+                            <p><a class="btn btn-default" href="/Ingress/WorkPlace/GuessWorkPlace.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+                    </div>
+                </div>
+
+
                 <asp:Panel ID="plMana" runat="server" Visible ="false" >
 
 

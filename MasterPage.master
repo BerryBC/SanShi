@@ -10,8 +10,11 @@
     <link href="css/dashboard.css" rel="stylesheet" type="text/css" />
     <link href="css/animate.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/SanShiSearch.css" rel="stylesheet" type="text/css" />
+
     <script src="<%=ResolveClientUrl("~/JS/jquery.min.js")%>" type="text/javascript"></script>
     <script src="<%=ResolveClientUrl("~/JS/bootstrap.min.js")%>" type="text/javascript"></script>
+    <script src="<%=ResolveClientUrl("~/JS/MasterJS.js")%>" type="text/javascript"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="renderer" content="webkit" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -32,7 +35,9 @@
 
                         <div class="navbar-brand">
                             <a href="/main.aspx">三世书</a>
+
                         </div>
+
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dropdown-box-1" aria-expanded="false" aria-controls="navbar">
                                 <span class="sr-only">Toggle navigation</span>
@@ -42,16 +47,20 @@
                             </button>
                         </div>
                     </div>
+                    <div class="search-box">
 
+                        <input id="SearchKW" value="" type="text" maxlength="255" placeholder="紧张的搜索引擎" autocomplete="off"  onkeypress="IsPressEnter(event)" />
+
+                    </div>
                     <!-- Collect the nav links and other content for toggling -->
                     <div class="collapse navbar-collapse navbar-right" id="dropdown-box-1">
 
-                        <ul class="nav navbar-nav">
-                            <li><a href="/HeavenlyStem/UserManagement/SelfUserManagement.aspx">当前用户名为 :
+                        <ul class="nav navbar-nav" style="z-index: 10">
+                            <li style="z-index: 10"><a href="/HeavenlyStem/UserManagement/SelfUserManagement.aspx">当前用户名为 :
                                 <asp:Label ID="lblUserName" runat="server" Text="Label"></asp:Label></a></li>
-                            <li><a href="/main.aspx">目录</a></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbExit" runat="server" Text="退出"></asp:LinkButton></li>
+                            <li style="z-index: 10"><a href="/main.aspx">目录</a></li>
+                            <li style="z-index: 10">
+                                <asp:LinkButton ID="lbExit" runat="server" Text="退出"></asp:LinkButton></li>
                         </ul>
                     </div>
 
@@ -60,28 +69,15 @@
             </nav>
             <!-- /.nav -->
         </header>
-
-
         <div style="text-align: center">
-            <table>
 
-
-                <tr style="height: 50px;">
-                </tr>
-            </table>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
             <table>
-
-
                 <tr style="height: 50px;">
                 </tr>
             </table>
-
         </div>
-
-
-
         <!-- footer -->
         <footer id="section-footer" class="fadeIn">
             <div class="container">
@@ -122,17 +118,6 @@
             </div>
         </footer>
         <!-- /.footer -->
-
-
-
     </form>
-
-
-
-
-
-
-
-
 </body>
 </html>

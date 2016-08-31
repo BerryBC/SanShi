@@ -66,10 +66,10 @@ Partial Class EarthlyBranch_LogViewer_TrackUserURL
 
             '加上对逗号的区分
             liststrFilterEle = txtSearchWhat.Text.Replace("，", ",").Split(",").ToList
-            If liststrFilterEle.Count > 0 Then strFilterSQL += " where "
+            If liststrFilterEle.Count > 0 Then strFilterSQL += " where [User_ID] not like 'Berry' and"
 
             For Each strtmpFilterSQL In liststrFilterEle
-                strFilterSQL += "[User_ID] like '%" & strtmpFilterSQL & "%' or "
+                strFilterSQL += " [User_ID] like '%" & strtmpFilterSQL & "%' or "
             Next
 
             strFilterSQL = strFilterSQL.Substring(0, strFilterSQL.Length - 3)
