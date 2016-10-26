@@ -90,74 +90,76 @@ Partial Class ThisLife_CellInfo_GSMCellInfo
 
 
             strID = GSMCellInfoLibrary.GetIDByEnglishName(strCell)
-            dateWhatDate = gsmioclLibrary.GetGSMIndexMaxDate
+            '-------------不查看业务了---------------
+            ' dateWhatDate = gsmioclLibrary.GetGSMIndexMaxDate
 
-            strSQLSHandel = "SELECT  * FROM [SanShi_Traffic].[dbo].[dt_GSM_Daily_Grib_Traffic] Where ( [ID]='" & strID & "' and [Day]>='" & dateWhatDate.AddDays(-10).ToShortDateString & "') order by [Day] desc"
-            scmdCommand = sqllSSLibrary.GetCommandStr(strSQLSHandel, CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
-            dtIndexOfGSMCell = sqllSSLibrary.GetSQLServerDataTable(scmdCommand)
+            ' strSQLSHandel = "SELECT  * FROM [SanShi_Traffic].[dbo].[dt_GSM_Daily_Grib_Traffic] Where ( [ID]='" & strID & "' and [Day]>='" & dateWhatDate.AddDays(-10).ToShortDateString & "') order by [Day] desc"
+            ' scmdCommand = sqllSSLibrary.GetCommandStr(strSQLSHandel, CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
+            ' dtIndexOfGSMCell = sqllSSLibrary.GetSQLServerDataTable(scmdCommand)
 
-            tableHtmlTable = tbOutPutIndicators
-            thrHead = New TableHeaderRow
+            ' tableHtmlTable = tbOutPutIndicators
+            ' thrHead = New TableHeaderRow
 
-            intMaxDataTableCols = dtIndexOfGSMCell.Columns.Count
+            ' intMaxDataTableCols = dtIndexOfGSMCell.Columns.Count
 
-            If dtIndexOfGSMCell.Rows.Count > 0 Then
+            ' If dtIndexOfGSMCell.Rows.Count > 0 Then
 
-                bolIsHave = True
+            '     bolIsHave = True
 
-                For Each dcColoumnForHead In dtIndexOfGSMCell.Columns
-                    thcHead = New TableHeaderCell
-                    thcHead.Text = dcColoumnForHead.Caption
-                    thcHead.BorderStyle = BorderStyle.Groove
-                    thcHead.VerticalAlign = VerticalAlign.Middle
-                    thcHead.HorizontalAlign = HorizontalAlign.Left
-                    thcHead.Wrap = False
+            '     For Each dcColoumnForHead In dtIndexOfGSMCell.Columns
+            '         thcHead = New TableHeaderCell
+            '         thcHead.Text = dcColoumnForHead.Caption
+            '         thcHead.BorderStyle = BorderStyle.Groove
+            '         thcHead.VerticalAlign = VerticalAlign.Middle
+            '         thcHead.HorizontalAlign = HorizontalAlign.Left
+            '         thcHead.Wrap = False
 
-                    thrHead.Cells.Add(thcHead)
-                Next
+            '         thrHead.Cells.Add(thcHead)
+            '     Next
 
-                tableHtmlTable.Rows.AddAt(0, thrHead)
+            '     tableHtmlTable.Rows.AddAt(0, thrHead)
 
 
-                For Each drLoadData In dtIndexOfGSMCell.Rows
+            '     For Each drLoadData In dtIndexOfGSMCell.Rows
 
-                    tbrContent = New TableRow
-                    For intI = 0 To intMaxDataTableCols - 1
-                        tbcContent = New TableCell
-                        tbcContent.Text = drLoadData.Item(intI).ToString
-                        tbcContent.BorderStyle = BorderStyle.Groove
-                        tbcContent.VerticalAlign = VerticalAlign.Middle
-                        tbcContent.HorizontalAlign = HorizontalAlign.Left
-                        tbcContent.Wrap = False
-                        tbrContent.Cells.Add(tbcContent)
-                    Next
-                    tableHtmlTable.Rows.Add(tbrContent)
-                Next
-            Else
-                For Each dcColoumnForHead In dtIndexOfGSMCell.Columns
-                    thcHead = New TableHeaderCell
-                    thcHead.Text = dcColoumnForHead.Caption
-                    thcHead.BorderStyle = BorderStyle.Groove
-                    thcHead.VerticalAlign = VerticalAlign.Middle
-                    thcHead.HorizontalAlign = HorizontalAlign.Left
-                    thcHead.Wrap = False
+            '         tbrContent = New TableRow
+            '         For intI = 0 To intMaxDataTableCols - 1
+            '             tbcContent = New TableCell
+            '             tbcContent.Text = drLoadData.Item(intI).ToString
+            '             tbcContent.BorderStyle = BorderStyle.Groove
+            '             tbcContent.VerticalAlign = VerticalAlign.Middle
+            '             tbcContent.HorizontalAlign = HorizontalAlign.Left
+            '             tbcContent.Wrap = False
+            '             tbrContent.Cells.Add(tbcContent)
+            '         Next
+            '         tableHtmlTable.Rows.Add(tbrContent)
+            '     Next
+            ' Else
+            '     For Each dcColoumnForHead In dtIndexOfGSMCell.Columns
+            '         thcHead = New TableHeaderCell
+            '         thcHead.Text = dcColoumnForHead.Caption
+            '         thcHead.BorderStyle = BorderStyle.Groove
+            '         thcHead.VerticalAlign = VerticalAlign.Middle
+            '         thcHead.HorizontalAlign = HorizontalAlign.Left
+            '         thcHead.Wrap = False
 
-                    thrHead.Cells.Add(thcHead)
-                Next
+            '         thrHead.Cells.Add(thcHead)
+            '     Next
 
-                tableHtmlTable.Rows.AddAt(0, thrHead)
+            '     tableHtmlTable.Rows.AddAt(0, thrHead)
 
-                tbrContent = New TableRow
-                tbcContent = New TableCell
-                tbcContent.Text = "最近无业务量"
-                tbcContent.BorderStyle = BorderStyle.Groove
-                tbcContent.VerticalAlign = VerticalAlign.Middle
-                tbcContent.HorizontalAlign = HorizontalAlign.Left
-                tbcContent.Wrap = False
-                tbrContent.Cells.Add(tbcContent)
-                tableHtmlTable.Rows.Add(tbrContent)
+            '     tbrContent = New TableRow
+            '     tbcContent = New TableCell
+            '     tbcContent.Text = "最近无业务量"
+            '     tbcContent.BorderStyle = BorderStyle.Groove
+            '     tbcContent.VerticalAlign = VerticalAlign.Middle
+            '     tbcContent.HorizontalAlign = HorizontalAlign.Left
+            '     tbcContent.Wrap = False
+            '     tbrContent.Cells.Add(tbcContent)
+            '     tableHtmlTable.Rows.Add(tbrContent)
 
-            End If
+            ' End If
+            '----------------------------------------
 
             strSQLSHandel = "SELECT *  FROM [SanShi_BaseSationDetails].[dbo].[dt_GSMP_Cell_Daily]   WHERE Cell='" & strCell & "'"
             scmdCommand = sqllSSLibrary.GetCommandStr(strSQLSHandel, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))

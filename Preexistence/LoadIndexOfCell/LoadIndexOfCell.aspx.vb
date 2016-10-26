@@ -36,6 +36,7 @@ Partial Class Preexistence_LoadIndexOfCell
             intBeford = 0
 
             scmdCommand = sqllSSLibrary.GetCommandStr(strSQLS, CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
+            scmdCommand.CommandTimeout = 300
             dtIndexOfGSMCell = sqllSSLibrary.GetSQLServerDataTable(scmdCommand)
 
             tableHtmlTable = tbOutPut

@@ -144,16 +144,17 @@ Public Class RenewGCellListLibrary
             spGuaranteeName.Value = strGuaranteeName
             scmdCMD.Parameters.Add(spUserName)
             scmdCMD.Parameters.Add(spGuaranteeName)
+            scmdCMD.CommandTimeout=300
             sqllSSLibrary.ExecNonQuery(scmdCMD)
 
             scmdCMD = sqllSSLibrary.GetCommandProc("proc_UpdateGuaranteeCellDetails", CommonLibrary.GetSQLServerConnect("ConnectionGuaranteeCellDB"))
-            scmdCMD.CommandTimeout = 180
             spGuaranteeName = New SqlParameter("@GuaranteeName", SqlDbType.VarChar, 100)
             spUserName = New SqlParameter("@UserName", SqlDbType.VarChar, 40)
             spUserName.Value = strUserName
             spGuaranteeName.Value = strGuaranteeName
             scmdCMD.Parameters.Add(spUserName)
             scmdCMD.Parameters.Add(spGuaranteeName)
+            scmdCMD.CommandTimeout=300
             sqllSSLibrary.ExecNonQuery(scmdCMD)
 
 

@@ -134,19 +134,23 @@ Public Class BSCPara
 
                             If drtmpBSCCompareOf(intI) <> drtmpBscListRow(intI) Then
                                 '-----------记录修改问题
-                                ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, dtFormat.Columns(intI).ColumnName, drtmpBSCCompareOf(intI) & "  -->  " & drtmpBscListRow(intI), dateWhatTimeIsPara)
+                                ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, dtFormat.Columns(intI).ColumnName, drtmpBSCCompareOf(intI) & "  -->  " & drtmpBscListRow(intI), dateWhatTimeIsPara, drtmpBSCCompareOf(intI), drtmpBscListRow(intI))
 
                             End If
                         ElseIf ((drtmpBscListRow(intI) IsNot Nothing) And (drtmpBscListRow(intI) IsNot DBNull.Value) And ((drtmpBSCCompareOf(intI) Is Nothing) Or (drtmpBSCCompareOf(intI) Is DBNull.Value))) Then
-                            ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, dtFormat.Columns(intI).ColumnName, "前期缺数，现网值为 -->  " & drtmpBscListRow(intI), dateWhatTimeIsPara)
+                            ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, dtFormat.Columns(intI).ColumnName, "前期缺数，现网值为 -->  " & drtmpBscListRow(intI), dateWhatTimeIsPara, "", drtmpBscListRow(intI))
 
-                        ElseIf ((drtmpBSCCompareOf(intI) IsNot Nothing) And (drtmpBSCCompareOf(intI) IsNot DBNull.Value) And ((drtmpBscListRow(intI) Is Nothing) Or (drtmpBscListRow(intI) Is DBNull.Value))) Then
-                            ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, dtFormat.Columns(intI).ColumnName, "现网缺数", dateWhatTimeIsPara)
+
+                            '-------------现网缺数不记录-------------
+                            'ElseIf ((drtmpBSCCompareOf(intI) IsNot Nothing) And (drtmpBSCCompareOf(intI) IsNot DBNull.Value) And ((drtmpBscListRow(intI) Is Nothing) Or (drtmpBscListRow(intI) Is DBNull.Value))) Then
+                            '    ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, dtFormat.Columns(intI).ColumnName, "现网缺数", dateWhatTimeIsPara)
                         End If
                     Next
                     drtmpBSCCompareOf = Nothing
-                Else
-                    ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, "", "该网元前期缺数", dateWhatTimeIsPara)
+
+                    '-------------前期缺数不记录-------------
+                    'Else
+                    '    ChangeBSCParaLog(strSQLServerTableName, drtmpBscListRow(0).ToString, "", "该网元前期缺数", dateWhatTimeIsPara)
                 End If
             Next
 
@@ -192,13 +196,19 @@ Public Class BSCPara
     End Function
 
 
-    Public Sub ChangeBSCParaLog(strTableName As String, strNetElement As String, strChangePara As String, strChangeValue As String, dateWhatTimeChange As Date)
+    Public Sub ChangeBSCParaLog(strTableName As String, strNetElement As String, strChangePara As String, strChangeValue As String, dateWhatTimeChange As Date， strChangeValueBeford As String, strChangeValueAfter As String)
         Dim scmdCMD As SqlCommand
         Dim spTableName As SqlParameter
         Dim spNetElement As SqlParameter
         Dim spChangePara As SqlParameter
         Dim spChangeValue As SqlParameter
         Dim spWhatTimeChange As SqlParameter
+        Dim spChangeValueBeford As SqlParameter
+        Dim spChangeValueAfter As SqlParameter
+
+
+
+
         Try
             scmdCMD = sqllSSLibrary.GetCommandProc("proc_ChangeBSCPara", CommonLibrary.GetSQLServerConnect("ConnectionLogDB"))
             spTableName = New SqlParameter("@ChangeTable", SqlDbType.VarChar, 100)
@@ -206,16 +216,24 @@ Public Class BSCPara
             spChangePara = New SqlParameter("@ChangePara", SqlDbType.VarChar, 100)
             spChangeValue = New SqlParameter("@ChangeValue", SqlDbType.Text)
             spWhatTimeChange = New SqlParameter("@ChangeDate", SqlDbType.DateTime)
+            spChangeValueBeford = New SqlParameter("@ChangeValueBeford", SqlDbType.Text)
+            spChangeValueAfter = New SqlParameter("@ChangeValueAfter", SqlDbType.Text)
+
             spTableName.Value = strTableName
             spNetElement.Value = strNetElement
             spChangePara.Value = strChangePara
             spChangeValue.Value = strChangeValue
             spWhatTimeChange.Value = dateWhatTimeChange
+            spChangeValueBeford.Value = strChangeValueBeford
+            spChangeValueAfter.Value = strChangeValueAfter
+
             scmdCMD.Parameters.Add(spTableName)
             scmdCMD.Parameters.Add(spNetElement)
             scmdCMD.Parameters.Add(spChangePara)
             scmdCMD.Parameters.Add(spChangeValue)
             scmdCMD.Parameters.Add(spWhatTimeChange)
+            scmdCMD.Parameters.Add(spChangeValueBeford)
+            scmdCMD.Parameters.Add(spChangeValueAfter)
             sqllSSLibrary.ExecNonQuery(scmdCMD)
         Catch ex As Exception
             Throw New Exception(ex.Message, ex)
