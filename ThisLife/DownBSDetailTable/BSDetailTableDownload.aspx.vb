@@ -75,9 +75,9 @@ Partial Class ThisLife_DownBSDetailTable_BSDetailTableDownload
         Dim intWhereDay As Integer
         Dim strDir As New List(Of String)
         Dim strFileName As String
+        dim strJumpJS as string 
+
         Try
-
-
             If lbListOfDetails.SelectedIndex >= 0 Then
                 dtBaseSationDetailsMana = bsdlCommonLibrary.ReturnBaseSationDetailsMan()
                 For Each drTmp In dtBaseSationDetailsMana.Rows
@@ -88,7 +88,7 @@ Partial Class ThisLife_DownBSDetailTable_BSDetailTableDownload
                             intI = CommonLibrary.GetMinNumber(intJ, intK)
                             strHeadOfSource = drTmp.Item("UpDateSource").ToString.Substring(0, intI)
                         ElseIf intJ = -1 And intK = -1 Then
-                            strHeadOfSource = ""
+                            strHeadOfSource = drTmp.Item("UpDateSource").ToString
                         ElseIf intJ = -1 Then
                             strHeadOfSource = drTmp.Item("UpDateSource").ToString.Substring(0, intK)
                         Else
@@ -104,7 +104,12 @@ Partial Class ThisLife_DownBSDetailTable_BSDetailTableDownload
                         intWhereYear = drTmp.Item("UpDateSource").ToString.IndexOf("%yyyy")
                         intWhereMonth = drTmp.Item("UpDateSource").ToString.IndexOf("%mm") - 1
                         intWhereDay = drTmp.Item("UpDateSource").ToString.IndexOf("%dd") - 2
-                        strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
+
+                        If intWhereDay >= 0 And intWhereMonth >= 0 And intWhereYear >= 0 Then
+                            strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
+                        Else
+                            strDir.Add(strtmpListDir(0))
+                        End If
 
                         strtmpListDir.Clear()
                         strtmpListDir.Add(strDir.Item(0))
@@ -124,6 +129,8 @@ Partial Class ThisLife_DownBSDetailTable_BSDetailTableDownload
                     End If
                 Next
             End If
+            strJumpJS="setTimeout(function () { document.location.href = '#divDownloadLink';window.location.href = '" & hlDownloadLink.NavigateUrl &"'; }, 50);"
+            ScriptManager.RegisterClientScriptBlock(upUpdatepanel, Me.GetType, "ShowLoading", strJumpJS, True)
         Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
                 erlErrorReport.ReportServerError(24, "", ex.Message, Now)

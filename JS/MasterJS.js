@@ -18,13 +18,13 @@ function TopSearchTextBoxHide() {
 };
 function TopScrollDown() {
     var intHowHight = document.documentElement.scrollTop || document.body.scrollTop;
-    var doubleOpac=0;
-    if((1 - intHowHight / 2000)>0.5){
-        doubleOpac=1 - intHowHight / 2000;
-    }else{
-        doubleOpac=0.5;
+    var doubleOpac = 0;
+    if ((1 - intHowHight / 2000) > 0.5) {
+        doubleOpac = 1 - intHowHight / 2000;
+    } else {
+        doubleOpac = 0.5;
     };
-    $(".navbar").css("background-color","rgba(130,20,112,"+doubleOpac+")");
+    $(".navbar").css("background-color", "rgba(130,20,112," + doubleOpac + ")");
 
 }
 
@@ -53,6 +53,6 @@ function IsPressEnter(evt) {
             window.event.returnValue = false;
         };
 
-    };
+    } ;
 };
 

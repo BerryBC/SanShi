@@ -5,12 +5,45 @@ Imports ExcelLibrary
 Imports CSVLibrary
 
 
-Partial Class Preexistence_LoadIndexOfCell
+Partial Class Preexistence_LoadIndexOfCell_LoadIndicatorsOfSixBusyHourOfCell
     Inherits System.Web.UI.Page
     Dim ucUserManage As UserLibrary = New UserLibrary
     Dim sqllSSLibrary As LoadSQLServer = New LoadSQLServer
     Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
-    Dim gsmioclLibrary As GSMIndexOfCellLibrary = New GSMIndexOfCellLibrary
+
+
+
+    Private Sub Preexistence_LoadIndexOfCell_LoadIndicatorsOfSixBusyHourOfCell_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+        Dim liAllData As ListItem
+        Try
+
+            If Not IsPostBack Then
+                ucUserManage.CheckPower(Session, 1, Response)
+                If CType(Session("PowerLevel"), Integer) >= 3 Then
+                    liAllData = New ListItem
+                    liAllData.Text = "自定义"
+                    liAllData.Value = 100
+                    ddlWhatTime.Items.Add(liAllData)
+                    txtBeginDate.Text = "1988-12-21"
+                    txtEndDate.Text = "2216-03-11"
+                End If
+            End If
+        Catch ex As Exception
+            If Session("SanShiUserName") Is Nothing Then
+                erlErrorReport.ReportServerError(33, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & "")
+            Else
+                erlErrorReport.ReportServerError(33, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & Session("SanShiUserName"))
+
+            End If
+
+        End Try
+
+    End Sub
+
+
 
     Private Sub SaveIndexFile(strSQLS As String)
         Dim scmdCommand As SqlCommand
@@ -28,6 +61,7 @@ Partial Class Preexistence_LoadIndexOfCell
         Dim bolSaveSuccess As Boolean
         Dim csvCSV As LoadCSV
         Dim strSaveFileName As String
+        Dim strJumpJS As String
 
 
         Try
@@ -35,7 +69,7 @@ Partial Class Preexistence_LoadIndexOfCell
 
             intBeford = 0
 
-            scmdCommand = sqllSSLibrary.GetCommandStr(strSQLS, CommonLibrary.GetSQLServerConnect("ConnectionTrafficDB"))
+            scmdCommand = sqllSSLibrary.GetCommandStr(strSQLS, CommonLibrary.GetSQLServerConnect("ConnectionJunHeng"))
             scmdCommand.CommandTimeout = 500
             dtIndexOfGSMCell = sqllSSLibrary.GetSQLServerDataTable(scmdCommand)
 
@@ -83,30 +117,30 @@ Partial Class Preexistence_LoadIndexOfCell
             End If
 
 
-            strSaveFileName = Now.ToString("yyyyMMddHHmmss") & "-网格小区列表导出-" & Session("SanShiUserName") & ".csv"
+            strSaveFileName = Now.ToString("yyyyMMddHHmmss") & "-六忙时数据-" & Session("SanShiUserName") & ".csv"
 
             csvCSV = New LoadCSV(Server.MapPath("/TmpFiles/") & strSaveFileName)
             bolSaveSuccess = csvCSV.SaveASNewOne(dtIndexOfGSMCell)
-            'If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName.Substring(0, Len(strSaveFileName) - 4) & ".zip")
-
-            'hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
-            'hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName.Substring(0, Len(strSaveFileName) - 4 & ".zip")
-            'If bolSaveSuccess = True Then csvCSV.CompressFile(Server.MapPath("/TmpFiles/") & strSaveFileName, Server.MapPath("/TmpFiles/") & strSaveFileName & ".zip")
-
-            'hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName & ".zip"
-            'hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName & ".zip"
             hlDownloadLink.Text = Request.Url.Host & "/TmpFiles/" & strSaveFileName
             hlDownloadLink.NavigateUrl = "/TmpFiles/" & strSaveFileName
 
+            'strJumpJS = "setTimeout(function () { document.location.href = '#divDisplayTheTip'}, 50);"
+            'ScriptManager.RegisterClientScriptBlock(UpdatePanel1, Me.GetType, "ShowLoading", strJumpJS, True)
+
+
             plGoClickQuery.Visible = False
             plDownLoadAddress.Visible = True
+            btnReQuer.Visible = True
+
+            'btnRunQuery.Enabled = True
+
         Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
-                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
+                erlErrorReport.ReportServerError(33, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & "")
             Else
-                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
+                erlErrorReport.ReportServerError(33, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & Session("SanShiUserName"))
 
             End If
 
@@ -115,23 +149,14 @@ Partial Class Preexistence_LoadIndexOfCell
     End Sub
 
 
-
-
-
     Private Sub btnRunQuery_Click(sender As Object, e As EventArgs) Handles btnRunQuery.Click
         Dim bolIsHaveWord As Boolean
+        Dim strJumpJS As String
 
         Try
-
-
             bolIsHaveWord = False
-
             btnRunQuery.Enabled = False
             btnRunQuery.CssClass = "form-control btn-warning"
-
-
-
-
 
             If txtPartition.Text.Length > 0 Then
                 bolIsHaveWord = True
@@ -170,7 +195,6 @@ Partial Class Preexistence_LoadIndexOfCell
                     plForShowMessage.Visible = False
                     btnRunQuery.Enabled = True
 
-
                     Exit Sub
                 End If
                 If (Not IsDateString(txtBeginDate.Text) And Not IsDateString(txtBeginDate.Text)) Then
@@ -183,10 +207,8 @@ Partial Class Preexistence_LoadIndexOfCell
 
                     Exit Sub
                 End If
-
-
             End If
-            lblGoClickQuery.Text = "正在处理，请耐心等候"
+            lblGoClickQuery.Text = "正在处理，请耐心等候</br>"
 
             plDownLoadAddress.Visible = False
             plGoClickQuery.Visible = True
@@ -194,15 +216,17 @@ Partial Class Preexistence_LoadIndexOfCell
             plForShowMessage.Visible = False
             btnRunQuery.Enabled = False
             btnRunQuery.CssClass = "form-control btn-warning"
+            strJumpJS = "setTimeout(function () { JSCodeShow();}, 100);"
+            ScriptManager.RegisterClientScriptBlock(UpdatePanel1, Me.GetType, "ShowLoading", strJumpJS, True)
 
             timerGo.Enabled = True
         Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
-                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
+                erlErrorReport.ReportServerError(33, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & "")
             Else
-                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
+                erlErrorReport.ReportServerError(33, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & Session("SanShiUserName"))
 
             End If
 
@@ -210,45 +234,6 @@ Partial Class Preexistence_LoadIndexOfCell
 
 
     End Sub
-
-    Private Sub ddlWhatTime_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlWhatTime.SelectedIndexChanged
-        If ddlWhatTime.Items(ddlWhatTime.SelectedIndex).Value = 100 Then
-            plFromDateToDate.Visible = True
-        Else
-            plFromDateToDate.Visible = False
-        End If
-
-    End Sub
-
-    Private Sub Preexistence_LoadIndexOfCell_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim liAllData As ListItem
-        Try
-
-            If Not IsPostBack Then
-                ucUserManage.CheckPower(Session, 9, Response)
-                If CType(Session("PowerLevel"), Integer) >= 3 Then
-                    liAllData = New ListItem
-                    liAllData.Text = "自定义"
-                    liAllData.Value = 100
-                    ddlWhatTime.Items.Add(liAllData)
-                    txtBeginDate.Text = "1988-12-21"
-                    txtEndDate.Text = "2016-05-03"
-                End If
-            End If
-        Catch ex As Exception
-            If Session("SanShiUserName") Is Nothing Then
-                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
-            Else
-                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
-
-            End If
-
-        End Try
-
-    End Sub
-
     Private Function IsDateString(strInString As String) As Boolean
         Dim strTestDateString As String
 
@@ -284,6 +269,15 @@ Partial Class Preexistence_LoadIndexOfCell
         Return True
 
     End Function
+    Private Sub ddlWhatTime_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlWhatTime.SelectedIndexChanged
+        If ddlWhatTime.Items(ddlWhatTime.SelectedIndex).Value = 100 Then
+            plFromDateToDate.Visible = True
+        Else
+            plFromDateToDate.Visible = False
+        End If
+
+    End Sub
+
 
     Private Sub timerGo_Tick(sender As Object, e As EventArgs) Handles timerGo.Tick
         Dim strPartition() As String
@@ -294,6 +288,7 @@ Partial Class Preexistence_LoadIndexOfCell
         Dim strSQLSHandel As String
         Dim strSingleWord As String
         Dim bolIsHaveWord As Boolean
+        Dim strJumpJS As String
 
 
         Try
@@ -311,7 +306,7 @@ Partial Class Preexistence_LoadIndexOfCell
 
 
 
-            strSQLSHandel = "SELECT  * FROM [SanShi_Traffic].[dbo].[dt_GSM_Daily_Grib_Traffic] Where ( "
+            strSQLSHandel = "SELECT [_小区网格分区].* ,JunHeng.*   FROM (dbo.JunHeng LEFT JOIN dbo.[_ID表] ON CELL=[Moid(GSM_CELL)]) LEFT JOIN dbo.[_小区网格分区] ON [_小区网格分区].ID = [_ID表].ID Where ( "
 
             strPartition = txtPartition.Text.Split(",")
             strGrib = txtGrid.Text.Split(",")
@@ -355,7 +350,7 @@ Partial Class Preexistence_LoadIndexOfCell
                 For Each strSingleWord In strBaseName
                     strSingleWord = strSingleWord.Replace(" ", "")
                     strSingleWord = strSingleWord.Replace("'", "")
-                    strSQLSHandel += "[小区名]='" & strSingleWord & "' or "
+                    strSQLSHandel += "[基站名]='" & strSingleWord & "' or "
                 Next
                 bolIsHaveWord = True
             End If
@@ -375,7 +370,7 @@ Partial Class Preexistence_LoadIndexOfCell
             End If
 
             If ddlWhatTime.SelectedValue < 100 Then
-                strSQLSHandel += " ([Day]>='" & gsmioclLibrary.GetGSMIndexMaxDate().AddDays(-ddlWhatTime.SelectedValue + 1).ToShortDateString & "' and [Day]<='" & gsmioclLibrary.GetGSMIndexMaxDate().ToShortDateString & "')"
+                strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & DateTime.Now.AddDays(-ddlWhatTime.SelectedValue).ToShortDateString & "' and [Datetime Id(GSM_CELL)]<='" & DateTime.Now.ToShortDateString & "')"
             Else
                 If (txtBeginDate.Text.Length <> 10 And txtEndDate.Text.Length <> 10) Then
                     lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
@@ -399,22 +394,37 @@ Partial Class Preexistence_LoadIndexOfCell
                     Exit Sub
                 End If
 
-                strSQLSHandel += " ([Day]>='" & txtBeginDate.Text & "' and [Day]<='" & txtEndDate.Text & "')"
+                strSQLSHandel += " ([Datetime Id(GSM_CELL)]>='" & txtBeginDate.Text & "' and [Datetime Id(GSM_CELL)]<='" & txtEndDate.Text & "')"
 
             End If
+            'strJumpJS = "setTimeout(function () { JSCodeShow();}, 100);"
+            'ScriptManager.RegisterClientScriptBlock(UpdatePanel1, Me.GetType, "ShowLoading", strJumpJS, True)
 
             SaveIndexFile(strSQLSHandel)
         Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then
-                erlErrorReport.ReportServerError(19, "", ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & "")
+                erlErrorReport.ReportServerError(33, "", ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & "")
             Else
-                erlErrorReport.ReportServerError(19, Session("SanShiUserName"), ex.Message, Now)
-                Response.Redirect("/ReportErrorLog.aspx?ep=19&eu=" & Session("SanShiUserName"))
+                erlErrorReport.ReportServerError(33, Session("SanShiUserName"), ex.Message, Now)
+                Response.Redirect("/ReportErrorLog.aspx?ep=33&eu=" & Session("SanShiUserName"))
 
             End If
 
         End Try
+
+    End Sub
+
+    Private Sub btnReQuer_Click(sender As Object, e As EventArgs) Handles btnReQuer.Click
+        btnRunQuery.Enabled = True
+        plError.Visible = False
+        plGoClickQuery.Visible = True
+        plDownLoadAddress.Visible = False
+        plForShowMessage.Visible = False
+        btnReQuer.Visible = False
+        tbOutPut.Rows.Clear()
+        lblGoClickQuery.Text = "请点击查询按钮,多个条件用逗号隔开"
+
 
     End Sub
 End Class

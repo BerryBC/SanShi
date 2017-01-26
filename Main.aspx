@@ -20,9 +20,17 @@
                         <div class="col-md-4">
                             <h4>GSM网格小区指标批量导出</h4>
                             <p>批量导出GSM网格小区列表信息。</p>
+                                                        <p style="color: blue;">（已停用） </p>
+
                             <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadIndexOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>GSM六忙时原始数据导出</h4>
+                            <p>指标、业务量原始数据（汇总但未计算指标）。</p>
+                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadIndicatorsOfSixBusyHourOfCell.aspx" role="button">Karma Gain »</a></p>
+                        </div>
                     </div>
+
                 </div>
 
 
@@ -114,7 +122,7 @@
                 </div>
 
 
-                <asp:Panel ID="plMana" runat="server" Visible ="false" >
+                <asp:Panel ID="plMana" runat="server" Visible="false">
 
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

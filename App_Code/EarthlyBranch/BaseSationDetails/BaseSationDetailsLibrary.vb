@@ -134,7 +134,7 @@ Public Class BaseSationDetailsLibrary
                 intI = CommonLibrary.GetMinNumber(intJ, intK)
                 strHeadOfSource = strUpdateSource.Substring(0, intI)
             ElseIf intJ = -1 And intK = -1 Then
-                strHeadOfSource = ""
+                strHeadOfSource = strUpdateSource
             ElseIf intJ = -1 Then
                 strHeadOfSource = strUpdateSource.Substring(0, intK)
             Else
@@ -155,10 +155,13 @@ Public Class BaseSationDetailsLibrary
                 strDir = strtmpListDir.ToList
 
             Else
-
-                strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
+                If intWhereDay >= 0 And intWhereMonth >= 0 And intWhereYear >= 0 Then
+                    strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
+                Else
+                    strDir.Add(strtmpListDir(0))
+                End If
             End If
-            dtFormat = sqllSSLibrary.ReturnFormat(strDataTableName, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
+                dtFormat = sqllSSLibrary.ReturnFormat(strDataTableName, CommonLibrary.GetSQLServerConnect("ConnectionBaseStationDetailsDB"))
             If intMultiFile = 0 Then
                 If strDir.Count > 0 Then
 
