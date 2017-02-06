@@ -2,9 +2,10 @@
 
 <%----第33号页面--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-        <script type="text/javascript">
-        function JSCodeShow()
-        {
+
+    <script type="text/javascript">
+
+        function JSCodeShow() {
             var divDown = document.getElementById('divDisplayTheTip');
             var newImg = document.createElement('img');
             newImg.src = '/IMG/Loading.gif';
@@ -14,7 +15,7 @@
             newStrong.style = "color:rgba(200,0,500,.8);";
             newStrong.innerHTML = "<br/>请稍等唷~";
             newStrong.id = "LoadStrong";
-            divDown.appendChild(newImg);            
+            divDown.appendChild(newImg);
             divDown.appendChild(newStrong);
             setTimeout(function () { $('.btn-warning').attr("disabled", true); }, 10);
         }
@@ -23,8 +24,8 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <asp:scriptmanager id="ScriptManager1" runat="server"></asp:scriptmanager>
+    <asp:updatepanel id="UpdatePanel1" runat="server">
         <ContentTemplate>
             <section>
                 <div class="container">
@@ -69,11 +70,11 @@
                             <td>
                                 <asp:Panel ID="plFromDateToDate" runat="server" Visible="false">
                                     &nbsp&nbsp 开始日期&nbsp:&nbsp 
-                                    <asp:TextBox ID="txtBeginDate" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtBeginDate" runat="server" class="txtDateFrom"></asp:TextBox>
                                     </br>
                                     </br>
                                     &nbsp&nbsp 结束日期&nbsp:&nbsp 
-                                        <asp:TextBox ID="txtEndDate" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtEndDate" runat="server" class="txtDateTo"></asp:TextBox>
                                 </asp:Panel>
                             </td>
                         </tr>
@@ -134,7 +135,7 @@
             </section>
 
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:updatepanel>
 
 
 

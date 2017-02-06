@@ -25,8 +25,8 @@ Partial Class Preexistence_LoadIndexOfCell_LoadIndicatorsOfSixBusyHourOfCell
                     liAllData.Text = "自定义"
                     liAllData.Value = 100
                     ddlWhatTime.Items.Add(liAllData)
-                    txtBeginDate.Text = "1988-12-21"
-                    txtEndDate.Text = "2216-03-11"
+                    txtBeginDate.Text = Date.Now.Year & "-" & Format((Date.Now.Month), "00") & "-" & Format(Date.Now.Day, "00")
+                    txtEndDate.Text = Date.Now.Year & "-" & Format((Date.Now.Month), "00") & "-" & Format(Date.Now.Day, "00")
                 End If
             End If
         Catch ex As Exception
@@ -61,7 +61,6 @@ Partial Class Preexistence_LoadIndexOfCell_LoadIndicatorsOfSixBusyHourOfCell
         Dim bolSaveSuccess As Boolean
         Dim csvCSV As LoadCSV
         Dim strSaveFileName As String
-        Dim strJumpJS As String
 
 
         Try
@@ -270,8 +269,13 @@ Partial Class Preexistence_LoadIndexOfCell_LoadIndicatorsOfSixBusyHourOfCell
 
     End Function
     Private Sub ddlWhatTime_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlWhatTime.SelectedIndexChanged
+        Dim strJumpJS As String
+
         If ddlWhatTime.Items(ddlWhatTime.SelectedIndex).Value = 100 Then
             plFromDateToDate.Visible = True
+            strJumpJS = " $("".txtDateFrom , .txtDateTo"").datepicker({dateFormat: ""yy-mm-dd"",onSelect: function (selectedDate) { $(""#datepicked"").empty().append(selectedDate); } });"
+            ScriptManager.RegisterClientScriptBlock(UpdatePanel1, Me.GetType, "ShowLoading", strJumpJS, True)
+
         Else
             plFromDateToDate.Visible = False
         End If
@@ -416,6 +420,8 @@ Partial Class Preexistence_LoadIndexOfCell_LoadIndicatorsOfSixBusyHourOfCell
     End Sub
 
     Private Sub btnReQuer_Click(sender As Object, e As EventArgs) Handles btnReQuer.Click
+        Dim strJumpJS As String
+
         btnRunQuery.Enabled = True
         plError.Visible = False
         plGoClickQuery.Visible = True
@@ -425,6 +431,8 @@ Partial Class Preexistence_LoadIndexOfCell_LoadIndicatorsOfSixBusyHourOfCell
         tbOutPut.Rows.Clear()
         lblGoClickQuery.Text = "请点击查询按钮,多个条件用逗号隔开"
 
+        strJumpJS = " $("".txtDateFrom , .txtDateTo"").datepicker({dateFormat: ""yy-mm-dd"",onSelect: function (selectedDate) { $(""#datepicked"").empty().append(selectedDate); } });"
+        ScriptManager.RegisterClientScriptBlock(UpdatePanel1, Me.GetType, "ShowLoading", strJumpJS, True)
 
     End Sub
 End Class
