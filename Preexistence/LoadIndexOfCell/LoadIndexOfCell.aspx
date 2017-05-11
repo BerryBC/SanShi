@@ -2,10 +2,28 @@
 
 <%----第19号页面--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    
+    <script type="text/javascript">
+
+        function JSCodeShow() {
+            var divDown = document.getElementById('divDisplayTheTip');
+            var newImg = document.createElement('img');
+            newImg.src = '/IMG/Loading.gif';
+            newImg.style.width = '10%';
+            newImg.id = "LoadIMG";
+            var newStrong = document.createElement('strong');
+            newStrong.style = "color:rgba(200,0,500,.8);";
+            newStrong.innerHTML = "<br/>请稍等唷~";
+            newStrong.id = "LoadStrong";
+            divDown.appendChild(newImg);
+            divDown.appendChild(newStrong);
+            setTimeout(function () { $('.btn-warning').attr("disabled", true); }, 10);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <asp:scriptmanager id="ScriptManager1" runat="server"></asp:scriptmanager>
+    <asp:updatepanel id="UpdatePanel1" runat="server">
         <ContentTemplate>
             <section>
                 <div class="container">
@@ -28,7 +46,7 @@
                             <td>&nbsp&nbsp小区&nbsp:&nbsp &nbsp&nbsp
                             <asp:TextBox ID="txtCell" runat="server"></asp:TextBox></td>
                         </tr>
-                                                <tr>
+                        <tr>
                             <td>&nbsp&nbsp 基站中文名&nbsp:&nbsp
                             <asp:TextBox ID="txtBaseName" runat="server"></asp:TextBox></td>
                             <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp &nbsp&nbsp
@@ -50,11 +68,11 @@
                             <td>
                                 <asp:Panel ID="plFromDateToDate" runat="server" Visible="false">
                                     &nbsp&nbsp 开始日期&nbsp:&nbsp 
-                                    <asp:TextBox ID="txtBeginDate" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtBeginDate" runat="server" class="txtDateFrom"></asp:TextBox>
                                     </br>
                                     </br>
                                     &nbsp&nbsp 结束日期&nbsp:&nbsp 
-                                        <asp:TextBox ID="txtEndDate" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtEndDate" runat="server" class="txtDateTo"></asp:TextBox>
                                 </asp:Panel>
                             </td>
                         </tr>
@@ -62,7 +80,9 @@
                     </table>
                     <div class="col-sm-12">
                         <div class="wow bounceInLeft" data-wow-delay="0.1s" style="text-align: left;">
-                            <asp:Button ID="btnRunQuery" runat="server" Text="查找" class="form-control btn-warning" />
+                            <asp:Button ID="btnRunQuery" runat="server" Text="查找" class="form-control btn-warning" OnClientClick="JSCodeShow()" />
+                            <br />
+                            <asp:Button ID="btnReQuer" runat="server" Text="重新查找" class="form-control btn-danger"  Visible="false" />
                         </div>
                     </div>
                 </div>
@@ -75,9 +95,8 @@
                         </div>
                     </div>
                     <div class="col-sm-12" style="overflow: auto;">
-                        <asp:table id="tbOutPut" runat="server" class="table table-striped" style="padding-bottom: 0px; margin-bottom: 0px;" ClientIDMode="Inherit" HorizontalAlign="Center" >
-
-                        </asp:table>
+                        <asp:Table ID="tbOutPut" runat="server" class="table table-striped" Style="padding-bottom: 0px; margin-bottom: 0px;" ClientIDMode="Inherit" HorizontalAlign="Center">
+                        </asp:Table>
 
                     </div>
                     </br>
@@ -96,25 +115,25 @@
 
                         </asp:Panel>
                         <asp:Panel ID="plGoClickQuery" runat="server">
-                            <div class="alert alert-info" role="alert" style="margin-top: 5px;"  >
-                            <asp:Label ID="lblGoClickQuery" runat="server" Text="请点击查询按钮,多个条件用逗号隔开"></asp:Label>
-                                
+                            <div class="alert alert-info" role="alert" style="margin-top: 5px;"   id="divDisplayTheTip">
+                                <asp:Label ID="lblGoClickQuery" runat="server" Text="请点击查询按钮,多个条件用逗号隔开"></asp:Label>
+
                             </div>
 
                         </asp:Panel>
-                        <asp:Panel ID="plError" runat="server"  Visible="false">
-                            <div  class="alert alert-danger" role="alert" style="margin-top: 5px;" >
+                        <asp:Panel ID="plError" runat="server" Visible="false">
+                            <div class="alert alert-danger" role="alert" style="margin-top: 5px;">
                                 <asp:Label ID="lblWrongDate" runat="server" Text=""></asp:Label>
                             </div>
 
                         </asp:Panel>
                     </div>
                 </div>
-                        <asp:Timer ID="timerGo" runat="server" Interval="300" Enabled="False"></asp:Timer>
+                <asp:Timer ID="timerGo" runat="server" Interval="300" Enabled="False"></asp:Timer>
             </section>
 
         </ContentTemplate>
-    </asp:UpdatePanel>
+    </asp:updatepanel>
 
 </asp:Content>
 

@@ -304,3 +304,44 @@ function GetTheRealURL(strGetPureUrl, strPara) {
     };
 };
 
+function GetBaiduSuggestion(strKeyword, e) {
+    $.ajax({
+        type: "GET",
+        url: "http://" + window.location.host + strEnginePath+"loadbdsug?kw=" + strKeyword,
+        dataType: "json",
+        success: ShowBaiduSuggestion,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //处理错误的地方
+            console.log("获取百度建议出错")
+        }
+    });
+    function ShowBaiduSuggestion(jsonData) {
+
+        $("#" + e.srcElement.id).autocomplete({
+            source: function (request, response) {
+                var matcher = new RegExp("[\S|\W]*", "gm");
+                response($.grep(jsonData.s, function (item) {
+                    return matcher.test(item);
+                }));
+            },
+
+
+            mustMatch: false,
+            matchContains: false,
+            matchContains: true,
+            matchSubset: true,
+            matchCase: false,
+            minChars: 0,
+            select: function (event, ui) {
+
+                window.location = "/AfterLife/SearchEngine/SanShiSearch.aspx" + "?kw=" + encodeURI(ui.item.value);
+
+                return false;
+            }
+        });
+
+
+
+    };
+};
+

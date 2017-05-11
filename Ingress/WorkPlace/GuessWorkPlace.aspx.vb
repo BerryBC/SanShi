@@ -6,6 +6,7 @@ Partial Class Ingress_WorkPlace_GuessWorkPlace
     Inherits System.Web.UI.Page
     Dim erlErrorReport As ErrorReportLibrary = New ErrorReportLibrary
     Dim sqllSSLibrary As LoadSQLServer = New LoadSQLServer
+    Dim ucUserManage As UserLibrary = New UserLibrary
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         Dim strJSForMap As String
@@ -76,7 +77,9 @@ Partial Class Ingress_WorkPlace_GuessWorkPlace
 
     Private Sub Ingress_WorkPlace_GuessWorkPlace_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-
+            If Not IsPostBack Then
+                ucUserManage.CheckPower(Session, 9, Response)
+            End If
 
         Catch ex As Exception
             If Session("SanShiUserName") Is Nothing Then

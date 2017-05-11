@@ -32,18 +32,23 @@ function IsPressEnter(evt) {
     if (evt) {
         var thisKeyCode = evt.keyCode;
         var thisElement = evt.target;
+        var strSEKeyword = thisElement.value;
+
     }
     else {
         var thisKeyCode = window.event.keyCode;
         var thisElement = window.event.srcElement;
-    };
-    if (thisKeyCode == 13 || evt.type == "click") {
-        var objSEKeyword = document.getElementsByClassName("WantKW");
         var strSEKeyword = thisElement.value;
-        if (evt.type == "click") {
-            strSEKeyword = objSEKeyword[0].value;
-        };
 
+    };
+
+    if (thisKeyCode == 13 || evt.type == "click") {
+        if (document.getElementsByClassName("WantKW").length > 0) {
+            var objSEKeyword = document.getElementsByClassName("WantKW");
+            if (evt.type == "click") {
+                strSEKeyword = objSEKeyword[0].value;
+            };
+        };
         window.location = "/AfterLife/SearchEngine/SanShiSearch.aspx" + "?kw=" + encodeURI(strSEKeyword);
 
         if (evt) {
@@ -52,7 +57,8 @@ function IsPressEnter(evt) {
         else {
             window.event.returnValue = false;
         };
-
-    } ;
+    } else {
+        GetBaiduSuggestion(strSEKeyword, evt);
+    };
 };
 

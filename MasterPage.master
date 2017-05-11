@@ -10,23 +10,33 @@
     <link href="css/dashboard.css" rel="stylesheet" type="text/css" />
     <link href="css/animate.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/SanShiSearch.css" rel="stylesheet" type="text/css" />
     <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <link href="/css/SanShiSearch.css" rel="stylesheet" type="text/css" />
 
     <script src="<%=ResolveClientUrl("~/JS/jquery.min.js")%>" type="text/javascript"></script>
     <script src="<%=ResolveClientUrl("~/JS/jquery-ui.min.js")%>" type="text/javascript"></script>
     <script src="<%=ResolveClientUrl("~/JS/bootstrap.min.js")%>" type="text/javascript"></script>
     <script src="<%=ResolveClientUrl("~/JS/MasterJS.js")%>" type="text/javascript"></script>
+     <script src="<%=ResolveClientUrl("~/JS/SanshiSearchWeb.js")%>" type="text/javascript"></script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="renderer" content="webkit" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>三世书-自前世的爱</title>
-    <link rel="shortcut icon" href="/IMG/pTitle.ico">
+    <link rel="shortcut icon" href="/IMG/pTitle.ico" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/XML/XMLForSansou.xml" title="三搜" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .ui-autocomplete{
+            display:block;
+            z-index:99999;
+        }
+    </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" >
         <header id="header-banner">
             <nav class="navbar navbar-default navbar-fixed-top fadeIn" role="navigation">
                 <div class="container">
@@ -51,7 +61,7 @@
                     </div>
                     <div class="search-box">
 
-                        <input id="SearchKW" value="" type="text" maxlength="255" placeholder="紧张的搜索引擎" autocomplete="off"  onkeypress="IsPressEnter(event)" />
+                        <input id="SearchKW" value="" type="text" maxlength="255" placeholder="紧张的搜索引擎" style="z-index:200;"  onkeyup="IsPressEnter(event)" onsubmit= "return false;" />
 
                     </div>
                     <!-- Collect the nav links and other content for toggling -->
@@ -101,7 +111,7 @@
 
                                     <br />
                                     <a href="/TOS.aspx">服务条款 ( Terms Of Service )</a><br />
-                                    Copyright © 2015-2016.Berry Cui All rights reserved.<br />
+                                    Copyright © 2015-2017.Berry Cui All rights reserved.<br />
                                 </address>
                             </div>
                         </div>

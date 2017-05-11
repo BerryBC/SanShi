@@ -20,15 +20,32 @@
                         <div class="col-md-4">
                             <h4>GSM网格小区指标批量导出</h4>
                             <p>批量导出GSM网格小区列表信息。</p>
-                                                        <p style="color: blue;">（已停用） </p>
+                            <p style="color: blue;">（已停用） </p>
 
                             <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadIndexOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
                             <h4>GSM六忙时原始数据导出</h4>
-                            <p>指标、业务量原始数据（汇总但未计算指标）。</p>
+                            <p>指标、业务量原始数据导出（汇总但未计算指标）。</p><br />
                             <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadIndicatorsOfSixBusyHourOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>GSM 24小时干扰指标</h4>
+                            <p>24小时干扰指标及业务量导出（暂只支持白云花都）。</p><br />
+                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadInterfereOfCell24Hour.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>批量导出GSM分区级天汇总业务量</h4>
+                            <p>全网所有分区级全天业务量表格导出。</p>
+                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadDailyRegionTraffic.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+
+                        <div class="col-md-4">
+                            <h4>批量导出GSM小区级天汇总业务量</h4>
+                            <p>小区级全天业务量表格导出（暂只支持番禺）。</p>
+                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadDailyCellTraffic.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+
                     </div>
 
                 </div>

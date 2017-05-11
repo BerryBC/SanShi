@@ -15,6 +15,50 @@ Partial Class Test_JustText
 
     Private Sub Test_JustText_Load(sender As Object, e As EventArgs) Handles Me.Load
         'Label1.Text = getIp()
+
+        'strDataTableName As String, strUpDatePath As String, strFileSuffix As String, strIFExcelThenSheetName As String, intMultiFile As Integer, strUpdateSource As String, intNumberOfConfig As Integer
+
+
+        Dim strtmpListDir As New List(Of String)
+        Dim strHeadOfSource As String
+        Dim strDir As New List(Of String)
+        Dim intWhereYear As Integer
+        Dim intWhereMonth As Integer
+        Dim intWhereDay As Integer
+        Dim intI As Integer
+        Dim intJ As Integer
+        Dim intK As Integer
+
+
+        Dim strDataTableName As String = "dt_GSM_PST"
+        Dim strUpDatePath As String = "\\gzdwshenji\E\个人目录\李豪生\物理站点表\"
+        Dim strFileSuffix As String = "xlsx"
+        Dim strIFExcelThenSheetName As String = "Sheet1"
+        Dim intMultiFile As Integer = 0
+        Dim strUpdateSource As String = "物理站点表%yyyy%mm%dd"
+
+        intJ = strUpdateSource.IndexOf("*")
+        intK = strUpdateSource.IndexOf("%")
+        If intJ <> -1 And intK <> -1 Then
+            intI = CommonLibrary.GetMinNumber(intJ, intK)
+            strHeadOfSource = strUpdateSource.Substring(0, intI)
+        ElseIf intJ = -1 And intK = -1 Then
+            strHeadOfSource = strUpdateSource
+        ElseIf intJ = -1 Then
+            strHeadOfSource = strUpdateSource.Substring(0, intK)
+        Else
+            strHeadOfSource = strUpdateSource.Substring(0, intJ)
+        End If
+
+
+        If System.IO.Directory.Exists(strUpDatePath) Then
+            strtmpListDir = (From T In IO.Directory.GetFiles(strUpDatePath, strHeadOfSource & "*." & strFileSuffix, IO.SearchOption.AllDirectories)).ToList
+        End If
+        intWhereYear = strUpdateSource.IndexOf("%yyyy")
+        intWhereMonth = strUpdateSource.IndexOf("%mm") - 1
+        intWhereDay = strUpdateSource.IndexOf("%dd") - 2
+        strDir = CommonLibrary.GetMaxDateFile(strtmpListDir, intWhereYear, intWhereMonth, intWhereDay)
+
     End Sub
 
 

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <InputEncoding>utf-8</InputEncoding>
+  <ShortName>三世书</ShortName>
+  <Description>明白三世书的人生</Description>
+  <Image type="/IMG/pTitle.ico">SanSou</Image>
+  <Url type="text/html" template="/AfterLife/SearchEngine/SanShiSearch.aspx?kw={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template=":1089/loadbdsug?kw={searchTerms}"/>
+</OpenSearchDescription>

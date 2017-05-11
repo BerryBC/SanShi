@@ -14,7 +14,7 @@ Partial Class ThisLife_DownBSDetailTable_DownloadServerFiles
 
             btnGo.CssClass = "btn btn-warning"
             If Not IsPostBack Then
-                bolIsPowerEnough = ucUserManage.CheckPower(Session, 4, Response)
+                bolIsPowerEnough = ucUserManage.CheckPower(Session, 1, Response)
                 BindConfigData()
 
             End If
@@ -81,7 +81,7 @@ Partial Class ThisLife_DownBSDetailTable_DownloadServerFiles
             btnGo.Enabled = False
             lbListOfFiles.Items.Clear()
 
-            strtmpListDir = (From T In IO.Directory.GetFiles(lbListOfDetails.SelectedValue, "*.*", IO.SearchOption.TopDirectoryOnly)).ToList
+            strtmpListDir = (From T In IO.Directory.GetFiles(lbListOfDetails.SelectedValue, "*.*", IO.SearchOption.AllDirectories)).ToList
             For Each strtmpFiles In strtmpListDir
                 litmpItem = New ListItem
                 litmpItem.Text = System.IO.Path.GetFileName(strtmpFiles)

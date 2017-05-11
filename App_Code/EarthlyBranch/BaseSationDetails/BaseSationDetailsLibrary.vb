@@ -314,13 +314,13 @@ Public Class BaseSationDetailsLibrary
         Try
             If strWhatFormat = "," Then
                 strWhatLog = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "
-                txtLogTextBox.Text = txtLogTextBox.Text & strWhatLog & vbCrLf
+                txtLogTextBox.Text = strWhatLog &  vbCrLf & txtLogTextBox.Text &  vbCrLf
             ElseIf strWhatFormat = "." Then
                 strWhatLog = "------------------------------------------------------------"
-                txtLogTextBox.Text = txtLogTextBox.Text & strWhatLog & vbCrLf
+                txtLogTextBox.Text = strWhatLog &  vbCrLf & txtLogTextBox.Text
             Else
                 strWhatLog = " " & strLogStr
-                txtLogTextBox.Text = txtLogTextBox.Text & Now.ToString & strWhatLog & vbCrLf
+                txtLogTextBox.Text = strWhatLog &  Now.ToString & vbCrLf &  txtLogTextBox.Text
             End If
             scmdCMD = sqllSSLibrary.GetCommandProc("[proc_LogBaseSationConfig]", CommonLibrary.GetSQLServerConnect("ConnectionLogDB"))
             spLogString = New SqlParameter("@LogString", SqlDbType.Text)

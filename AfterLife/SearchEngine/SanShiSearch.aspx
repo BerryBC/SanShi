@@ -3,8 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <base target='_blank' />
     <!--<script src="<%=ResolveClientUrl("~/JS/jquery.scrollTo.js")%>" type="text/javascript"></script>-->
-    <script src="<%=ResolveClientUrl("~/JS/SanshiSearchWeb.js")%>" type="text/javascript"></script>
-
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <section style="padding-bottom: 20px;">
@@ -15,8 +14,10 @@
                 </div>
                 <div style="text-align: left" class="InputDIV">
                     请输入关键字：
-                    <input type="text" id="Text1" runat="server" class="WantKW" onkeypress="IsPressEnter(event)" />
-                    <input type="button" id="Button1" runat="server" class="btn btn-info" value="Go" onclick="IsPressEnter(event)" />
+                    <input type="text" id="Text1" runat="server" class="WantKW" onkeyup="IsPressEnter(event)" />
+                    <input type="button" id="Button1" runat="server" class="btn btn-info" value="Go" onclick="IsPressEnter(event)" /></br>
+                    <!--<input type="text" id="Text12" runat="server" class="WantKW"  />-->
+
                 </div>
             </div>
             <div id="ShowResult" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
