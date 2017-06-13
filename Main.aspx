@@ -3,6 +3,12 @@
 <%----第4号页面--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript">
+
+        $('#SearchKW').bind('submit', function () {
+            return false;
+        });
+    </script>
 </asp:Content>
 
 
@@ -20,18 +26,17 @@
                         <div class="col-md-4">
                             <h4>GSM网格小区指标批量导出</h4>
                             <p>批量导出GSM网格小区列表信息。</p>
-                            <p style="color: blue;">（已停用） </p>
 
                             <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadIndexOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
                             <h4>GSM六忙时原始数据导出</h4>
-                            <p>指标、业务量原始数据导出（汇总但未计算指标）。</p><br />
+                            <p>指标、业务量原始数据导出（汇总但未计算指标）。</p>
                             <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadIndicatorsOfSixBusyHourOfCell.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
                             <h4>GSM 24小时干扰指标</h4>
-                            <p>24小时干扰指标及业务量导出（暂只支持白云花都）。</p><br />
+                            <p>24小时干扰指标及业务量导出（暂只支持白云花都）。</p>
                             <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadInterfereOfCell24Hour.aspx" role="button">Karma Gain »</a></p>
                         </div>
                         <div class="col-md-4">
@@ -117,10 +122,22 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="col-md-4">
-                            <h4>三滚规划业务预测</h4>
-                            <p>根据以前的全网业务量对三滚规划的预测。</p>
+                            <h4>全网业务量预测页</h4>
+                            <p>根据神经网络的全网业务量预测值。</p>
                             <p style="color: red;">（仍在建设中） </p>
-                            <p><a class="btn btn-default" href="/JustBuilding.aspx" role="button">Karma Gain »</a></p>
+                            <p><a class="btn btn-default" href="/AfterLife/NeuralNetworks/NNShowAllNetwork.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+                                                <div class="col-md-4">
+                            <h4>全网业务量训练页</h4>
+                            <p>进行神经网络训练。</p>
+                            <p style="color: red;">（仍在建设中） </p>
+                            <p><a class="btn btn-default" href="/AfterLife/NeuralNetworks/NNCal.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+                                                                        <div class="col-md-4">
+                            <h4>全网业务量验算页</h4>
+                            <p>进行全网业务量验算。</p>
+                            <p style="color: red;">（仍在建设中） </p>
+                            <p><a class="btn btn-default" href="/AfterLife/NeuralNetworks/NNCheck.aspx" role="button">Karma Gain »</a></p>
                         </div>
                     </div>
                 </div>

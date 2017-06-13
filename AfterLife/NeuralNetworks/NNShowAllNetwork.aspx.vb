@@ -13,6 +13,9 @@ Partial Class AfterLife_NeuralNetworks_NNShowAllNetwork
     End Sub
 
     Private Sub AfterLife_NeuralNetworks_NNShowAllNetwork_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If CType(Session("PowerLevel"), Integer) < 0 Then
+            Response.Redirect("/JustBuilding.aspx", False)
 
+        End If
     End Sub
 End Class

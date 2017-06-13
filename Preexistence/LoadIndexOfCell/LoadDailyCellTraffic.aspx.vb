@@ -198,7 +198,7 @@ Partial Class Preexistence_LoadIndexOfCell_LoadDailyCellTraffic
         Try
 
             If Not IsPostBack Then
-                ucUserManage.CheckPower(Session, 1, Response)
+                ucUserManage.CheckPower(Session, 2, Response)
                 If CType(Session("PowerLevel"), Integer) >= 3 Then
                     liAllData = New ListItem
                     liAllData.Text = "自定义"

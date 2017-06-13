@@ -33,15 +33,16 @@ function initAll() {
     objNextPage = document.getElementById("NextPage");
 
 
-    objPreviousPage.onclick = GoPreviousPage;
-    objNextPage.onclick = GoNextPage;
+    if (objPreviousPage) { objPreviousPage.onclick = GoPreviousPage; };
+    if (objNextPage) { objNextPage.onclick = GoNextPage; };
 
 
     if (strQueryKW == null || strQueryKW.toString().length == 0) {
-        eleCF.innerHTML = "<h2>欢迎查询~请输入关键字然后~GoGoGo嘛~么么哒~</h2>";
-        eleCF.style.display = "block";
-    }
-    else {
+        if (eleCF) {
+            eleCF.innerHTML = "<h2>欢迎查询~请输入关键字然后~GoGoGo嘛~么么哒~</h2>";
+            eleCF.style.display = "block";
+        };
+    }    else {
         objSEKeyword.value = decodeURI(strQueryKW);
         objTopKeyword.value = decodeURI(strQueryKW);
         GetTheUnique()

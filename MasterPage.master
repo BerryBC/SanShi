@@ -61,7 +61,7 @@
                     </div>
                     <div class="search-box">
 
-                        <input id="SearchKW" value="" type="text" maxlength="255" placeholder="紧张的搜索引擎" style="z-index:200;"  onkeyup="IsPressEnter(event)" onsubmit= "return false;" />
+                        <input id="SearchKW" value="" type="text"  maxlength="255" placeholder="紧张的搜索引擎" style="z-index:200;"  onkeyup="IsPressEnter(event)" onkeydown= "if(event.keyCode==13){event.preventDefault()}" />
 
                     </div>
                     <!-- Collect the nav links and other content for toggling -->

@@ -386,6 +386,7 @@ Public Class CommonLibrary
 
             strWhichDB = ConfigurationManager.AppSettings(strDateBase).ToString()
             scConn = New SqlConnection(strWhichDB)
+
             Return scConn
 
         Catch ex As Exception

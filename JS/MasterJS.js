@@ -1,8 +1,10 @@
 addEventListener("load", initAll, false);
 function initAll() {
+
     if (window.addEventListener) {
         window.addEventListener('resize', TopSearchTextBoxHide, false);
         window.addEventListener('scroll', TopScrollDown, false);
+
     } else if (window.attachEvent) {
         window.attachEvent('onresize', TopSearchTextBoxHide, false);
         window.attachEvent('onscroll', TopScrollDown, false);
@@ -33,15 +35,19 @@ function IsPressEnter(evt) {
         var thisKeyCode = evt.keyCode;
         var thisElement = evt.target;
         var strSEKeyword = thisElement.value;
-
-    }
+            }
     else {
         var thisKeyCode = window.event.keyCode;
         var thisElement = window.event.srcElement;
         var strSEKeyword = thisElement.value;
 
     };
-
+    if (evt) {
+        evt.preventDefault();
+    }
+    else {
+        window.event.returnValue = false;
+    };
     if (thisKeyCode == 13 || evt.type == "click") {
         if (document.getElementsByClassName("WantKW").length > 0) {
             var objSEKeyword = document.getElementsByClassName("WantKW");
@@ -51,12 +57,7 @@ function IsPressEnter(evt) {
         };
         window.location = "/AfterLife/SearchEngine/SanShiSearch.aspx" + "?kw=" + encodeURI(strSEKeyword);
 
-        if (evt) {
-            evt.preventDefault();
-        }
-        else {
-            window.event.returnValue = false;
-        };
+
     } else {
         GetBaiduSuggestion(strSEKeyword, evt);
     };
