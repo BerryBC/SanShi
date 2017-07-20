@@ -119,6 +119,7 @@ Public Class NNBack : Implements IHttpHandler
                                 scmdCMD.Dispose()
                                 scmdCMD = Nothing
                             End Try
+                            Randomize()
                             intMaxRow = dtNNConfig.Rows.Count
                             intNowRow = Math.Round(Rnd() * intMaxRow * 0.9999 - 0.5, 0)
                             strGoTrain = "'NumberOfNetwork':" & dtNNConfig.Rows(intNowRow).Item("NumberOfNetwork").ToString() & ","

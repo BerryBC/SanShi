@@ -107,10 +107,14 @@
                         </div>
                         <div class="col-md-4">
                             <h4>服务器文件下载</h4>
-                            <p>下载服务器上固定目录的文件。</p>
+                            <p>下载服务器上固定目录的文件，能快速下载，能访问NQI等信息。</p>
                             <p><a class="btn btn-default" href="/ThisLife/DownBSDetailTable/DownloadServerFiles.aspx" role="button">Karma Gain »</a></p>
                         </div>
-
+                        <div class="col-md-4">
+                            <h4>三世云盘</h4>
+                            <p>云盘文件上传下载。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/CloudDisk/CDUploadPage.aspx" role="button">Karma Gain »</a></p>
+                        </div>
                     </div>
                 </div>
 
@@ -127,13 +131,13 @@
                             <p style="color: red;">（仍在建设中） </p>
                             <p><a class="btn btn-default" href="/AfterLife/NeuralNetworks/NNShowAllNetwork.aspx" role="button">Karma Gain »</a></p>
                         </div>
-                                                <div class="col-md-4">
+                        <div class="col-md-4">
                             <h4>全网业务量训练页</h4>
                             <p>进行神经网络训练。</p>
                             <p style="color: red;">（仍在建设中） </p>
                             <p><a class="btn btn-default" href="/AfterLife/NeuralNetworks/NNCal.aspx" role="button">Karma Gain »</a></p>
                         </div>
-                                                                        <div class="col-md-4">
+                        <div class="col-md-4">
                             <h4>全网业务量验算页</h4>
                             <p>进行全网业务量验算。</p>
                             <p style="color: red;">（仍在建设中） </p>

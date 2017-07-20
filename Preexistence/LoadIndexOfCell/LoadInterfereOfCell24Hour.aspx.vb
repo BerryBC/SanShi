@@ -199,6 +199,7 @@ Partial Class Preexistence_LoadIndexOfCell_LoadInterfereOfCell24Hour
 
 
 
+
             If (Not IsDateString(txtBeginDate.Text)) Then
                 lblWrongDate.Text = "日期格式错误，应为 ""2016-05-30""且范围是2015年至今的日期"
                 plError.Visible = True

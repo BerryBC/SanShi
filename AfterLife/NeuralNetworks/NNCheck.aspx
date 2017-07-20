@@ -217,16 +217,21 @@
                 data2.push(parseFloat(arrTmpCalOutput[tmpI]));
             };
         };
+
         function CalTheError() {
             var floAvLoss = 0.0;
             var intHowManyTime = 0;
             for (var tmpI = 0; tmpI < data1.length; tmpI++) {
                 if (data1[tmpI] && data2[tmpI]) {
-                    floAvLoss += 2 * (data1[tmpI] - data2[tmpI]) * (data1[tmpI] - data2[tmpI]);
+                    floAvLoss += 2 * (data1[tmpI] - data2[tmpI]) * (data1[tmpI] - data2[tmpI])/10000;
                     intHowManyTime++;
                 };
             };
-            floAvLoss /= intHowManyTime;
+            if (intHowManyTime > 1) {
+                floAvLoss /= intHowManyTime;
+            } else {
+                floAvLoss = 1000000000;
+            };
             return floAvLoss;
         };
 
