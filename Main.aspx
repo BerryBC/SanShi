@@ -115,6 +115,11 @@
                             <p>云盘文件上传下载。</p>
                             <p><a class="btn btn-default" href="/ThisLife/CloudDisk/CDUploadPage.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>经纬度转换</h4>
+                            <p>对百度地图、GSP经纬度进行转换。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/CoordTransform/CoordTransform.aspx" role="button">Karma Gain »</a></p>
+                        </div>
                     </div>
                 </div>
 
@@ -145,6 +150,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="wow bounceInLeft" data-wow-delay="0.1s">
+                        <h2 style="border-bottom-style: groove;">知天命 ( Know The Fate )</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-md-4">
+                            <h4>LTE小测试</h4>
+                            <p>测试对LTE知识点的弱项及强项。</p>
+                            <p><a class="btn btn-default" href="/KnowTheFate/LTELittleTest/LTELittleTest.aspx" role="button">Karma Gain »</a></p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="wow bounceInLeft" data-wow-delay="0.1s">
                         <h2 style="border-bottom-style: groove;">英格瑞斯 ( Ingress )</h2>

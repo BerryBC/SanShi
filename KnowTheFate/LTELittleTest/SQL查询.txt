@@ -1,0 +1,4 @@
+SELECT * FROM 
+(SELECT ExamQ,ExamA,ExamTypes,(ROW_NUMBER()over(partition BY ExamTypes ORDER by NEWID())) AS [TT1] FROM  dbo.dt_TmpExam) AS Shit
+WHERE TT1<5 AND len(Shit.ExamA)=1
+ORDER BY NEWID()
