@@ -50,7 +50,11 @@
                             <p>小区级全天业务量表格导出（暂只支持番禺）。</p>
                             <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/LoadDailyCellTraffic.aspx" role="button">Karma Gain »</a></p>
                         </div>
-
+                        <div class="col-md-4">
+                            <h4>批量导出GSM小区级小时级业务量</h4>
+                            <p>导出小区小时级业务量及部分指标。</p>
+                            <p><a class="btn btn-default" href="Preexistence/LoadIndexOfCell/Load24HourDataOfCell.aspx" role="button">Karma Gain »</a></p>
+                        </div>
                     </div>
 
                 </div>

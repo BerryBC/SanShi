@@ -14,6 +14,47 @@
   line-height: normal;
   text-decoration: none;
   text-transform: uppercase; 
+  -webkit-animation: flashing-text 2.0s infinite forwards;
+	-moz-animation: flashing-text 2.0s infinite forwards;
+  -webkit-transition: 0.3s;
+}
+
+@-webkit-keyframes flashing-text
+{
+    18%     {padding: 3px 15px; }
+    19.5%     { padding: 3px 16px; }
+    20%     { padding: 3px 15px; }
+    20.5%     { padding: 2px 15px; }
+    22%     { padding: 3px 15px;  }
+
+    26%     { opacity:1;}
+    27%     { opacity:0; }
+    28%     { opacity:1; }
+    
+    79.5%     { padding: 3px 15px; }
+    80%     { padding: 3px 14px; }
+    80.5%     { padding: 4px 15px; opacity:1;}
+    81%     { padding: 3px 15px; opacity:0;}
+    82%     { opacity:1; }
+}
+
+@-moz-keyframes flashing-text
+{
+  18%     {padding: 3px 15px; }
+  19.5%     { padding: 3px 16px; }
+  20%     { padding: 3px 15px; }
+  20.5%     { padding: 2px 15px; }
+  22%     { padding: 3px 15px;  }
+
+  26%     { opacity:1;}
+  27%     { opacity:0; }
+  28%     { opacity:1; }
+  
+  79.5%     { padding: 3px 15px; }
+  80%     { padding: 3px 14px; }
+  80.5%     { padding: 4px 15px; opacity:1;}
+  81%     { padding: 3px 15px; opacity:0;}
+  82%     { opacity:1; }
 }
 
 .navbar-default {
@@ -37,7 +78,45 @@
   line-height: normal;
   text-decoration: none;
   text-transform: uppercase; 
-  opacity:1;}
+  opacity:1;
+  -webkit-animation: shine-text 3.8s infinite forwards;
+  }
+  @-webkit-keyframes shine-text
+  {
+      19%     {color: #efefef; }
+      19.5%     { color: rgba(167, 1, 1, 0.849); }
+      20%     {color: #efefef; }
+
+      29%     {color: #efefef; }
+      29.5%     { color: rgb(0, 0, 163); }
+      30%     {color: #efefef; }
+
+      79%     {color: #efefef; }
+      79.5%     { color: rgb(0, 104, 29); }
+      80%     {color: #efefef; }
+
+      99%     {color: #efefef; }
+      99.5%     { color: rgb(159, 161, 0); }
+      99.9%     {color: #efefef; }
+  }
+  @-moz-keyframes  shine-text
+  {
+      19%     {color: #efefef; }
+      19.5%     { color: rgba(167, 1, 1, 0.849); }
+      20%     {color: #efefef; }
+
+      29%     {color: #efefef; }
+      29.5%     { color: rgb(0, 0, 163); }
+      30%     {color: #efefef; }
+
+      79%     {color: #efefef; }
+      79.5%     { color: rgb(0, 104, 29); }
+      80%     {color: #efefef; }
+
+      99%     {color: #efefef; }
+      99.5%     { color: rgb(159, 161, 0); }
+      99.9%     {color: #efefef; }
+  }
 
 .navbar-default .navbar-nav > li > a {
   color: #fff;
