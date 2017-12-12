@@ -18,7 +18,7 @@
     </div>
         <div class="col-sm-12">
             <asp:Panel ID="plGoLogIn" runat="server" Visible ="false" >
-        <p><a class="btn btn-default  btn-info" href="/Login.aspx" role="button" style="width: 400px;">登陆            </a></p>
+        <p><a class="btn btn-default  btn-info" href="/Login.aspx" role="button" style="width: 400px;">登陆/注册            </a></p>
     </asp:Panel>
 
         </div>

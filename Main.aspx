@@ -124,6 +124,11 @@
                             <p>对百度地图、GSP经纬度进行转换。</p>
                             <p><a class="btn btn-default" href="/ThisLife/CoordTransform/CoordTransform.aspx" role="button">Karma Gain »</a></p>
                         </div>
+                        <div class="col-md-4">
+                            <h4>从地图上选择小区</h4>
+                            <p>基于百度地图，直接从地图上画多边形，给出多边形内小区。</p>
+                            <p><a class="btn btn-default" href="/ThisLife/MapGood/SelectCellByMap.aspx" role="button">Karma Gain »</a></p>
+                        </div>
                     </div>
                 </div>
 
